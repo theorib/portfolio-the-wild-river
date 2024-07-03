@@ -1,0 +1,2 @@
+pnpm lint-staged -v
+pnpm vitest run
