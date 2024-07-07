@@ -592,3 +592,8 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,react,nextjs,git,node,storybookjs,vs
+
+
+# Theo
+dev.db
+dev.db-journal

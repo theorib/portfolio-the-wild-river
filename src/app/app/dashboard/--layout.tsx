@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { raleway } from '@/lib/fonts';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
+import MainHeader from '@/components/layout/MainHeader';
+import SideBar from '@/components/layout/SideBar';
 import { cn } from '@/lib/utils';
-import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,11 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
         className={cn(
           raleway.className,
-          'flex min-h-screen flex-col items-center justify-center',
+          `grid min-h-screen grid-rows-[min-content_1fr_min-content] sm:grid-cols-[minmax(10px,_1fr)_minmax(10px,_4fr)]`,
         )}
       >
         <ThemeProvider
@@ -29,8 +30,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster />
+          <MainHeader className="flex items-center justify-between border-b px-4 py-2 text-right dark:border-neutral-600 sm:col-start-2 sm:col-end-2" />
+          <SideBar className="flex flex-col p-4 dark:border-neutral-600 sm:col-start-1 sm:col-end-1 sm:row-start-1 sm:row-end-3 sm:border-r" />
+          <main className="bg-neutral-100/40 p-4 sm:col-start-2 sm:col-end-2">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
