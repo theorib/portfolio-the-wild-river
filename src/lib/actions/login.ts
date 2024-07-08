@@ -1,6 +1,6 @@
 'use server';
 import { AppErrorObject } from '@/lib/errors';
-import { LoginFormSchema } from '@/schemas';
+import { LoginFormSchema } from '@/lib/schemas';
 import 'server-only';
 import { toast } from 'sonner';
 import { z } from 'zod';

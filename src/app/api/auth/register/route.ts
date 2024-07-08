@@ -1,6 +1,6 @@
-import db from '@/db';
 import { NextResponse } from 'next/server';
 import * as argon2 from 'argon2';
+import db from '@/lib/db';
 
 export async function POST(req: Request) {
   try {

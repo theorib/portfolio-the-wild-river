@@ -9,10 +9,10 @@ type LoginButtonProps = {
 };
 
 export default function LoginButton({ children, mode }: LoginButtonProps) {
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleClick = () => {
-    router.push(paths.login());
+    // router.push(paths.login());
   };
 
   if (mode === 'modal') {

@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { toast } from 'sonner';
-import { RegisterFormSchema } from '@/schemas';
+import { RegisterFormSchema } from '@/lib/schemas/authSchemas';
 
 export default function RegisterForm() {
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
@@ -29,28 +29,7 @@ export default function RegisterForm() {
   });
 
   async function onSubmit(values: z.infer<typeof RegisterFormSchema>) {
-    try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const data = await response.json();
-
-      if (data.error) {
-        toast.error(data.error);
-      }
-
-      toast.success('Account created successfully!');
-    } catch (err: unknown) {
-      console.error(err);
-      if (err instanceof Error) toast.error(err.message);
-      toast.error('Something went wrong creating your account');
-      return;
-    }
+    //
   }
 
   return (

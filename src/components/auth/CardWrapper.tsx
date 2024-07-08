@@ -5,10 +5,10 @@ import Logo from '@/components/layout/Logo';
 import {
   Card,
   CardContent,
-  CardDescription,
+  // CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  // CardTitle,
 } from '@/components/ui/card';
 
 type CardWrapperProps = {

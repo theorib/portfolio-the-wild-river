@@ -1,7 +1,7 @@
 'use server';
-import db from '@/db';
+import db from '@/lib/db';
 import { AppError } from '@/lib/errors';
-import { EmailSchema } from '@/schemas';
+import { EmailSchema } from '@/lib/schemas';
 import 'server-only';
 // import { ZodError } from 'zod';
 // import { fromError } from 'zod-validation-error';

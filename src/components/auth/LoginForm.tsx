@@ -15,14 +15,13 @@ import {
 } from '@/components/ui/form';
 import { toast } from 'sonner';
 import paths from '@/lib/paths';
-import { signIn } from '@/auth';
+
 import { useRouter } from 'next/navigation';
-import { LoginFormSchema } from '@/schemas';
+import { LoginFormSchema } from '@/lib/schemas';
 import FormError from '@/components/FormError';
 import FormSuccess from '@/components/FormSuccess';
 
 // import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle } from 'lucide-react';
 // import login from '@/actions/login';
 import { useTransition } from 'react';
 
@@ -44,23 +43,6 @@ export default function LoginForm() {
       // const data = await login(values);
       // console.log(data);
     });
-    // try {
-    //   const response = await signIn('credentials', {
-    //     email: values.email,
-    //     password: values.password,
-    //     redirect: false,
-    //   });
-
-    //   console.log(response);
-
-    //   toast.success('You are now signed in!');
-    //   router.push(paths.dashboard());
-    // } catch (err: unknown) {
-    //   console.error(err);
-    //   if (err instanceof Error) toast.error(err.message);
-    //   toast.error('Something went wrong logging into your account');
-    //   return;
-    // }
   }
   return (
     <Form {...form}>

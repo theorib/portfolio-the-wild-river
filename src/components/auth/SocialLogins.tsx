@@ -1,5 +1,4 @@
 import SocialLoginBtn from '@/components/auth/SocialLoginBtn';
-import { Button } from '@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 export default function SocialLogins() {
