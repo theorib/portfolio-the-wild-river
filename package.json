@@ -23,7 +23,8 @@
     "db:migrate": "tsx ./src/db/scripts/migrate.ts",
     "db:seed": "tsx ./src/db/scripts/seed.ts",
     "db:clear": "tsx ./src/db/scripts/clearDb.ts",
-    "db:clear:records": "tsx ./src/db/scripts/clearRecords.ts"
+    "db:clear:records": "tsx ./src/db/scripts/clearRecords.ts",
+    "cz": "bash -c 'pnpm lint-staged -v && pnpm vitest run && cz && npx --no -- commitlint --edit .git/COMMIT_EDITMSG'"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.7.0",
