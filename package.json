@@ -24,7 +24,7 @@
     "db:seed": "tsx ./src/db/scripts/seed.ts",
     "db:clear": "tsx ./src/db/scripts/clearDb.ts",
     "db:clear:records": "tsx ./src/db/scripts/clearRecords.ts",
-    "cz": "bash ./enhanced-commit.sh"
+    "cz": "bash ./enhanced_commit.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.7.0",
