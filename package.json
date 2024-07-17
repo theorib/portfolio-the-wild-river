@@ -24,7 +24,7 @@
     "db:seed": "tsx ./src/db/scripts/seed.ts",
     "db:clear": "tsx ./src/db/scripts/clearDb.ts",
     "db:clear:records": "tsx ./src/db/scripts/clearRecords.ts",
-    "cz": "bash -c 'pnpm lint-staged -v && pnpm vitest run && cz --no-verify && $EDITOR .git/COMMIT_EDITMSG && npx --no -- commitlint --edit .git/COMMIT_EDITMSG && git commit -F .git/COMMIT_EDITMSG'"
+    "cz": "bash ./enhanced-commit.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.7.0",
