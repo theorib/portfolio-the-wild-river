@@ -20,7 +20,7 @@ export default function RootLayout({
       <body
         className={cn(
           raleway.className,
-          'flex min-h-screen flex-col items-center justify-center',
+          'flex min-h-screen w-full flex-col items-center justify-center',
         )}
       >
         <ThemeProvider

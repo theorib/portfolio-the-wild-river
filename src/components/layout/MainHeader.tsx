@@ -11,6 +11,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ChevronDown } from 'lucide-react';
+import { logout } from '@/lib/actions/auth.actions/logout.actions';
+import LogoutButtonClientBare from '@/components/auth/LogoutButtonClientBare';
+import { MouseEvent } from 'react';
+import { toast } from 'sonner';
+import AvatarDropdownMenu from '@/components/layout/AvatarDropdownMenu';
 
 type MainHeaderProps = {
   className?: string;
@@ -20,25 +25,8 @@ function MainHeader({ className }: MainHeaderProps) {
   return (
     <header className={cn('', className)}>
       <div className="flex grow items-center justify-end gap-4 text-right">
-        <div className="flex h-5 items-center gap-2 text-sm">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-2">
-              <Avatar>
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <p>User Name</p>
-              <ChevronDown size={16} strokeWidth={1} />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Log out</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        <div className="flex h-5 items-center gap-2 text-sm"></div>
+        <AvatarDropdownMenu />
         <DarkModeToggle />
       </div>
     </header>

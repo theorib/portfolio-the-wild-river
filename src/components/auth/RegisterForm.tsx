@@ -1,4 +1,5 @@
 'use client';
+import { lazy, Suspense } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -7,14 +8,22 @@ import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { toast } from 'sonner';
-import { RegisterFormSchema } from '@/lib/schemas/authSchemas';
+import { RegisterFormSchema } from '@/lib/zod.schemas';
+import { useDebounce } from 'use-debounce';
+import { useServerAction } from 'zsa-react';
+import { useRouter } from 'next/navigation';
+import paths from '@/lib/paths';
+const PasswordStrength = lazy(
+  () => import('@/components/auth/PasswordStrength'),
+);
+import PasswordStrengthSkeleton from '@/components/auth/PasswordStrengthSkeleton';
+import { signUpEmailPassword } from '@/lib/actions/auth.actions/signUpEmailPassword.actions';
 
 export default function RegisterForm() {
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
@@ -27,9 +36,28 @@ export default function RegisterForm() {
     },
     mode: 'onBlur',
   });
+  const password = form.watch('password');
+  const [debouncedPassword] = useDebounce(password, 200);
+
+  const router = useRouter();
+  const { isPending, execute, error, isError, reset, isSuccess } =
+    useServerAction(signUpEmailPassword);
+
+  if (isError) {
+    toast.error(error.message);
+    reset();
+    form.reset();
+  }
+
+  if (isSuccess) {
+    toast.success('Account created successfully!');
+    router.push(paths.dashboard());
+    reset();
+    // form.reset();
+  }
 
   async function onSubmit(values: z.infer<typeof RegisterFormSchema>) {
-    //
+    await execute(values);
   }
 
   return (
@@ -42,13 +70,8 @@ export default function RegisterForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input
-                  type="text"
-                  // placeholder="Luke Skywalker"
-                  {...field}
-                />
+                <Input disabled={isPending} type="text" {...field} />
               </FormControl>
-              <FormDescription>This is your full name.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -61,12 +84,12 @@ export default function RegisterForm() {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
+                  disabled={isPending}
                   type="email"
                   // placeholder="luke@skywalker.com"
                   {...field}
                 />
               </FormControl>
-              <FormDescription>Your email address.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -79,12 +102,12 @@ export default function RegisterForm() {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
+                  disabled={isPending}
                   type="password"
                   // placeholder="Py#kBf3WbD0kB*!&^r5K*&rZ403%hd"
                   {...field}
                 />
               </FormControl>
-              <FormDescription>Your secure password.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -97,18 +120,24 @@ export default function RegisterForm() {
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
                 <Input
+                  disabled={isPending}
                   type="password"
                   // placeholder="Py#kBf3WbD0kB*ja!C3FSJ&^r5K*&rZ403%hd"
                   {...field}
                 />
               </FormControl>
-              <FormDescription>Please re-type your password</FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Suspense fallback={<PasswordStrengthSkeleton />}>
+          <PasswordStrength password={debouncedPassword} />
+        </Suspense>
+        <Button type="submit" disabled={isPending} className="w-full">
+          Submit
+        </Button>
       </form>
     </Form>
   );

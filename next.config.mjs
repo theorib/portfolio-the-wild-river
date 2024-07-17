@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: ['@node-rs/argon2'],
+  },
   // we will handle errors with git action hooks
   typescript: {
     ignoreBuildErrors: true,

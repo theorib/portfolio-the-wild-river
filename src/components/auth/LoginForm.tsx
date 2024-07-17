@@ -7,7 +7,6 @@ import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,17 +16,18 @@ import { toast } from 'sonner';
 import paths from '@/lib/paths';
 
 import { useRouter } from 'next/navigation';
-import { LoginFormSchema } from '@/lib/schemas';
+import { LoginFormSchema } from '@/lib/zod.schemas';
 import FormError from '@/components/FormError';
 import FormSuccess from '@/components/FormSuccess';
 
-// import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-// import login from '@/actions/login';
-import { useTransition } from 'react';
+import { useServerAction } from 'zsa-react';
+
+import { loginEmailPassword } from '@/lib/actions/auth.actions/loginEmailPassword.actions';
 
 export default function LoginForm() {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const { isPending, execute, error, isError, reset, isSuccess } =
+    useServerAction(loginEmailPassword);
   // 1. Define your form.
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
@@ -38,11 +38,22 @@ export default function LoginForm() {
     mode: 'onBlur',
   });
 
+  if (isError) {
+    console.error(error);
+    toast.error(error.message);
+    reset();
+    form.reset();
+  }
+
+  if (isSuccess) {
+    toast.success('You are signed in!');
+    router.push(paths.dashboard());
+    reset();
+    // form.reset();
+  }
+
   async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
-    startTransition(async () => {
-      // const data = await login(values);
-      // console.log(data);
-    });
+    await execute(values);
   }
   return (
     <Form {...form}>
@@ -73,20 +84,20 @@ export default function LoginForm() {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
-                  disabled={isPending}
                   type="password"
                   {...field}
                   placeholder="123*Abc_3aa"
+                  disabled={isPending}
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormError message="Something went wrong logging into your account" />
-        <FormSuccess message="Acccount Created!" />
+        {/* <FormError message="Something went wrong logging into your account" /> */}
+        {/* <FormSuccess message="Acccount Created!" /> */}
 
-        <Button type="submit" className="w-full" disabled={isPending}>
+        <Button type="submit" className="w-full">
           Login
         </Button>
       </form>

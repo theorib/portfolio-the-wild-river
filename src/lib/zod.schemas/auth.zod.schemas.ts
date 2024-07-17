@@ -1,8 +1,6 @@
 import { z } from 'zod';
 
-export const EmailSchema = z.object({
-  email: z.string().email({}),
-});
+export const UserIdSchema = z.string();
 
 export const LoginFormSchema = z.object({
   email: z.string().email({}),
@@ -19,7 +17,7 @@ export const RegisterFormSchema = z
     password: z
       .string()
       .min(8, { message: 'Password must be at least 8 characters' })
-      .max(60, { message: `Password can't be longer than 60 characters` }),
+      .max(120, { message: `Password can't be longer than 120 characters` }),
     confirmPassword: z.string(),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
