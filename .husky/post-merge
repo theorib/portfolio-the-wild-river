@@ -1,1 +1,20 @@
-pnpm install
+# !/bin/sh
+
+# Get the current branch name
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+# List of branches where you want to apply the hook
+allowed_branches="main"
+# allowed_branches="main develop feature/*"
+
+# Check if the current branch is in the allowed list
+if echo "$allowed_branches" | grep -q "$branch"; then
+  pnpm install
+else
+  echo "Skipping post-merge hook on branch $branch"
+fi
+
+
+
+
+
