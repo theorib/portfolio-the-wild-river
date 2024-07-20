@@ -14,15 +14,10 @@ export const loginEmailPassword = createServerAction()
   .output(z.void())
   .onError(error => {
     // TODO Log error to server
-    // throw error;
   })
   .handler(async ({ input }) => {
-    console.log('running signInEmailPassword');
-
     const [user] = await getUserByEmail(input.email);
     if (!user || !user?.passwordHash) throw new AppError('LOGIN_ERROR');
-
-    console.log('running signInEmailPassword - just got user', user);
 
     const isPasswordValid = await verifyPasswordAgainstHash(
       input.password,

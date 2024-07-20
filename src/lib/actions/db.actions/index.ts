@@ -1,15 +1,10 @@
 'use server';
 import db from '@/db';
 import { emailVerificationCodes, users } from '@/db/db.schemas';
-// import { sessions, users } from '@/db/db.schema';
 import AppError from '@/lib/errors';
 
-import { Email, EmailSchema } from '@/lib/zod.schemas';
-import {
-  InsertUser,
-  InsertUserSchema,
-  SelectUserSchema,
-} from '@/lib/zod.schemas';
+import { EmailSchema } from '@/lib/zod.schemas';
+import { InsertUserSchema, SelectUserSchema } from '@/lib/zod.schemas';
 import { eq } from 'drizzle-orm';
 import 'server-only';
 import { z } from 'zod';
@@ -101,7 +96,6 @@ export const deleteEmailVerificationCodesByUserId = createServerAction()
       .delete(emailVerificationCodes)
       .where(eq(emailVerificationCodes.userId, input));
     if (result.changes) return { success: true };
-    console.log(result);
 
     return { success: false };
   });

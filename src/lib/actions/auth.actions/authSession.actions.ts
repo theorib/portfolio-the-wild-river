@@ -16,7 +16,6 @@ import {
 } from '@/lib/actions/auth.actions/authCookies.actions';
 
 export async function setSession(userId: string) {
-  console.log('running setSession');
   const session = await lucia.createSession(userId, {});
   await createSessionCookie(session.id);
 }
@@ -27,13 +26,9 @@ type ValidateSessionResult = Promise<
 >;
 
 export const validateSession = cache(async (): ValidateSessionResult => {
-  console.log('running validateSession');
-
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
-  console.log('running validateSession - just got sessionId', sessionId);
   if (!sessionId) {
     await invalidateSessionCookie();
-    console.log('successfully ran validateSession');
     return { user: null, session: null };
   }
 
@@ -43,7 +38,6 @@ export const validateSession = cache(async (): ValidateSessionResult => {
   if (!session) await invalidateSessionCookie();
 
   const parseUserResult = z.optional(UserWithoutPasswordSchema).safeParse(user);
-  console.log('successfully ran validateSession');
 
   if (!user || !session || !parseUserResult.success || !parseUserResult.data)
     return { user: null, session: null };

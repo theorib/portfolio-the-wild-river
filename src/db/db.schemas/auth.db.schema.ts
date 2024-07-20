@@ -1,5 +1,5 @@
-import { UserRole } from '@/lib/types';
 // import { relations } from 'drizzle-orm';
+import { UserRole } from '@/lib/zod.schemas';
 import {
   integer,
   sqliteTable,

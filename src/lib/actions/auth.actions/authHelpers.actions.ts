@@ -1,6 +1,5 @@
 'use server';
 
-import { hash, verify } from 'crypto';
 import { Argon2id } from 'oslo/password';
 
 import 'server-only';
@@ -13,13 +12,8 @@ export async function hashInput(input: string) {
 }
 
 export async function verifyInputAgainstHash(input: string, hash: string) {
-  console.log('running verifyInputAgainstHash');
-
   const isInputCorrect = await argon2id.verify(hash, input);
-  console.log(
-    'running verifyInputAgainstHash - isInputCorrect',
-    isInputCorrect,
-  );
+
   return isInputCorrect;
 }
 
