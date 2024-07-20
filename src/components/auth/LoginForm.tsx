@@ -45,7 +45,7 @@ export default function LoginForm() {
   if (isSuccess && !isPending) {
     toast.success('You are signed in!');
     console.log('Login Success, calling router.push');
-    // router.push(paths.dashboard());
+    // router.push(paths.dashboard.paths);
     reset();
     // form.reset();
   }

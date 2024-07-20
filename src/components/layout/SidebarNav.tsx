@@ -82,7 +82,7 @@ function SidebarNav() {
         <NavigationMenuVerticalList>
           <NavigationMenuVerticalItem>
             <NavigationMenuVerticalLink asChild>
-              <Link href={paths.dashboard()}>
+              <Link href={paths.dashboard.path}>
                 <LayoutDashboard size={iconSize} strokeWidth={strokeWidth} />
                 Dashboard
               </Link>
@@ -90,7 +90,7 @@ function SidebarNav() {
           </NavigationMenuVerticalItem>
           <NavigationMenuVerticalItem>
             <NavigationMenuVerticalLink asChild>
-              <Link href={paths.bookings()}>
+              <Link href={paths.bookings.path}>
                 <CalendarDays size={iconSize} strokeWidth={strokeWidth} />
                 <span>Bookings</span>
               </Link>
@@ -98,7 +98,7 @@ function SidebarNav() {
           </NavigationMenuVerticalItem>
           <NavigationMenuVerticalItem>
             <NavigationMenuVerticalLink asChild>
-              <Link href={paths.cabins()}>
+              <Link href={paths.cabins.path}>
                 <School size={iconSize} strokeWidth={strokeWidth} />
                 <span>Cabins</span>
               </Link>
@@ -106,7 +106,7 @@ function SidebarNav() {
           </NavigationMenuVerticalItem>
           <NavigationMenuVerticalItem>
             <NavigationMenuVerticalLink asChild>
-              <Link href={paths.users()}>
+              <Link href={paths.users.path}>
                 <Users size={iconSize} strokeWidth={strokeWidth} />
                 <span>Users</span>
               </Link>
@@ -114,7 +114,7 @@ function SidebarNav() {
           </NavigationMenuVerticalItem>
           <NavigationMenuVerticalItem>
             <NavigationMenuVerticalLink asChild>
-              <Link href={paths.settings()}>
+              <Link href={paths.settings.path}>
                 <Settings size={iconSize} strokeWidth={strokeWidth} />
                 <span>Settings</span>
               </Link>
@@ -127,7 +127,7 @@ function SidebarNav() {
             </NavigationMenuVerticalTrigger>
             <NavigationMenuVerticalContent>
               <NavigationMenuVerticalLink asChild>
-                <Link href={paths.dashboard()}>
+                <Link href={paths.dashboard.path}>
                   <LayoutDashboard size={iconSize} strokeWidth={strokeWidth} />
                   Dashboard
                 </Link>

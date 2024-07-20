@@ -18,7 +18,7 @@ export default function LogoutButtonClientBare() {
     e.preventDefault();
     toast.success('You are signed out!');
     await logout();
-    router.push(paths.login());
+    router.push(paths.login.path);
   };
 
   return (

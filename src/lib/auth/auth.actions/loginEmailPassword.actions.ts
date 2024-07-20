@@ -28,5 +28,5 @@ export const loginEmailPassword = createServerAction()
 
     await setSession(user.id);
 
-    return redirect(paths.dashboard());
+    return redirect(paths.dashboard.path);
   });

@@ -13,7 +13,7 @@ export default async function RegisterPage() {
   return (
     <CardWrapper
       headerLabel="Register"
-      redirectLinkHref={paths.login()}
+      redirectLinkHref={paths.login.path}
       redirectLinkLabel="Already have an account? Login..."
     >
       <RegisterForm />

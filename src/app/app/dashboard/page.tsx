@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 async function DashboardPage() {
   const { user } = await validateSession();
 
-  if (!user) redirect(paths.login());
+  if (!user) redirect(paths.login.path);
 
   return (
     <>

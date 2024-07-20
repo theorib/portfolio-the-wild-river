@@ -25,7 +25,7 @@ export default function AvatarDropdownMenu() {
   const handleLogout = async () => {
     toast.success('You are signed out!');
     await logout();
-    router.push(paths.login());
+    router.push(paths.login.path);
   };
   return (
     <DropdownMenu>

@@ -12,7 +12,7 @@ export default function LoginButton({ children, mode }: LoginButtonProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(paths.login());
+    router.push(paths.login.path);
   };
 
   if (mode === 'modal') {
