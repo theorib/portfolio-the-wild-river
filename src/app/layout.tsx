@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { raleway } from '@/lib/fonts';
-import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Providers from '@/components/providers/Providers';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,15 +24,11 @@ export default function RootLayout({
           'flex min-h-screen w-full flex-col items-center justify-center',
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           {children}
           <Toaster />
-        </ThemeProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Providers>
       </body>
     </html>
   );

@@ -2,15 +2,13 @@
 import 'server-only';
 import { LoginFormSchema } from '@/lib/zod.schemas';
 import { createServerAction } from 'zsa';
-
 import AppError from '@/lib/errors';
 import { z } from 'zod';
-
-import { log } from 'console';
 import { getUserByEmail } from '@/db/db.actions';
 import { verifyPasswordAgainstHash } from '@/lib/auth/auth.actions/authHelpers.actions';
 import { setSession } from '@/lib/auth/auth.actions/authSession.actions';
-
+import { redirect } from 'next/navigation';
+import paths from '@/lib/paths';
 export const loginEmailPassword = createServerAction()
   .input(LoginFormSchema)
   .output(z.void())
@@ -30,5 +28,5 @@ export const loginEmailPassword = createServerAction()
 
     await setSession(user.id);
 
-    return;
+    return redirect(paths.dashboard());
   });

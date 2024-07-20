@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { logout, useAuth } from '@/lib/auth';
+import { logout, useSession } from '@/lib/auth';
 
 import paths from '@/lib/paths';
 import { getInitials } from '@/lib/utils/utils';
@@ -17,8 +17,8 @@ import { toast } from 'sonner';
 
 export default function AvatarDropdownMenu() {
   const router = useRouter();
-  const { user, isLoading } = useAuth();
-  if (!user && !isLoading) router.push(paths.login());
+  const { user } = useSession();
+  // if (!user) router.push(paths.login());
 
   const initials = user?.name ? getInitials(user?.name) : '**';
 

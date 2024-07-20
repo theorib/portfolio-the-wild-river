@@ -17,8 +17,6 @@ import paths from '@/lib/paths';
 
 import { useRouter } from 'next/navigation';
 import { LoginFormSchema } from '@/lib/zod.schemas';
-import FormError from '@/components/FormError';
-import FormSuccess from '@/components/FormSuccess';
 
 import { useServerAction } from 'zsa-react';
 import { loginEmailPassword } from '@/lib/auth';
@@ -44,9 +42,10 @@ export default function LoginForm() {
     form.reset();
   }
 
-  if (isSuccess) {
+  if (isSuccess && !isPending) {
     toast.success('You are signed in!');
-    router.push(paths.dashboard());
+    console.log('Login Success, calling router.push');
+    // router.push(paths.dashboard());
     reset();
     // form.reset();
   }
@@ -69,6 +68,7 @@ export default function LoginForm() {
                   type="email"
                   {...field}
                   placeholder="luke@skywalker.com"
+                  autoComplete="email"
                 />
               </FormControl>
               <FormMessage />
@@ -87,6 +87,7 @@ export default function LoginForm() {
                   {...field}
                   placeholder="123*Abc_3aa"
                   disabled={isPending}
+                  autoComplete="current-password"
                 />
               </FormControl>
               <FormMessage />
