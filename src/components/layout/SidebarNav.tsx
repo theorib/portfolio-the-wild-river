@@ -78,43 +78,6 @@ import { ReactNode } from 'react';
 function SidebarNav() {
   return (
     <div>
-      {/* <Command className="h-auto">
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup>
-            <MenuItem>
-              <Link href={paths.dashboard()}>
-                <LayoutDashboard size={iconSize} strokeWidth={strokeWidth} />
-                Dashboard
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href={paths.bookings()}>
-                <CalendarDays size={iconSize} strokeWidth={strokeWidth} />
-                <span>Bookings</span>
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href={paths.cabins()}>
-                <School size={iconSize} strokeWidth={strokeWidth} />
-                <span>Cabins</span>
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href={paths.users()}>
-                <Users size={iconSize} strokeWidth={strokeWidth} />
-                <span>Users</span>
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href={paths.settings()}>
-                <Settings size={iconSize} strokeWidth={strokeWidth} /> Settings
-              </Link>
-            </MenuItem>
-          </CommandGroup>
-        </CommandList>
-      </Command> */}
-
       <NavigationMenuVertical>
         <NavigationMenuVerticalList>
           <NavigationMenuVerticalItem>
@@ -175,9 +138,6 @@ function SidebarNav() {
             </NavigationMenuVerticalContent>
           </NavigationMenuVerticalItem>
         </NavigationMenuVerticalList>
-        {/* <div className="absolute left-60 top-0 -mt-2">
-          <NavigationMenuVerticalViewport />
-        </div> */}
       </NavigationMenuVertical>
     </div>
   );

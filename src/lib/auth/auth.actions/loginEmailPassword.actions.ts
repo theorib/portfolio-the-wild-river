@@ -2,12 +2,14 @@
 import 'server-only';
 import { LoginFormSchema } from '@/lib/zod.schemas';
 import { createServerAction } from 'zsa';
-import { getUserByEmail } from '@/lib/actions/db.actions';
+
 import AppError from '@/lib/errors';
 import { z } from 'zod';
-import { setSession } from '@/lib/actions/auth.actions/authSession.actions';
-import { verifyPasswordAgainstHash } from '@/lib/actions/auth.actions/authHelpers.actions';
+
 import { log } from 'console';
+import { getUserByEmail } from '@/db/db.actions';
+import { verifyPasswordAgainstHash } from '@/lib/auth/auth.actions/authHelpers.actions';
+import { setSession } from '@/lib/auth/auth.actions/authSession.actions';
 
 export const loginEmailPassword = createServerAction()
   .input(LoginFormSchema)

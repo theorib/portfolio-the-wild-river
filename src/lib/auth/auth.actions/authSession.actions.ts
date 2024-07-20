@@ -1,6 +1,6 @@
 'use server';
 import 'server-only';
-import { lucia } from '@/lib/auth';
+import { lucia } from '@/lib/auth/auth';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
 import {
@@ -13,7 +13,7 @@ import { Session } from 'lucia';
 import {
   createSessionCookie,
   invalidateSessionCookie,
-} from '@/lib/actions/auth.actions/authCookies.actions';
+} from '@/lib/auth/auth.actions/authCookies.actions';
 
 export async function setSession(userId: string) {
   const session = await lucia.createSession(userId, {});

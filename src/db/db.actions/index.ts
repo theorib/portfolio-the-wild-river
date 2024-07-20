@@ -1,5 +1,5 @@
 'use server';
-import db from '@/db';
+import { db } from '@/db';
 import { emailVerificationCodes, users } from '@/db/db.schemas';
 import AppError from '@/lib/errors';
 

@@ -2,9 +2,9 @@
 
 import { Session } from 'lucia';
 import { useEffect, useState } from 'react';
-import { logout } from '@/lib/actions/auth.actions/logout.actions';
-import { validateSession } from '@/lib/actions/auth.actions/authSession.actions';
+
 import { UserWithoutPassword } from '@/lib/zod.schemas';
+import { logout, validateSession } from '@/lib/auth';
 
 export default function useAuth() {
   const [user, setUser] = useState<UserWithoutPassword | null>(null);

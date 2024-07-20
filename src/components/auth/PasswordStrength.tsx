@@ -1,6 +1,6 @@
 // 'use client';
 import { Progress } from '@/components/ui/progress';
-import { getPasswordScore } from '@/lib/actions/auth.actions/getPasswordScore.action';
+import { getPasswordScore } from '@/lib/auth/auth.actions/getPasswordScore.actions';
 
 type PasswordStrengthProps = {
   password: string;

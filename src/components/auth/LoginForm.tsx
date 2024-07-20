@@ -21,8 +21,7 @@ import FormError from '@/components/FormError';
 import FormSuccess from '@/components/FormSuccess';
 
 import { useServerAction } from 'zsa-react';
-
-import { loginEmailPassword } from '@/lib/actions/auth.actions/loginEmailPassword.actions';
+import { loginEmailPassword } from '@/lib/auth';
 
 export default function LoginForm() {
   const router = useRouter();

@@ -1,11 +1,11 @@
 'use client';
 
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { logout } from '@/lib/actions/auth.actions/logout.actions';
+import { logout } from '@/lib/auth';
 import paths from '@/lib/paths';
-import { log } from 'console';
+
 import { useRouter } from 'next/navigation';
-import { type } from 'os';
+
 import { FormEvent, type MouseEvent } from 'react';
 import { toast } from 'sonner';
 

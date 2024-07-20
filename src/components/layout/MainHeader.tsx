@@ -1,20 +1,6 @@
 import { DarkModeToggle } from '@/components/DarkModeToggle';
 import { cn } from '@/lib/utils';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ChevronDown } from 'lucide-react';
-import { logout } from '@/lib/actions/auth.actions/logout.actions';
-import LogoutButtonClientBare from '@/components/auth/LogoutButtonClientBare';
-import { MouseEvent } from 'react';
-import { toast } from 'sonner';
+
 import AvatarDropdownMenu from '@/components/layout/AvatarDropdownMenu';
 
 type MainHeaderProps = {

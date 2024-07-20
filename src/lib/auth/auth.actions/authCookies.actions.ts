@@ -1,8 +1,9 @@
 'use server';
 import 'server-only';
-import { lucia } from '@/lib/auth';
+
 import { Cookie } from 'lucia';
 import { cookies } from 'next/headers';
+import { lucia } from '@/lib/auth/auth';
 
 export const setCookie = async (cookie: Cookie) => {
   try {

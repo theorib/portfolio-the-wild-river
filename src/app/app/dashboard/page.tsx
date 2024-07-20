@@ -1,5 +1,5 @@
 import PageHeader from '@/components/layout/PageHeader';
-import { validateSession } from '@/lib/actions/auth.actions/authSession.actions';
+import { validateSession } from '@/lib/auth/auth.actions/authSession.actions';
 import paths from '@/lib/paths';
 import { typeIdString } from '@/lib/utils/utils';
 import { redirect } from 'next/navigation';

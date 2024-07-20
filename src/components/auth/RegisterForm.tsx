@@ -23,7 +23,7 @@ const PasswordStrength = lazy(
   () => import('@/components/auth/PasswordStrength'),
 );
 import PasswordStrengthSkeleton from '@/components/auth/PasswordStrengthSkeleton';
-import { signUpEmailPassword } from '@/lib/actions/auth.actions/signUpEmailPassword.actions';
+import { signUpEmailPassword } from '@/lib/auth';
 
 export default function RegisterForm() {
   const form = useForm<z.infer<typeof RegisterFormSchema>>({

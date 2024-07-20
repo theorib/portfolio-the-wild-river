@@ -7,8 +7,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import useAuth from '@/hooks/useAuth';
-import { logout } from '@/lib/actions/auth.actions/logout.actions';
+import { logout, useAuth } from '@/lib/auth';
+
 import paths from '@/lib/paths';
 import { getInitials } from '@/lib/utils/utils';
 import { ChevronDown } from 'lucide-react';
