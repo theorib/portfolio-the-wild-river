@@ -1,5 +1,5 @@
 import { db } from '@/db';
-import { users } from '@/db/dbSchemas';
+import { users } from '@/db/schemas';
 import { validateSession } from '@/lib/auth';
 import { errorCatalog } from '@/lib/constants/errorCatalog';
 import { eq } from 'drizzle-orm';

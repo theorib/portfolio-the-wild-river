@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 import { relations } from 'drizzle-orm';
-import { users } from '@/db/dbSchemas';
+import { users } from '@/db/schemas';
 
 /**
  * Drizzle Schema

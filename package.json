@@ -20,10 +20,10 @@
     "db:start:local": "turso dev --db-file ./tursoLocal/turso_local.db --port 8088",
     "db:start:studio": "pnpm drizzle-kit studio --verbose --config drizzle.main.config.ts --host 127.0.0.1 --port 8087",
     "db:generate": "pnpm drizzle-kit generate --config drizzle.main.config.ts",
-    "db:migrate": "tsx ./src/db/dbScripts/migrate.ts",
-    "db:seed": "tsx ./src/db/dbScripts/seed.ts",
-    "db:clear": "tsx ./src/db/dbScripts/clearDb.ts",
-    "db:clear:records": "tsx ./src/db/dbScripts/clearRecords.ts",
+    "db:migrate": "tsx ./src/db/scripts/migrate.ts",
+    "db:seed": "tsx ./src/db/scripts/seed.ts",
+    "db:clear": "tsx ./src/db/scripts/clearDb.ts",
+    "db:clear:records": "tsx ./src/db/scripts/clearRecords.ts",
     "cz": "bash ./enhanced_commit.sh"
   },
   "dependencies": {

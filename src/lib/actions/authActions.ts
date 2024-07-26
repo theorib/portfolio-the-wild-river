@@ -17,7 +17,7 @@ import paths from '@/lib/constants/paths';
 import AppError from '@/lib/errors';
 
 import { db } from '@/db';
-import { SelectUserClientSchema, users } from '@/db/dbSchemas';
+import { SelectUserClientSchema, users } from '@/db/schemas';
 import { eq } from 'drizzle-orm';
 
 export const registerUserAction = createServerAction()

@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { relations, sql } from 'drizzle-orm';
-import { sessions, userSettings, emailVerificationCodes } from '@/db/dbSchemas';
+import { sessions, userSettings, emailVerificationCodes } from '@/db/schemas';
 import { typeid } from 'typeid-js';
 
 import { EmailSchema } from '@/lib/zodSchemas/otherZodSchemas';

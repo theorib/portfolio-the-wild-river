@@ -17,7 +17,7 @@ import {
   NavigationMenuVerticalTrigger,
   NavigationMenuVerticalViewport,
 } from '@/components/ui/navigation-menu-vertical';
-import { users } from '@/db/dbSchemas';
+import { users } from '@/db/schemas';
 import paths from '@/lib/constants/paths';
 import {
   Menubar,

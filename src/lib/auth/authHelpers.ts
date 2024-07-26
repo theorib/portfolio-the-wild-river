@@ -6,7 +6,7 @@ import { Argon2id } from 'oslo/password';
 import { Cookie } from 'lucia';
 import { cookies } from 'next/headers';
 import { lucia } from '@/lib/auth/lucia';
-import { SelectUserAuthSchema } from '@/db/dbSchemas';
+import { SelectUserAuthSchema } from '@/db/schemas';
 import { redirect } from 'next/navigation';
 import paths from '@/lib/constants/paths';
 import AppError from '@/lib/errors';

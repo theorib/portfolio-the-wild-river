@@ -3,7 +3,7 @@ import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { relations, sql } from 'drizzle-orm';
 import { typeid } from 'typeid-js';
-import { UserIdSchema, users } from '@/db/dbSchemas';
+import { UserIdSchema, users } from '@/db/schemas';
 import { isTypeID, timestamps } from '@/lib/utils';
 
 /**

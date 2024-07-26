@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { EmailSchema } from '@/lib/zodSchemas/otherZodSchemas';
-import { SelectUserAuthSchema, UserIdSchema } from '@/db/dbSchemas';
+import { SelectUserAuthSchema, UserIdSchema } from '@/db/schemas';
 
 export const SessionSchema = z.object({
   id: UserIdSchema,
