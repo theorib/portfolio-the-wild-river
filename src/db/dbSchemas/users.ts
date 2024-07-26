@@ -12,7 +12,7 @@ import { EmailSchema } from '@/lib/zod.schemas/otherZodSchemas';
  */
 const idPrefix = 'user_id';
 
-export const users = sqliteTable('user', {
+export const users = sqliteTable('users', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => typeid(idPrefix).toString()),

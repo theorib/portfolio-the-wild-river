@@ -7,7 +7,7 @@ import { users } from '@/db/dbSchemas';
 /**
  * Drizzle Schema
  */
-export const sessions = sqliteTable('session', {
+export const sessions = sqliteTable('sessions', {
   id: text('id').notNull().primaryKey(),
   userId: text('user_id')
     .notNull()
