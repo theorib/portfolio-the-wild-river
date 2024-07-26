@@ -52,7 +52,7 @@ export default function RegisterForm() {
 
   if (isSuccess) {
     toast.success('Account created successfully!');
-    router.push(paths.dashboard.pathname);
+    // router.push(paths.dashboard.pathname);
     reset();
     // form.reset();
   }
