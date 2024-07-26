@@ -1,7 +1,5 @@
-// middleware.ts
-import paths, { Paths } from '@/lib/constants/paths';
-import { getProtectedRoutes } from '@/lib/utils';
-import { verifyRequestOrigin } from 'lucia';
+import paths from '@/lib/constants/paths';
+import { isCSRFAttackPattern, isProtectedRoute } from '@/lib/utils';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
@@ -19,28 +17,6 @@ const validateSessionViaApi = async function (request: NextRequest) {
 
   return data;
 };
-
-function isCSRFAttackPattern(request: NextRequest): boolean {
-  if (request.method === 'GET') return false;
-
-  const originHeader = request.headers.get('Origin');
-  const hostHeader = request.headers.get('Host');
-
-  if (
-    !originHeader ||
-    !hostHeader ||
-    !verifyRequestOrigin(originHeader, [hostHeader])
-  )
-    return true;
-
-  return false;
-}
-
-function isProtectedRoute(request: NextRequest, paths: Paths): boolean {
-  return getProtectedRoutes(paths).some(
-    route => route === request.nextUrl.pathname,
-  );
-}
 
 const isSessionValid = async function (request: NextRequest): Promise<boolean> {
   const { success } = await validateSessionViaApi(request);

@@ -1,8 +1,10 @@
-import paths, { Paths } from '@/lib/constants/paths';
+import { type Paths } from '@/lib/constants/paths';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 import { TypeID } from 'typeid-js';
+import { type NextRequest } from 'next/server';
+import { verifyRequestOrigin } from 'lucia';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -63,3 +65,25 @@ export const isTypeID = (str: string, prefix?: string) => {
     return false;
   }
 };
+
+export function isCSRFAttackPattern(request: NextRequest): boolean {
+  if (request.method === 'GET') return false;
+
+  const originHeader = request.headers.get('Origin');
+  const hostHeader = request.headers.get('Host');
+
+  if (
+    !originHeader ||
+    !hostHeader ||
+    !verifyRequestOrigin(originHeader, [hostHeader])
+  )
+    return true;
+
+  return false;
+}
+
+export function isProtectedRoute(request: NextRequest, paths: Paths): boolean {
+  return getProtectedRoutes(paths).some(
+    route => route === request.nextUrl.pathname,
+  );
+}

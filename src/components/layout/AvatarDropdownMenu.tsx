@@ -10,7 +10,7 @@ import {
 import { logout, useSession } from '@/lib/auth';
 
 import paths from '@/lib/constants/paths';
-import { getInitials } from '@/lib/utils/utils';
+import { getInitials } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
