@@ -4,7 +4,7 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { typeid } from 'typeid-js';
 import { relations, sql } from 'drizzle-orm';
 import { UserIdSchema, users } from '@/db/dbSchemas';
-import { EmailSchema } from '@/lib/zod.schemas/otherZodSchemas';
+import { EmailSchema } from '@/lib/zodSchemas/otherZodSchemas';
 import { isTypeID } from '@/lib/utils';
 
 /**

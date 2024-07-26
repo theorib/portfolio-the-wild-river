@@ -5,7 +5,7 @@ import { relations, sql } from 'drizzle-orm';
 import { sessions, userSettings, emailVerificationCodes } from '@/db/dbSchemas';
 import { typeid } from 'typeid-js';
 
-import { EmailSchema } from '@/lib/zod.schemas/otherZodSchemas';
+import { EmailSchema } from '@/lib/zodSchemas/otherZodSchemas';
 import { isTypeID, timestamps } from '@/lib/utils';
 
 /**
