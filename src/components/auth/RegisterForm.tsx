@@ -14,11 +14,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { toast } from 'sonner';
-
 import { useDebounce } from 'use-debounce';
 import { useServerAction } from 'zsa-react';
 import { useRouter } from 'next/navigation';
-import paths from '@/lib/constants/paths';
+
 const PasswordStrength = lazy(
   () => import('@/components/auth/PasswordStrength'),
 );

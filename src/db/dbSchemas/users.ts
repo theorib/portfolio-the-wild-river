@@ -3,9 +3,10 @@ import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { relations, sql } from 'drizzle-orm';
 import { sessions, userSettings, emailVerificationCodes } from '@/db/dbSchemas';
-import { TypeID, typeid } from 'typeid-js';
-import { isTypeID, timestamps } from '@/lib/utils';
+import { typeid } from 'typeid-js';
+
 import { EmailSchema } from '@/lib/zod.schemas/otherZodSchemas';
+import { isTypeID, timestamps } from '@/lib/utils';
 
 /**
  * Drizzle Schema

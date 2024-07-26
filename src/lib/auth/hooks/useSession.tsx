@@ -1,6 +1,6 @@
 'use client';
 import { validateSession } from '@/lib/auth';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext } from 'react';
 
 type SessionContextType = Awaited<ReturnType<typeof validateSession>>;
 

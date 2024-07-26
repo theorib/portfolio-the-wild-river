@@ -6,7 +6,7 @@ import paths from '@/lib/constants/paths';
 
 import { useRouter } from 'next/navigation';
 
-import { FormEvent, type MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 import { toast } from 'sonner';
 
 export default function LogoutButtonClientBare() {
