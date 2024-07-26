@@ -598,3 +598,4 @@ MigrationBackup/
 dev.db
 dev.db-journal
 localDb/*
+.vscode/settings.json
