@@ -1,6 +1,3 @@
-export { signUpEmailPassword } from '@/lib/auth/auth.actions/signUpEmailPassword.actions';
-export { loginEmailPassword } from '@/lib/auth/auth.actions/loginEmailPassword.actions';
-export { logout } from '@/lib/auth/auth.actions/logout.actions';
-export { validateSession } from '@/lib/auth/auth.actions/authSession.actions';
-// export { default as useAuth } from '@/lib/auth/auth.hooks/useAuth';
-export { useSession, SessionProvider } from '@/lib/auth/auth.hooks/useSession';
+export { registerUserAction, loginUserAction } from '@/lib/actions/authActions';
+export { validateSession, logout } from '@/lib/auth/authHelpers';
+export { useSession, SessionProvider } from '@/lib/auth/hooks/useSession';

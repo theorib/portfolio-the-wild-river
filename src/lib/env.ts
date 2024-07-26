@@ -1,5 +1,4 @@
 import { createEnv } from '@t3-oss/env-nextjs';
-import { min } from 'drizzle-orm';
 import { z } from 'zod';
 
 export const env = createEnv({
@@ -8,8 +7,8 @@ export const env = createEnv({
     DATABASE_URL: z.string().min(1),
   },
   client: {
-    NEXT_PUBLIC_AUTH_SESSION_COOKIE_NAME: z.string().min(4),
     NEXT_PUBLIC_DOMAIN: z.string(),
+    NEXT_PUBLIC_AUTH_SESSION_COOKIE_NAME: z.string().min(4),
   },
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,

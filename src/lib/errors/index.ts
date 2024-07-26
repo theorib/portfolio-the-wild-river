@@ -1,4 +1,4 @@
-import { errorCatalog } from '@/lib/errors/errorCatalog';
+import { errorCatalog } from '@/lib/constants/errorCatalog';
 
 type ErrorCode = keyof typeof errorCatalog;
 

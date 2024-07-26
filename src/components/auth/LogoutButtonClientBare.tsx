@@ -2,7 +2,7 @@
 
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { logout } from '@/lib/auth';
-import paths from '@/lib/paths';
+import paths from '@/lib/constants/paths';
 
 import { useRouter } from 'next/navigation';
 
@@ -18,7 +18,7 @@ export default function LogoutButtonClientBare() {
     e.preventDefault();
     toast.success('You are signed out!');
     await logout();
-    router.push(paths.login.path);
+    router.push(paths.login.pathname);
   };
 
   return (

@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { logout, useSession } from '@/lib/auth';
 
-import paths from '@/lib/paths';
+import paths from '@/lib/constants/paths';
 import { getInitials } from '@/lib/utils/utils';
 import { ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -25,7 +25,7 @@ export default function AvatarDropdownMenu() {
   const handleLogout = async () => {
     toast.success('You are signed out!');
     await logout();
-    router.push(paths.login.path);
+    router.push(paths.login.pathname);
   };
   return (
     <DropdownMenu>

@@ -14,16 +14,17 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { toast } from 'sonner';
-import { RegisterFormSchema } from '@/lib/zod.schemas';
+
 import { useDebounce } from 'use-debounce';
 import { useServerAction } from 'zsa-react';
 import { useRouter } from 'next/navigation';
-import paths from '@/lib/paths';
+import paths from '@/lib/constants/paths';
 const PasswordStrength = lazy(
   () => import('@/components/auth/PasswordStrength'),
 );
 import PasswordStrengthSkeleton from '@/components/auth/PasswordStrengthSkeleton';
-import { signUpEmailPassword } from '@/lib/auth';
+import { registerUserAction } from '@/lib/auth';
+import { RegisterFormSchema } from '@/lib/auth/authZodSchemas';
 
 export default function RegisterForm() {
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
@@ -41,7 +42,7 @@ export default function RegisterForm() {
 
   const router = useRouter();
   const { isPending, execute, error, isError, reset, isSuccess } =
-    useServerAction(signUpEmailPassword);
+    useServerAction(registerUserAction);
 
   if (isError) {
     toast.error(error.message);
@@ -51,7 +52,7 @@ export default function RegisterForm() {
 
   if (isSuccess) {
     toast.success('Account created successfully!');
-    router.push(paths.dashboard.path);
+    router.push(paths.dashboard.pathname);
     reset();
     // form.reset();
   }
@@ -70,7 +71,12 @@ export default function RegisterForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input disabled={isPending} type="text" {...field} />
+                <Input
+                  disabled={isPending}
+                  autoComplete="name"
+                  type="text"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,6 +92,7 @@ export default function RegisterForm() {
                 <Input
                   disabled={isPending}
                   type="email"
+                  autoComplete="email"
                   // placeholder="luke@skywalker.com"
                   {...field}
                 />
@@ -104,6 +111,7 @@ export default function RegisterForm() {
                 <Input
                   disabled={isPending}
                   type="password"
+                  autoComplete="new-password"
                   // placeholder="Py#kBf3WbD0kB*!&^r5K*&rZ403%hd"
                   {...field}
                 />
@@ -122,6 +130,7 @@ export default function RegisterForm() {
                 <Input
                   disabled={isPending}
                   type="password"
+                  autoComplete="new-password"
                   // placeholder="Py#kBf3WbD0kB*ja!C3FSJ&^r5K*&rZ403%hd"
                   {...field}
                 />

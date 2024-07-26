@@ -13,18 +13,18 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { toast } from 'sonner';
-import paths from '@/lib/paths';
+import paths from '@/lib/constants/paths';
 
 import { useRouter } from 'next/navigation';
-import { LoginFormSchema } from '@/lib/zod.schemas';
 
 import { useServerAction } from 'zsa-react';
-import { loginEmailPassword } from '@/lib/auth';
+import { loginUserAction } from '@/lib/auth';
+import { LoginFormSchema } from '@/lib/auth/authZodSchemas';
 
 export default function LoginForm() {
   const router = useRouter();
   const { isPending, execute, error, isError, reset, isSuccess } =
-    useServerAction(loginEmailPassword);
+    useServerAction(loginUserAction);
   // 1. Define your form.
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
@@ -44,7 +44,6 @@ export default function LoginForm() {
 
   if (isSuccess && !isPending) {
     toast.success('You are signed in!');
-    console.log('Login Success, calling router.push');
     // router.push(paths.dashboard.paths);
     reset();
     // form.reset();

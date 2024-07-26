@@ -6,7 +6,7 @@ import { env } from '@/lib/env';
 
 export default defineConfig({
   dialect: 'sqlite',
-  schema: './src/db/db.schemas/index.ts',
+  schema: './src/db/dbSchemas/index.ts',
   out: './src/db/migrations',
 
   dbCredentials: {

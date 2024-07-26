@@ -1,6 +1,6 @@
 import CardWrapper from '@/components/auth/CardWrapper';
 import RegisterForm from '@/components/auth/RegisterForm';
-import paths from '@/lib/paths';
+import paths from '@/lib/constants/paths';
 import { redirect } from 'next/navigation';
 
 export default async function RegisterPage() {
@@ -13,7 +13,7 @@ export default async function RegisterPage() {
   return (
     <CardWrapper
       headerLabel="Register"
-      redirectLinkHref={paths.login.path}
+      redirectLinkHref={paths.login.pathname}
       redirectLinkLabel="Already have an account? Login..."
     >
       <RegisterForm />

@@ -17,8 +17,8 @@ import {
   NavigationMenuVerticalTrigger,
   NavigationMenuVerticalViewport,
 } from '@/components/ui/navigation-menu-vertical';
-import { users } from '@/db/db.schemas';
-import paths from '@/lib/paths';
+import { users } from '@/db/dbSchemas';
+import paths from '@/lib/constants/paths';
 import {
   Menubar,
   MenubarMenu,
@@ -82,7 +82,7 @@ function SidebarNav() {
         <NavigationMenuVerticalList>
           <NavigationMenuVerticalItem>
             <NavigationMenuVerticalLink asChild>
-              <Link href={paths.dashboard.path}>
+              <Link href={paths.dashboard.pathname}>
                 <LayoutDashboard size={iconSize} strokeWidth={strokeWidth} />
                 Dashboard
               </Link>
@@ -90,7 +90,7 @@ function SidebarNav() {
           </NavigationMenuVerticalItem>
           <NavigationMenuVerticalItem>
             <NavigationMenuVerticalLink asChild>
-              <Link href={paths.bookings.path}>
+              <Link href={paths.bookings.pathname}>
                 <CalendarDays size={iconSize} strokeWidth={strokeWidth} />
                 <span>Bookings</span>
               </Link>
@@ -98,7 +98,7 @@ function SidebarNav() {
           </NavigationMenuVerticalItem>
           <NavigationMenuVerticalItem>
             <NavigationMenuVerticalLink asChild>
-              <Link href={paths.cabins.path}>
+              <Link href={paths.cabins.pathname}>
                 <School size={iconSize} strokeWidth={strokeWidth} />
                 <span>Cabins</span>
               </Link>
@@ -106,7 +106,7 @@ function SidebarNav() {
           </NavigationMenuVerticalItem>
           <NavigationMenuVerticalItem>
             <NavigationMenuVerticalLink asChild>
-              <Link href={paths.users.path}>
+              <Link href={paths.users.pathname}>
                 <Users size={iconSize} strokeWidth={strokeWidth} />
                 <span>Users</span>
               </Link>
@@ -114,7 +114,7 @@ function SidebarNav() {
           </NavigationMenuVerticalItem>
           <NavigationMenuVerticalItem>
             <NavigationMenuVerticalLink asChild>
-              <Link href={paths.settings.path}>
+              <Link href={paths.settings.pathname}>
                 <Settings size={iconSize} strokeWidth={strokeWidth} />
                 <span>Settings</span>
               </Link>
@@ -127,7 +127,7 @@ function SidebarNav() {
             </NavigationMenuVerticalTrigger>
             <NavigationMenuVerticalContent>
               <NavigationMenuVerticalLink asChild>
-                <Link href={paths.dashboard.path}>
+                <Link href={paths.dashboard.pathname}>
                   <LayoutDashboard size={iconSize} strokeWidth={strokeWidth} />
                   Dashboard
                 </Link>

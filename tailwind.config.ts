@@ -67,10 +67,20 @@ const config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        'vertical-submenu-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-navigation-menu-viewport-height)' },
+        },
+        'vertical-submenu-up': {
+          from: { height: 'var(--radix-navigation-menu-viewport-height)' },
+          to: { height: '0' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'vertical-submenu-down': 'vertical-submenu-down 0.2s ease-out',
+        'vertical-submenu-up': 'vertical-submenu-up 0.2s ease-out',
       },
     },
   },

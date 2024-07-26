@@ -1,5 +1,5 @@
 'use client';
-import paths from '@/lib/paths';
+import paths from '@/lib/constants/paths';
 import { useRouter } from 'next/navigation';
 
 type LoginButtonProps = {
@@ -12,7 +12,7 @@ export default function LoginButton({ children, mode }: LoginButtonProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(paths.login.path);
+    router.push(paths.login.pathname);
   };
 
   if (mode === 'modal') {
