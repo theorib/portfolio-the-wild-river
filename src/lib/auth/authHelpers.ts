@@ -9,7 +9,7 @@ import { lucia } from '@/lib/auth/lucia';
 import { SelectUserAuthSchema } from '@/db/schemas';
 import { redirect } from 'next/navigation';
 import paths from '@/lib/constants/paths';
-import AppError from '@/lib/errors';
+import { AppError } from '@/lib/errors';
 
 /**
  * Passwords

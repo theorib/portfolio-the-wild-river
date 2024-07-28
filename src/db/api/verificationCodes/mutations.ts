@@ -1,4 +1,4 @@
-// import AppError from '@/lib/errors';
+// import { AppError } from '@/lib/errors';
 // import { createServerAction, ZSAError } from 'zsa';
 
 // export const deleteEmailVerificationCodesByUserId = createServerAction()

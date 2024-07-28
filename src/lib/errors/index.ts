@@ -8,7 +8,7 @@ interface AppErrorOptions extends ErrorOptions {
   data?: unknown;
 }
 
-class AppError extends Error {
+export class AppError extends Error {
   readonly name: string;
   readonly code?: string;
   readonly data?: unknown;
@@ -35,4 +35,11 @@ class AppError extends Error {
   }
 }
 
-export default AppError;
+export type AppErrorInstance = {
+  name: string;
+  message: string;
+  code?: string;
+  data?: unknown;
+  stack?: string;
+  cause?: Error | unknown;
+};

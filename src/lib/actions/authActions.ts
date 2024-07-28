@@ -14,7 +14,7 @@ import {
 import { LoginFormSchema, RegisterFormSchema } from '@/lib/auth/authZodSchemas';
 
 import paths from '@/lib/constants/paths';
-import AppError from '@/lib/errors';
+import { AppError } from '@/lib/errors';
 
 import { db } from '@/db';
 import { SelectUserClientSchema, users } from '@/db/schemas';

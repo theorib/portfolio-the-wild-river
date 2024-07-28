@@ -1,7 +1,7 @@
 // 'use server';
 // import { db } from '@/db';
 // import { emailVerificationCodes, users } from '@/db/schemas';
-// import AppError from '@/lib/errors';
+// import { AppError } from '@/lib/errors';
 
 // import { EmailSchema } from '@/lib/zod.schemas';
 // import { InsertUserSchema, SelectUserSchema } from '@/lib/zod.schemas';
