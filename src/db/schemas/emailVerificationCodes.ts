@@ -73,7 +73,7 @@ export const InsertEmailVerificationCodeClientSchema =
   InsertEmailVerificationCodeSchema;
 
 export const UpdateEmailVerificationCodeSchema =
-  InsertEmailVerificationCodeSchema.omit({}).partial();
+  InsertEmailVerificationCodeSchema.omit({ id: true, userId: true }).partial();
 export const UpdateEmailVerificationCodeClientSchema =
   UpdateEmailVerificationCodeSchema;
 

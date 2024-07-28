@@ -67,6 +67,7 @@ export const InsertUserSettingsClientSchema = InsertUserSettingsSchema;
 
 export const UpdateUserSettingsSchema = InsertUserSettingsSchema.omit({
   id: true,
+  userId: true,
 }).partial();
 export const UpdateUserSettingsClientSchema = UpdateUserSettingsSchema;
 
