@@ -1,45 +1,31 @@
-import { errorCatalog } from '@/lib/constants/errorCatalog';
-
-type ErrorCode = keyof typeof errorCatalog;
+import { type ErrorCatalog, errorCatalog } from '@/lib/constants/errorCatalog';
 
 // Extend the standard ErrorOptions
 interface AppErrorOptions extends ErrorOptions {
   code?: string;
-  data?: unknown;
 }
 
 export class AppError extends Error {
-  readonly name: string;
+  readonly name: ErrorCatalog;
   readonly code?: string;
-  readonly data?: unknown;
 
-  constructor(errorType: ErrorCode, options?: AppErrorOptions) {
+  constructor(errorType: ErrorCatalog, options?: AppErrorOptions) {
     const errorInfo = errorCatalog[errorType];
     super(errorInfo.message, options);
 
-    this.name = errorInfo.name;
+    this.name = errorType;
     if (options?.code) this.code = options.code;
-    if (options?.data !== undefined) this.data = options.data;
 
-    // Set the prototype explicitly.
     Object.setPrototypeOf(this, new.target.prototype);
 
-    // Capture stack trace
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, this.constructor);
     }
   }
 
-  static create(errorType: ErrorCode, options?: AppErrorOptions): AppError {
+  static create(errorType: ErrorCatalog, options?: AppErrorOptions): AppError {
     return new AppError(errorType, options);
   }
 }
 
-export type AppErrorInstance = {
-  name: string;
-  message: string;
-  code?: string;
-  data?: unknown;
-  stack?: string;
-  cause?: Error | unknown;
-};
+export type AppErrorInstance = AppError;
