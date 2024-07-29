@@ -47,7 +47,11 @@ export const errorCatalog = {
     name: 'DATABASE_UNKNOWN_ERROR',
     message: 'An unknown database error occurred.',
   },
-
+  DATABASE_DRIZZLE_ERROR: {
+    name: 'DATABASE_DRIZZLE_ERROR',
+    message:
+      'An error occurred when drizzle was interacting with the database.',
+  },
   ZOD_PARSING_ERROR: {
     name: 'ZOD_PARSING_ERROR',
     message: 'Error parsing zod data.',
@@ -63,3 +67,7 @@ export const errorCatalog = {
     code: 429,
   },
 } as const;
+
+export type ErrorCatalog = keyof typeof errorCatalog;
+export type ErrorCatalogMessage =
+  (typeof errorCatalog)[ErrorCatalog]['message'];
