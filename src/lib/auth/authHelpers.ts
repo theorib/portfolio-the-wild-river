@@ -3,6 +3,7 @@ import 'server-only';
 import { cache } from 'react';
 import { z } from 'zod';
 import { Argon2id } from 'oslo/password';
+// import Argon2 from '@node-rs/argon2';
 import { Cookie } from 'lucia';
 import { cookies } from 'next/headers';
 import { lucia } from '@/lib/auth/lucia';
@@ -17,11 +18,13 @@ import { AppError } from '@/lib/errors';
 const argon2id = new Argon2id();
 
 export async function hashInput(input: string) {
+  // const hashedInput = await Argon2.hash(input);
   const hashedInput = await argon2id.hash(input);
   return hashedInput;
 }
 
 export async function verifyInputAgainstHash(input: string, hash: string) {
+  // const isInputCorrect = await argon2.verify(input, hash);
   const isInputCorrect = await argon2id.verify(hash, input);
   return isInputCorrect;
 }

@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverExternalPackages: ['@node-rs/argon2'],
+    // serverExternalPackages: ['@node-rs/argon2', 'oslo/password'],
+    // serverComponentsExternalPackages: ['@node-rs/argon2', 'oslo/password'],
+    // serverComponentsExternalPackages: ['@node-rs/argon2'],
   },
   // we will handle errors with git action hooks
   typescript: {
