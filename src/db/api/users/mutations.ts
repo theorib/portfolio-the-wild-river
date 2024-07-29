@@ -1,72 +1,40 @@
 import { db } from '@/db';
-import {
-  SelectUser,
-  SelectUserSchema,
-  UpdateUser,
-  UpdateUserSchema,
-  users,
-} from '@/db/schemas';
+import { createDbOperation } from '@/db/dbOperationUtils';
+import { type UpdateUser, UpdateUserSchema, users } from '@/db/schemas';
 import { validateSession } from '@/lib/auth';
-import { errorCatalog } from '@/lib/constants/errorCatalog';
+import { messageCatalog } from '@/lib/constants/messageCatalog';
+import { AppError } from '@/lib/errors';
 import { eq } from 'drizzle-orm';
+import { fromError } from 'zod-validation-error';
 
-export const updateCurrentUser = async (newUserData: UpdateUser) => {
-  const { user } = await validateSession();
-  if (!user)
-    return {
-      error: errorCatalog.INVALID_SESSION.message,
-    };
-  const parsedResult = await UpdateUserSchema.safeParseAsync(newUserData);
+export const updateCurrentUser = createDbOperation(
+  async (newUserData: UpdateUser) => {
+    const { user } = await validateSession();
+    if (!user) throw new AppError('INVALID_SESSION');
 
-  if (!parsedResult.success) {
-    {
-      //TODO Log error
-      return { error: errorCatalog.DATABASE_UPDATE_ERROR.message };
-    }
-  }
+    const parsedNewUserData =
+      await UpdateUserSchema.safeParseAsync(newUserData);
 
-  try {
-    const data = await db
+    if (!parsedNewUserData.success)
+      throw new AppError('ZOD_PARSING_ERROR', {
+        cause: fromError(parsedNewUserData.error),
+      });
+
+    const result = await db
       .update(users)
       .set({
-        ...parsedResult.data,
+        ...parsedNewUserData.data,
       })
       .where(eq(users.id, user.id))
       .returning();
 
-    if (!data.at(0))
-      throw new Error(
-        `expected data of type ${JSON.stringify(SelectUserSchema)} but received ${JSON.stringify(data)}`,
-      );
-    return {
-      data: data?.at(0),
-    };
-  } catch (error) {
-    //TODO Log error
-    return { error: errorCatalog.DATABASE_UPDATE_ERROR.message };
-  }
+    const data = result.at(0);
 
-  // const { session } = await getUserAuth();
-  // const { id: clientId } = clientIdSchema.parse({ id });
-  // const newClient = updateClientSchema.parse({
-  //   ...client,
-  //   userId: session?.user.id!,
-  // });
-  // try {
-  //   const [c] = await db
-  //     .update(clients)
-  //     .set({
-  //       ...newClient,
-  //       updatedAt: new Date().toISOString().slice(0, 19).replace('T', ' '),
-  //     })
-  //     .where(
-  //       and(eq(clients.id, clientId!), eq(clients.userId, session?.user.id!)),
-  //     )
-  //     .returning();
-  //   return { client: c };
-  // } catch (err) {
-  //   const message = (err as Error).message ?? 'Error, please try again';
-  //   console.error(message);
-  //   throw { error: message };
-  // }
-};
+    if (!data) throw new AppError('DATABASE_RETURNED_DATA_INVALID');
+
+    return {
+      data,
+      message: messageCatalog.USER_UPDATE_SUCCESSFUL.message,
+    };
+  },
+);
