@@ -69,5 +69,12 @@ export const errorCatalog = {
 } as const;
 
 export type ErrorCatalog = keyof typeof errorCatalog;
+export type ErrorCatalogEntry = {
+  name: ErrorCatalogName;
+  message: ErrorCatalogMessage;
+  code?: ErrorCatalogCode;
+};
 export type ErrorCatalogMessage =
   (typeof errorCatalog)[ErrorCatalog]['message'];
+export type ErrorCatalogName = (typeof errorCatalog)[ErrorCatalog]['name'];
+export type ErrorCatalogCode = string | number;

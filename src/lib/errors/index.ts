@@ -1,4 +1,10 @@
-import { type ErrorCatalog, errorCatalog } from '@/lib/constants/errorCatalog';
+import {
+  type ErrorCatalog,
+  errorCatalog,
+  ErrorCatalogCode,
+  ErrorCatalogMessage,
+  ErrorCatalogName,
+} from '@/lib/constants/errorCatalog';
 
 // Extend the standard ErrorOptions
 interface AppErrorOptions extends ErrorOptions {
@@ -6,14 +12,16 @@ interface AppErrorOptions extends ErrorOptions {
 }
 
 export class AppError extends Error {
-  readonly name: ErrorCatalog;
-  readonly code?: string;
+  readonly name: ErrorCatalogName;
+  readonly code?: ErrorCatalogCode;
+  readonly message: ErrorCatalogMessage;
 
   constructor(errorType: ErrorCatalog, options?: AppErrorOptions) {
     const errorInfo = errorCatalog[errorType];
     super(errorInfo.message, options);
 
     this.name = errorType;
+    this.message = errorInfo.message; // Explicitly set the message
     if (options?.code) this.code = options.code;
 
     Object.setPrototypeOf(this, new.target.prototype);
