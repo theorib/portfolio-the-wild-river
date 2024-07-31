@@ -4,13 +4,15 @@ import { cache } from 'react';
 import { z } from 'zod';
 import { Argon2id } from 'oslo/password';
 // import Argon2 from '@node-rs/argon2';
-import { Cookie } from 'lucia';
+import { Cookie, Session } from 'lucia';
 import { cookies } from 'next/headers';
 import { lucia } from '@/lib/auth/lucia';
-import { SelectUserAuthSchema } from '@/db/schemas';
+import { SelectUserAuth, SelectUserAuthSchema } from '@/db/schemas';
 import { redirect } from 'next/navigation';
 import paths from '@/lib/constants/paths';
 import { AppError } from '@/lib/errors';
+import { ErrorCatalogMessage } from '@/lib/constants/errorCatalog';
+import { NextRequest } from 'next/server';
 
 /**
  * Passwords
@@ -58,39 +60,126 @@ export async function setSession(userId: string) {
   await createSessionCookie(session.id);
 }
 
-const nulledValidateSession = {
-  user: null,
-  session: null,
+export type ValidateSessionSuccessResult = {
+  user: SelectUserAuth;
+  session: Session;
+  isSuccess: true;
+  error: null;
+};
+export type ValidateSessionErrorResult = {
+  user: null;
+  session: null;
+  isSuccess: false;
+  error: AppError;
 };
 
-export const validateSession = cache(async () => {
-  try {
-    const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
-    if (!sessionId) {
+export type ValidateSessionResult =
+  | ValidateSessionSuccessResult
+  | ValidateSessionErrorResult;
+
+export type ValidateSessionResultClient =
+  | ValidateSessionSuccessResult
+  | (Omit<ValidateSessionErrorResult, 'error'> & {
+      error: ErrorCatalogMessage;
+    });
+
+export const validateSession = cache(
+  async (): Promise<ValidateSessionResult> => {
+    try {
+      const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+      if (!sessionId) throw new AppError('INVALID_SESSION');
+
+      const { user, session } = await lucia.validateSession(sessionId);
+
+      if (session && session.fresh) await createSessionCookie(session.id);
+      if (!session) throw new AppError('INVALID_SESSION');
+
+      if (!user || !session) throw new AppError('INVALID_SESSION');
+
+      const parsedUserResults = z
+        .optional(SelectUserAuthSchema)
+        .safeParse(user);
+      if (!parsedUserResults.success || !parsedUserResults.data) {
+        throw new AppError('ZOD_PARSING_ERROR', {
+          cause: parsedUserResults.error,
+        });
+      }
+
+      return {
+        user: parsedUserResults.data,
+        session,
+        isSuccess: true,
+        error: null,
+      };
+    } catch (error) {
       await invalidateSessionCookie();
-      return nulledValidateSession;
+
+      const parsedError: AppError =
+        error instanceof AppError
+          ? error
+          : new AppError('UNKNOWN_ERROR', {
+              cause: error,
+            });
+
+      // TODO log Error
+
+      return {
+        user: null,
+        session: null,
+        isSuccess: false,
+        error: parsedError,
+      };
     }
+  },
+);
 
-    const { user, session } = await lucia.validateSession(sessionId);
+export const isSessionValid = async function (): Promise<boolean> {
+  const { isSuccess } = await validateSession();
+  return isSuccess;
+};
 
-    if (session && session.fresh) await createSessionCookie(session.id);
-    if (!session) await invalidateSessionCookie();
+export const validateSessionClient = cache(
+  async (): Promise<ValidateSessionResultClient> => {
+    const { user, session, isSuccess, error } = await validateSession();
+    if (!isSuccess) return { user, session, isSuccess, error: error.message };
+    return { user, session, isSuccess, error };
+  },
+);
 
-    if (!user || !session) return nulledValidateSession;
-
-    const parsedUserResults = z.optional(SelectUserAuthSchema).safeParse(user);
-    if (!parsedUserResults.success) {
-      throw new AppError('ZOD_PARSING_ERROR', {
-        cause: parsedUserResults.error,
-      });
+export type ValidateSessionApiResponse =
+  | {
+      data: ValidateSessionSuccessResult;
+      success: true;
+      status: 200;
     }
+  | {
+      data: ValidateSessionErrorResult;
+      success: false;
+      status: 401;
+    };
 
-    return { user: parsedUserResults.data, session };
-  } catch (err) {
-    // TODO log Error
-    return nulledValidateSession;
-  }
-});
+export const validateSessionViaApi = async function (
+  request: NextRequest,
+): Promise<ValidateSessionApiResponse> {
+  const response = await fetch(
+    `${request.nextUrl.origin}/auth/validate-session`,
+    {
+      method: 'GET',
+      headers: {
+        Cookie: request.headers.get('Cookie') || '',
+      },
+    },
+  );
+  const data = await response.json();
+  return data;
+};
+
+export const isSessionValidApi = async function (
+  request: NextRequest,
+): Promise<boolean> {
+  const { success } = await validateSessionViaApi(request);
+  return success;
+};
 
 export const logout = async () => {
   const { session } = await validateSession();

@@ -1,22 +1,32 @@
 import { validateSession } from '@/lib/auth';
+import {
+  ValidateSessionApiResponse,
+  validateSessionClient,
+  ValidateSessionErrorResult,
+  ValidateSessionSuccessResult,
+} from '@/lib/auth/authHelpers';
 import { lucia } from '@/lib/auth/lucia';
 import { errorCatalog } from '@/lib/constants/errorCatalog';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
-  const { user, session } = await validateSession();
+export type ValidateSessionApiResult = Promise<
+  NextResponse<ValidateSessionApiResponse>
+>;
 
-  if (!user || !session) {
+export async function GET(request: NextRequest): ValidateSessionApiResult {
+  const data = await validateSession();
+
+  if (!data.isSuccess) {
     // redirect(paths.login.path);
     return NextResponse.json({
-      error: errorCatalog.INVALID_SESSION.message,
+      data,
       success: false,
       status: 401,
     });
   }
 
   return NextResponse.json({
-    data: { user, session },
+    data,
     success: true,
     status: 200,
   });

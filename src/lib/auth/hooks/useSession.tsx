@@ -1,35 +1,26 @@
 'use client';
-import { validateSession } from '@/lib/auth';
+import {
+  ValidateSessionResultClient,
+  type ValidateSessionResult,
+} from '@/lib/auth/authHelpers';
+import { errorCatalog } from '@/lib/constants/errorCatalog';
 import { createContext, useContext } from 'react';
 
-type SessionContextType = Awaited<ReturnType<typeof validateSession>>;
-
-const initialState = {
+const initialState: ValidateSessionResultClient = {
   user: null,
   session: null,
+  isSuccess: false,
+  error: errorCatalog.INVALID_SESSION.message,
 };
-const SessionContext = createContext<SessionContextType>(initialState);
+
+const SessionContext = createContext<ValidateSessionResultClient>(initialState);
 
 type SessionProviderProps = {
   children: React.ReactNode;
-  value: SessionContextType;
+  value: ValidateSessionResultClient;
 };
 
 function SessionProvider({ children, value }: SessionProviderProps) {
-  // const [isLoading, setIsLoading] = useState<boolean>(true);
-  // const { user, session } = value;
-
-  // useEffect(() => {
-  //   if (user && session) {
-  //     setIsLoading(false);
-  //   }
-  // }, [user, session]);
-
-  // const returnValue = {
-  //   ...value,
-  //   isLoading,
-  // };
-
   return (
     <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
   );
