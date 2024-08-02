@@ -61,20 +61,33 @@ export const errorCatalog = {
     message: 'An unknown error occurred.',
   },
 
+  RATE_LIMITER_ERROR: {
+    name: 'RATE_LIMITER_ERROR',
+    message: 'Error with the rate limiter api execution.',
+  },
+  RATE_LIMITER_OPTIONS_ERROR: {
+    name: 'RATE_LIMITER_OPTIONS_ERROR',
+    message: 'Invalid rate limiter options.',
+  },
+
+  RATE_LIMITER_IP_ERROR: {
+    name: 'RATE_LIMITER_IP_ERROR',
+    message: 'Make sure the ip address is passed in the request body',
+  },
   TOO_MANY_REQUESTS: {
     name: 'TOO_MANY_REQUESTS',
     message: 'Too many requests.',
     code: 429,
   },
-} as const;
+} as const satisfies Record<string, ErrorCatalogEntry<string>>;
 
 export type ErrorCatalog = keyof typeof errorCatalog;
-export type ErrorCatalogEntry = {
-  name: ErrorCatalogName;
-  message: ErrorCatalogMessage;
-  code?: ErrorCatalogCode;
+export type ErrorCatalogEntry<K extends string> = {
+  name: K;
+  message: string;
+  code?: string | number;
 };
 export type ErrorCatalogMessage =
   (typeof errorCatalog)[ErrorCatalog]['message'];
-export type ErrorCatalogName = (typeof errorCatalog)[ErrorCatalog]['name'];
+export type ErrorCatalogName = ErrorCatalog;
 export type ErrorCatalogCode = string | number;
