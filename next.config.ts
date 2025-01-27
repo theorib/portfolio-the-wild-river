@@ -1,10 +1,13 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   experimental: {
     // serverExternalPackages: ['@node-rs/argon2', 'oslo/password'],
     // serverComponentsExternalPackages: ['@node-rs/argon2', 'oslo/password'],
-    // serverComponentsExternalPackages: ['@node-rs/argon2'],
+
+    reactCompiler: true,
   },
+  serverExternalPackages: ['@node-rs/argon2', 'oslo/password'],
   // we will handle errors with git action hooks
   typescript: {
     ignoreBuildErrors: true,
