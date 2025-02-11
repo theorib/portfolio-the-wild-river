@@ -10,6 +10,12 @@ export default defineConfig({
   ],
   test: {
     globals: true,
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/cypress/**',
+      '**/.next/**',
+    ],
     setupFiles: ['./src/lib/testUtils/setupTests.ts'],
     coverage: {
       provider: 'v8',
