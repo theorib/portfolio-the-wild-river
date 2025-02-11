@@ -8,6 +8,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,js,jsx}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,js,jsx}\"",
     "lint": "eslint . --quiet && tsc --noEmit --skipLibCheck",
     "lint:staged": "pnpm lint-staged --config lint-staged.config.ts",
     "lint:fix": "eslint . --cache --fix",
