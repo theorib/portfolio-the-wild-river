@@ -44,7 +44,8 @@
     "vitest.config.ts",
     "tailwind.config.ts",
     ".next/types/**/*.ts",
-    "postcss.config.mjs"
+    "postcss.config.mjs",
+    "vitest.shims.d.ts"
   ],
   "exclude": ["node_modules", ".next"]
 }

@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   test: {
     globals: true,
-    setupFiles: ['./src/testUtils/setupTests.ts'],
+    setupFiles: ['./src/lib/testUtils/setupTests.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['html'],

@@ -599,3 +599,10 @@ dev.db
 dev.db-journal
 localDb/*
 .vscode/settings.json
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+**/__screenshots__/
