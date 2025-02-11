@@ -40,12 +40,11 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "next.config.ts",
-    ".eslintrc.json",
+    "eslint.config.ts",
     "vitest.config.ts",
     "tailwind.config.ts",
     ".next/types/**/*.ts",
-    "postcss.config.cjs",
-    ".eslintrc.mjs"
+    "postcss.config.mjs"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", ".next"]
 }
