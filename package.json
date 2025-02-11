@@ -21,7 +21,7 @@
     "test:ui": "vitest --ui --coverage",
     "coverage": "vitest run --coverage",
     "prepare": "husky",
-    "shad": "pnpm dlx shadcn-ui@latest add",
+    "shad": "pnpm dlx shadcn@canary add",
     "db:push": "pnpm drizzle-kit push --config drizzle.main.config.ts",
     "db:start:local": "turso dev --db-file ./tursoLocal/turso_local.db --port 8088",
     "db:start:studio": "pnpm drizzle-kit studio --verbose --config drizzle.main.config.ts --host 127.0.0.1 --port 8087",
