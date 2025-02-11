@@ -144,6 +144,13 @@
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.0",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.4"
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "@node-rs/argon2",
+      "@swc/core",
+      "esbuild",
+      "sharp"
+    ]
   }
 }
