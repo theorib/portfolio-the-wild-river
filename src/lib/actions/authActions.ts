@@ -1,32 +1,35 @@
-'use server';
-import 'server-only';
+'use server'
+import 'server-only'
 
-import { redirect } from 'next/navigation';
-import { z } from 'zod';
+import { redirect } from 'next/navigation'
+import { z } from 'zod'
 
-import { createServerAction } from 'zsa';
+import { createServerAction } from 'zsa'
 
 import {
   hashInput,
   setSession,
   verifyInputAgainstHash,
-} from '@/lib/auth/authHelpers';
-import { LoginFormSchema, RegisterFormSchema } from '@/lib/auth/authZodSchemas';
+} from '@/lib/auth/authHelpers'
+import {
+  LoginFormSchema,
+  RegisterFormSchema,
+} from '@/lib/auth/authSchemasTypes'
 
-import paths from '@/lib/constants/paths';
-import { AppError } from '@/lib/errors';
+import paths from '@/lib/constants/paths'
+import { AppError } from '@/lib/errors'
 
-import { db } from '@/db';
-import { SelectUserClientSchema, users } from '@/db/schemas';
-import { eq } from 'drizzle-orm';
+import { db } from '@/db'
+import { SelectUserClientSchema, users } from '@/db/schemas'
+import { eq } from 'drizzle-orm'
 
 export const registerUserAction = createServerAction()
   .input(RegisterFormSchema)
-  .onError(error => {
-    // TODO Log error to server
-  })
+  // .onError(error => {
+  //   // TODO Log error to server
+  // })
   .handler(async ({ input }) => {
-    const passwordHash = await hashInput(input.password);
+    const passwordHash = await hashInput(input.password)
     const [user] = await db
       .insert(users)
       .values({
@@ -34,40 +37,40 @@ export const registerUserAction = createServerAction()
         email: input.email,
         passwordHash,
       })
-      .returning();
+      .returning()
 
-    if (!user) throw new AppError('INVALID_USER');
+    if (!user) throw new AppError('INVALID_USER')
 
-    await setSession(user.id);
+    await setSession(user.id)
 
-    const clientUser = SelectUserClientSchema.parse(user);
-    return clientUser;
-  });
+    const clientUser = SelectUserClientSchema.parse(user)
+    return clientUser
+  })
 
 export const loginUserAction = createServerAction()
   .input(LoginFormSchema)
   .output(z.void())
-  .onError(error => {
-    // TODO Log error to server
-  })
+  // .onError(error => {
+  //   // TODO Log error to server
+  // })
   .handler(async ({ input }) => {
     const user = await db.query.users.findFirst({
       where: eq(users.email, input.email),
-    });
+    })
 
-    if (!user || !user?.passwordHash) throw new AppError('LOGIN_ERROR');
+    if (!user || !user?.passwordHash) throw new AppError('LOGIN_ERROR')
 
     const isPasswordValid = await verifyInputAgainstHash(
       input.password,
       user.passwordHash,
-    );
+    )
 
-    if (!isPasswordValid) throw new AppError('LOGIN_ERROR');
+    if (!isPasswordValid) throw new AppError('LOGIN_ERROR')
 
-    await setSession(user.id);
+    await setSession(user.id)
 
-    return redirect(paths.dashboard.pathname);
-  });
+    return redirect(paths.dashboard.pathname)
+  })
 
 // export const checkIfEmailExists = createServerAction()
 //   .input(EmailSchema)
