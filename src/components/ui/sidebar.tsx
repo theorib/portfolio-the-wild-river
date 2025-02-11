@@ -25,8 +25,9 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { useSetCookie } from 'cookies-next/client'
+import { SIDEBAR_COOKIE_NAME as SIDEBAR_COOKIE_NAME_CONSTANT } from '@/lib/constants'
 
-export const SIDEBAR_COOKIE_NAME = 'sidebar_is_open_state'
+const SIDEBAR_COOKIE_NAME = SIDEBAR_COOKIE_NAME_CONSTANT
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = '16rem'
 const SIDEBAR_WIDTH_MOBILE = '18rem'
