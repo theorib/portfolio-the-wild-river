@@ -8,75 +8,53 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  // SidebarMenuSub,
-  // SidebarMenuSubButton,
-  // SidebarMenuSubItem,
   SidebarRail,
 } from '@/components/ui/sidebar'
 import Logo from '@/components/layout/Logo'
+import {
+  CalendarDays,
+  House,
+  LayoutDashboard,
+  School,
+  Settings,
+  Users,
+} from 'lucide-react'
+import Link from 'next/link'
+import paths from '@/lib/constants/paths'
 
+const iconSize = 40
+const strokeWidth = 1
 const data = {
   navMain: [
     {
       title: 'Home',
-      url: '#',
-      // items: [
-      //   {
-      //     title: 'Installation',
-      //     url: '#',
-      //   },
-      //   {
-      //     title: 'Project Structure',
-      //     url: '#',
-      //   },
-      // ],
+      url: paths.homePage,
+      logo: <House size={iconSize} strokeWidth={strokeWidth} />,
+    },
+    {
+      title: 'Dashboard',
+      url: paths.dashboard,
+      logo: <LayoutDashboard size={iconSize} strokeWidth={strokeWidth} />,
     },
     {
       title: 'Bookings',
-      url: '#',
-      // items: [
-      //   {
-      //     title: 'Routing',
-      //     url: '#',
-      //   },
-      //   {
-      //     title: 'Data Fetching',
-      //     url: '#',
-      //     isActive: true,
-      //   },
-      // ],
+      url: paths.bookings,
+      logo: <CalendarDays size={iconSize} strokeWidth={strokeWidth} />,
     },
     {
       title: 'Cabins',
-      url: '#',
-      // items: [
-      //   {
-      //     title: 'Components',
-      //     url: '#',
-      //   },
-      //   {
-      //     title: 'File Conventions',
-      //     url: '#',
-      //   },
-      // ],
+      url: paths.cabins,
+      logo: <School size={iconSize} strokeWidth={strokeWidth} />,
     },
     {
       title: 'Users',
-      url: '#',
-      // items: [
-      //   {
-      //     title: 'Accessibility',
-      //     url: '#',
-      //   },
-      //   {
-      //     title: 'Fast Refresh',
-      //     url: '#',
-      //   },
-      // ],
+      url: paths.users,
+      logo: <Users size={iconSize} strokeWidth={strokeWidth} />,
     },
     {
       title: 'Settings',
-      url: '#',
+      url: paths.settings,
+      logo: <Settings size={iconSize} strokeWidth={strokeWidth} />,
     },
   ],
 }
@@ -86,8 +64,8 @@ export function MainSidebarComponent({
 }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar
-      variant="inset"
-      collapsible="offcanvas"
+      variant="sidebar"
+      collapsible="icon"
       {...props}
       //
     >
@@ -100,21 +78,11 @@ export function MainSidebarComponent({
             {data.navMain.map(item => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild>
-                  <a href={item.url} className="font-medium">
+                  <Link href={item.url} className="font-medium">
+                    {item?.logo}
                     {item.title}
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
-                {/* {item.items?.length ? (
-                  <SidebarMenuSub>
-                    {item.items.map(item => (
-                      <SidebarMenuSubItem key={item.title}>
-                        <SidebarMenuSubButton asChild isActive={item.isActive}>
-                          <a href={item.url}>{item.title}</a>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                ) : null} */}
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
