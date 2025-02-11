@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { logout } from '@/lib/auth';
+import { logout } from '@/lib/auth'
 
 export default function logoutButton() {
-  return <button onClick={() => logout()}>Log out</button>;
+  return <button onClick={() => logout()}>Log out</button>
 }

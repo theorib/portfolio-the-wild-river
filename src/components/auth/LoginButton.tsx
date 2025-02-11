@@ -1,27 +1,27 @@
-'use client';
-import paths from '@/lib/constants/paths';
-import { useRouter } from 'next/navigation';
+'use client'
+import paths from '@/lib/constants/paths'
+import { useRouter } from 'next/navigation'
 
 type LoginButtonProps = {
-  children: React.ReactNode;
-  mode?: 'modal' | 'redirect';
-  asChild?: boolean;
-};
+  children: React.ReactNode
+  mode?: 'modal' | 'redirect'
+  asChild?: boolean
+}
 
 export default function LoginButton({ children, mode }: LoginButtonProps) {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleClick = () => {
-    router.push(paths.login.pathname);
-  };
+    router.push(paths.login.pathname)
+  }
 
   if (mode === 'modal') {
-    return <span>To do Modal</span>;
+    return <span>To do Modal</span>
   }
 
   return (
     <span onClick={handleClick} className="cursor-pointer">
       {children}
     </span>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-'use client';
-import { lazy, Suspense } from 'react';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+'use client'
+import { lazy, Suspense } from 'react'
+import { type z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Form,
   FormControl,
@@ -12,18 +12,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { toast } from 'sonner';
-import { useDebounce } from 'use-debounce';
-import { useServerAction } from 'zsa-react';
-import { useRouter } from 'next/navigation';
+} from '@/components/ui/form'
+import { toast } from 'sonner'
+import { useDebounce } from 'use-debounce'
+import { useServerAction } from 'zsa-react'
+import { useRouter } from 'next/navigation'
 
 const PasswordStrength = lazy(
   () => import('@/components/auth/PasswordStrength'),
-);
-import PasswordStrengthSkeleton from '@/components/auth/PasswordStrengthSkeleton';
-import { registerUserAction } from '@/lib/auth';
-import { RegisterFormSchema } from '@/lib/auth/authZodSchemas';
+)
+import PasswordStrengthSkeleton from '@/components/auth/PasswordStrengthSkeleton'
+import { registerUserAction } from '@/lib/auth'
+import { RegisterFormSchema } from '@/lib/auth/authSchemasTypes'
 
 export default function RegisterForm() {
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
@@ -35,29 +35,29 @@ export default function RegisterForm() {
       confirmPassword: '',
     },
     mode: 'onBlur',
-  });
-  const password = form.watch('password');
-  const [debouncedPassword] = useDebounce(password, 200);
+  })
+  const password = form.watch('password')
+  const [debouncedPassword] = useDebounce(password, 200)
 
-  const router = useRouter();
+  const router = useRouter()
   const { isPending, execute, error, isError, reset, isSuccess } =
-    useServerAction(registerUserAction);
+    useServerAction(registerUserAction)
 
   if (isError) {
-    toast.error(error.message);
-    reset();
-    form.reset();
+    toast.error(error.message)
+    reset()
+    form.reset()
   }
 
   if (isSuccess) {
-    toast.success('Account created successfully!');
+    toast.success('Account created successfully!')
     // router.push(paths.dashboard.pathname);
-    reset();
+    reset()
     // form.reset();
   }
 
   async function onSubmit(values: z.infer<typeof RegisterFormSchema>) {
-    await execute(values);
+    await execute(values)
   }
 
   return (
@@ -148,5 +148,5 @@ export default function RegisterForm() {
         </Button>
       </form>
     </Form>
-  );
+  )
 }

@@ -79,15 +79,14 @@ export const errorCatalog = {
     message: 'Too many requests.',
     code: 429,
   },
-} as const satisfies Record<string, ErrorCatalogEntry<string>>;
+} as const satisfies Record<string, ErrorCatalogEntry<string>>
 
-export type ErrorCatalog = keyof typeof errorCatalog;
+export type ErrorCatalog = keyof typeof errorCatalog
 export type ErrorCatalogEntry<K extends string> = {
-  name: K;
-  message: string;
-  code?: string | number;
-};
-export type ErrorCatalogMessage =
-  (typeof errorCatalog)[ErrorCatalog]['message'];
-export type ErrorCatalogName = ErrorCatalog;
-export type ErrorCatalogCode = string | number;
+  name: K
+  message: string
+  code?: string | number
+}
+export type ErrorCatalogMessage = (typeof errorCatalog)[ErrorCatalog]['message']
+export type ErrorCatalogName = ErrorCatalog
+export type ErrorCatalogCode = string | number

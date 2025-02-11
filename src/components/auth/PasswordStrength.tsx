@@ -1,15 +1,15 @@
 // 'use client';
-import { Progress } from '@/components/ui/progress';
-import { getPasswordScore } from '@/lib/auth/passwordScore';
+import { Progress } from '@/components/ui/progress'
+import { getPasswordScore } from '@/lib/auth/passwordScore'
 
 type PasswordStrengthProps = {
-  password: string;
-};
+  password: string
+}
 
-type Score = 0 | 25 | 50 | 75 | 100;
+type Score = 0 | 25 | 50 | 75 | 100
 
 export default function PasswordStrength({ password }: PasswordStrengthProps) {
-  const { score, feedback } = getPasswordScore(password);
+  const { score, feedback } = getPasswordScore(password)
 
   const scoreStyleLookup = {
     0: 'bg-red-500',
@@ -17,18 +17,18 @@ export default function PasswordStrength({ password }: PasswordStrengthProps) {
     50: 'bg-yellow-500',
     75: 'bg-green-500',
     100: 'bg-green-500',
-  };
+  }
 
-  let adjustedScore: Score;
+  let adjustedScore: Score
   if (score === 0 && password.length >= 1) {
-    adjustedScore = 25;
+    adjustedScore = 25
   } else {
-    adjustedScore = (score * 25) as Score;
+    adjustedScore = (score * 25) as Score
   }
 
   return (
     <div className="space-y-2">
-      <p className="text-sm font-semibold text-muted-foreground">
+      <p className="text-muted-foreground text-sm font-semibold">
         Password Strength: {adjustedScore / 25} of 4
       </p>
       <Progress
@@ -38,13 +38,13 @@ export default function PasswordStrength({ password }: PasswordStrengthProps) {
         aria-label="Password strength"
       />
       <ul
-        className="text-sm text-muted-foreground"
+        className="text-muted-foreground text-sm"
         aria-label="Password suggestions"
       >
         {feedback.suggestions.map((suggestion, i) => {
-          return <li key={`${suggestion}-i`}>{suggestion}</li>;
+          return <li key={`${suggestion}-i`}>{suggestion}</li>
         })}
       </ul>
     </div>
-  );
+  )
 }

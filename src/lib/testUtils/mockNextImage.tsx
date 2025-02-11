@@ -9,9 +9,9 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { vi } from 'vitest';
-import type { ImageProps, StaticImageData } from 'next/image';
-import type { ComponentType, ReactElement } from 'react';
+import { vi } from 'vitest'
+import type { ImageProps, StaticImageData } from 'next/image'
+import type { ComponentType, ReactElement } from 'react'
 
 // Exellent suggestion to mock next/image from:
 // https://github.com/vercel/next.js/discussions/32325#discussioncomment-6040668
@@ -20,8 +20,8 @@ import type { ComponentType, ReactElement } from 'react';
  * Represents an ES module default export, which contains a `default` property that holds the actual exported value.
  */
 interface ESModuleDefault<T> {
-  readonly __esModule: true;
-  readonly default: T;
+  readonly __esModule: true
+  readonly default: T
 }
 
 /**
@@ -34,7 +34,7 @@ type StaticRequire = ImageProps['src'] extends
   | StaticImageData
   | string
   ? T
-  : never;
+  : never
 
 /**
  * Maps a static image import to its source string.
@@ -48,10 +48,10 @@ const mapStaticImportToSrc = (
   staticImport: StaticImageData | StaticRequire,
 ): string => {
   if ('default' in staticImport) {
-    return staticImport.default.src;
+    return staticImport.default.src
   }
-  return staticImport.src;
-};
+  return staticImport.src
+}
 
 /**
  * Maps a static image import or string to a source string.
@@ -65,10 +65,10 @@ const mapNextImageSrcToString = (
   src: StaticImageData | StaticRequire | string,
 ): string => {
   if (typeof src === 'string') {
-    return src;
+    return src
   }
-  return mapStaticImportToSrc(src);
-};
+  return mapStaticImportToSrc(src)
+}
 
 /**
  * Renders a mock `next/image` component with the provided props.
@@ -88,8 +88,8 @@ function MockNextImage({
   src: nextImageSrc,
   width,
 }: Readonly<ImageProps>): ReactElement {
-  const imgSrc: string = mapNextImageSrcToString(nextImageSrc);
-  return <img alt={alt} height={height} src={imgSrc} width={width} />;
+  const imgSrc: string = mapNextImageSrcToString(nextImageSrc)
+  return <img alt={alt} height={height} src={imgSrc} width={width} />
 }
 
 /**
@@ -108,7 +108,7 @@ const mockNextImage = vi.hoisted(
     return {
       __esModule: true,
       default: MockNextImage,
-    };
+    }
   },
-);
-export default mockNextImage;
+)
+export default mockNextImage

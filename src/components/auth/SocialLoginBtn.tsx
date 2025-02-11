@@ -1,12 +1,12 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+'use client'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 type SocialLoginBtnProps = {
-  children: React.ReactNode;
-  className?: string;
-  handleClick?: () => void;
-};
+  children: React.ReactNode
+  className?: string
+  handleClick?: () => void
+}
 
 export default function SocialLoginBtn({
   children,
@@ -22,5 +22,5 @@ export default function SocialLoginBtn({
     >
       {children}
     </Button>
-  );
+  )
 }

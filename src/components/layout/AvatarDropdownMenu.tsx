@@ -1,32 +1,32 @@
-'use client';
+'use client'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { logout, useSession } from '@/lib/auth';
+} from '@/components/ui/dropdown-menu'
+import { logout, useSession } from '@/lib/auth'
 
-import paths from '@/lib/constants/paths';
-import { getInitials } from '@/lib/utils';
-import { ChevronDown } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
+import paths from '@/lib/constants/paths'
+import { getInitials } from '@/lib/utils'
+import { ChevronDown } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 export default function AvatarDropdownMenu() {
-  const router = useRouter();
-  const { user } = useSession();
+  const router = useRouter()
+  const { user } = useSession()
   // if (!user) router.push(paths.login());
 
-  const initials = user?.name ? getInitials(user?.name) : '**';
+  const initials = user?.name ? getInitials(user?.name) : '**'
 
   const handleLogout = async () => {
-    toast.success('You are signed out!');
-    await logout();
-    router.push(paths.login.pathname);
-  };
+    toast.success('You are signed out!')
+    await logout()
+    router.push(paths.login.pathname)
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-2">
@@ -45,5 +45,5 @@ export default function AvatarDropdownMenu() {
         <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

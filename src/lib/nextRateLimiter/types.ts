@@ -1,6 +1,9 @@
-import { IRateLimiterOptions, RateLimiterRes } from 'rate-limiter-flexible';
-import { NextResponse } from 'next/server';
-import { z } from 'zod';
+import {
+  type IRateLimiterOptions,
+  type RateLimiterRes,
+} from 'rate-limiter-flexible'
+import { type NextResponse } from 'next/server'
+import { z } from 'zod'
 
 export const NextRateLimiterOptionsSchema = z
   .object({
@@ -11,25 +14,25 @@ export const NextRateLimiterOptionsSchema = z
     execEvenly: z.boolean(),
     execEvenlyMinDelayMs: z.number().positive(),
   })
-  .partial();
+  .partial()
 
-export type NextRateLimiterOptions = IRateLimiterOptions;
+export type NextRateLimiterOptions = IRateLimiterOptions
 
 export type RateLimiterDefaultOptions = NextRateLimiterOptions & {
-  points: number;
-  duration: number;
-};
+  points: number
+  duration: number
+}
 
 export type NextRateLimiterResponse = NextResponse<{
-  success: boolean;
-  message: string | undefined;
-}>;
+  success: boolean
+  message: string | undefined
+}>
 
 export type NextRateLimiterResponsePayload = {
-  points: number;
-  duration: number;
-  success: boolean;
-  status: number;
-  message?: string;
-  rateLimiterRes: RateLimiterRes;
-};
+  points: number
+  duration: number
+  success: boolean
+  status: number
+  message?: string
+  rateLimiterRes: RateLimiterRes
+}

@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function PasswordStrengthSkeleton() {
   return (
@@ -7,5 +7,5 @@ export default function PasswordStrengthSkeleton() {
       <Skeleton className="h-4 w-full rounded-full" />
       <Skeleton className="h-4 w-full rounded-full" />
     </div>
-  );
+  )
 }

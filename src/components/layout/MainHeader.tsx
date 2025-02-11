@@ -1,11 +1,11 @@
-import { DarkModeToggle } from '@/components/DarkModeToggle';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 
-import AvatarDropdownMenu from '@/components/layout/AvatarDropdownMenu';
+import AvatarDropdownMenu from '@/components/layout/AvatarDropdownMenu'
+import DarkModeToggle from '@/components/ui-custom/DarkModeToggle'
 
 type MainHeaderProps = {
-  className?: string;
-};
+  className?: string
+}
 
 function MainHeader({ className }: MainHeaderProps) {
   return (
@@ -16,6 +16,6 @@ function MainHeader({ className }: MainHeaderProps) {
         <DarkModeToggle />
       </div>
     </header>
-  );
+  )
 }
-export default MainHeader;
+export default MainHeader

@@ -1,5 +1,5 @@
-import { createEnv } from '@t3-oss/env-nextjs';
-import { z } from 'zod';
+import { createEnv } from '@t3-oss/env-nextjs'
+import { z } from 'zod'
 
 export const env = createEnv({
   server: {
@@ -17,4 +17,4 @@ export const env = createEnv({
     NEXT_PUBLIC_AUTH_SESSION_COOKIE_NAME:
       process.env.NEXT_PUBLIC_AUTH_SESSION_COOKIE_NAME,
   },
-});
+})

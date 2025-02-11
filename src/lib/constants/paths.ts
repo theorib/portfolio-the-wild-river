@@ -1,16 +1,16 @@
-export type PathFunction = (...args: unknown[]) => string;
-export type PathCategory = 'sidebarMenu' | 'mainMenu';
+export type PathFunction = (...args: Array<unknown>) => string
+export type PathCategory = 'sidebarMenu' | 'mainMenu'
 export type PathIcon = {
-  name: string;
-  module: string;
-};
+  name: string
+  module: string
+}
 export type Path = {
-  pathname: string | PathFunction;
-  isProtectedRoute: boolean;
-  title?: string;
-  category?: PathCategory[];
-  icon?: PathIcon;
-};
+  pathname: string | PathFunction
+  isProtectedRoute: boolean
+  title?: string
+  category?: Array<PathCategory>
+  icon?: PathIcon
+}
 
 const paths = {
   homePage: {
@@ -53,10 +53,10 @@ const paths = {
     pathname: '/register',
     isProtectedRoute: false,
   },
-} as const;
+} as const
 
 // Type assertion to ensure all properties are of type Path
-const typedPaths: Record<keyof typeof paths, Path> = paths;
-export type Paths = typeof typedPaths;
+const typedPaths: Record<keyof typeof paths, Path> = paths
+export type Paths = typeof typedPaths
 
-export default paths;
+export default paths

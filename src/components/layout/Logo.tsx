@@ -1,6 +1,6 @@
-import Image from 'next/image';
+import Image from 'next/image'
 
-const logoSize = 110;
+const logoSize = 110
 
 export default function Logo() {
   return (
@@ -14,5 +14,5 @@ export default function Logo() {
         priority
       />
     </div>
-  );
+  )
 }

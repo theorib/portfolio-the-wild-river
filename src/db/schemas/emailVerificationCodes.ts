@@ -1,16 +1,16 @@
-import { z } from 'zod';
-import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { typeid } from 'typeid-js';
-import { relations, sql } from 'drizzle-orm';
-import { UserIdSchema, users } from '@/db/schemas';
-import { EmailSchema } from '@/lib/zodSchemas/otherZodSchemas';
-import { isTypeID } from '@/lib/utils';
+import { z } from 'zod'
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
+import { typeid } from 'typeid-js'
+import { relations, sql } from 'drizzle-orm'
+import { UserIdSchema, users } from '@/db/schemas'
+import { EmailSchema } from '@/lib/zodSchemas/otherZodSchemas'
+import { isTypeID } from '@/lib/utils'
 
 /**
  * Drizzle Schema
  */
-const idPrefix = 'email_veri_code_id';
+const idPrefix = 'email_veri_code_id'
 export const emailVerificationCodes = sqliteTable('verification_codes', {
   id: text('id')
     .primaryKey()
@@ -26,7 +26,7 @@ export const emailVerificationCodes = sqliteTable('verification_codes', {
   expiresAt: integer('expires_at', { mode: 'timestamp' })
     .notNull()
     .default(sql`(unixepoch())`),
-});
+})
 
 /**
  * Drizzle Relations
@@ -39,28 +39,28 @@ export const emailVerificationCodesRelations = relations(
       references: [users.id],
     }),
   }),
-);
+)
 
 /**
  * Zod Schemas
  */
 export const EmailVerificationCodeIdSchema = z
   .string()
-  .refine(str => isTypeID(str, idPrefix));
-const VerificationCodeSchema = z.string().length(6);
+  .refine(str => isTypeID(str, idPrefix))
+const VerificationCodeSchema = z.string().length(6)
 const refineSchema = {
   id: EmailVerificationCodeIdSchema,
   userId: UserIdSchema,
   email: EmailSchema,
   code: VerificationCodeSchema,
-};
-const baseSchema = createSelectSchema(emailVerificationCodes, refineSchema);
+}
+const baseSchema = createSelectSchema(emailVerificationCodes, refineSchema)
 
-export const SelectVerificationCodeSchema = baseSchema;
+export const SelectVerificationCodeSchema = baseSchema
 export const SelectEmailVerificationCodeClientSchema = baseSchema.omit({
   id: true,
   createdAt: true,
-});
+})
 
 export const InsertEmailVerificationCodeSchema = createInsertSchema(
   emailVerificationCodes,
@@ -68,34 +68,34 @@ export const InsertEmailVerificationCodeSchema = createInsertSchema(
 ).omit({
   id: true,
   createdAt: true,
-});
+})
 export const InsertEmailVerificationCodeClientSchema =
-  InsertEmailVerificationCodeSchema;
+  InsertEmailVerificationCodeSchema
 
 export const UpdateEmailVerificationCodeSchema =
-  InsertEmailVerificationCodeSchema.omit({ userId: true }).partial();
+  InsertEmailVerificationCodeSchema.omit({ userId: true }).partial()
 export const UpdateEmailVerificationCodeClientSchema =
-  UpdateEmailVerificationCodeSchema;
+  UpdateEmailVerificationCodeSchema
 
 /**
  * Types
  */
-export type EmailVerificationCode = typeof emailVerificationCodes.$inferInsert;
+export type EmailVerificationCode = typeof emailVerificationCodes.$inferInsert
 export type SelectEmailVerificationCode = z.infer<
   typeof SelectVerificationCodeSchema
->;
+>
 export type SelectEmailVerificationCodeClient = z.infer<
   typeof SelectEmailVerificationCodeClientSchema
->;
+>
 export type InsertEmailVerificationCode = z.infer<
   typeof InsertEmailVerificationCodeSchema
->;
+>
 export type InsertEmailVerificationCodeClient = z.infer<
   typeof InsertEmailVerificationCodeClientSchema
->;
+>
 export type UpdateEmailVerificationCode = z.infer<
   typeof UpdateEmailVerificationCodeSchema
->;
+>
 export type UpdateEmailVerificationCodeClient = z.infer<
   typeof UpdateEmailVerificationCodeClientSchema
->;
+>

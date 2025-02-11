@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import {
   Command,
@@ -6,8 +6,8 @@ import {
   CommandGroup,
   CommandItem,
   CommandList,
-} from '@/components/ui/command';
-import { MenubarShortcut } from '@/components/ui/menubar';
+} from '@/components/ui/command'
+import { MenubarShortcut } from '@/components/ui/menubar'
 import {
   NavigationMenuVertical,
   NavigationMenuVerticalContent,
@@ -16,9 +16,9 @@ import {
   NavigationMenuVerticalList,
   NavigationMenuVerticalTrigger,
   NavigationMenuVerticalViewport,
-} from '@/components/ui/navigation-menu-vertical';
-import { users } from '@/db/schemas';
-import paths from '@/lib/constants/paths';
+} from '@/components/ui/navigation-menu-vertical'
+import { users } from '@/db/schemas'
+import paths from '@/lib/constants/paths'
 import {
   Menubar,
   MenubarMenu,
@@ -32,11 +32,11 @@ import {
   MenubarSub,
   MenubarSubContent,
   MenubarSubTrigger,
-} from '@radix-ui/react-menubar';
+} from '@radix-ui/react-menubar'
 
 type MenuItemProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 // function MenuItem({ children }: MenuItemProps) {
 //   return <CommandItem>{children}</CommandItem>;
@@ -49,7 +49,7 @@ function MenuItem({ children }: MenuItemProps) {
     >
       {children}
     </CommandItem>
-  );
+  )
 }
 
 function MenuItem2({ children }: MenuItemProps) {
@@ -60,11 +60,11 @@ function MenuItem2({ children }: MenuItemProps) {
     >
       {children}
     </NavigationMenuVerticalLink>
-  );
+  )
 }
 
-const iconSize = 20;
-const strokeWidth = 1;
+const iconSize = 20
+const strokeWidth = 1
 
 import {
   CalendarDays,
@@ -72,9 +72,9 @@ import {
   School,
   Settings,
   Users,
-} from 'lucide-react';
-import Link from 'next/link';
-import { ReactNode } from 'react';
+} from 'lucide-react'
+import Link from 'next/link'
+import { ReactNode } from 'react'
 function SidebarNav() {
   return (
     <div>
@@ -140,6 +140,6 @@ function SidebarNav() {
         </NavigationMenuVerticalList>
       </NavigationMenuVertical>
     </div>
-  );
+  )
 }
-export default SidebarNav;
+export default SidebarNav

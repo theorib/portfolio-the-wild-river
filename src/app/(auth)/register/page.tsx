@@ -1,7 +1,7 @@
-import CardWrapper from '@/components/auth/CardWrapper';
-import RegisterForm from '@/components/auth/RegisterForm';
-import paths from '@/lib/constants/paths';
-import { redirect } from 'next/navigation';
+import CardWrapper from '@/components/auth/CardWrapper'
+import RegisterForm from '@/components/auth/RegisterForm'
+import paths from '@/lib/constants/paths'
+import { redirect } from 'next/navigation'
 
 export default async function RegisterPage() {
   // const session = await auth();
@@ -18,5 +18,5 @@ export default async function RegisterPage() {
     >
       <RegisterForm />
     </CardWrapper>
-  );
+  )
 }

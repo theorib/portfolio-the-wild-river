@@ -1,13 +1,13 @@
-import { cn } from '@/lib/utils';
-import { CircleCheck } from 'lucide-react';
+import { cn } from '@/lib/utils'
+import { CircleCheck } from 'lucide-react'
 
 type FormErrorProps = {
-  message?: string;
-  className?: string;
-};
+  message?: string
+  className?: string
+}
 
 export default function FormMessage({ message, className }: FormErrorProps) {
-  if (!message) return null;
+  if (!message) return null
   return (
     <div
       className={cn(
@@ -18,5 +18,5 @@ export default function FormMessage({ message, className }: FormErrorProps) {
       <CircleCheck className="h-8 w-8" strokeWidth={1} />
       <p>{message}</p>
     </div>
-  );
+  )
 }

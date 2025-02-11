@@ -1,7 +1,7 @@
-import AuthLink from '@/components/auth/AuthLink';
-import CardHeading from '@/components/auth/CardHeader';
-import SocialLogins from '@/components/auth/SocialLogins';
-import Logo from '@/components/layout/Logo';
+import AuthLink from '@/components/auth/AuthLink'
+import CardHeading from '@/components/auth/CardHeader'
+import SocialLogins from '@/components/auth/SocialLogins'
+import Logo from '@/components/layout/Logo'
 import {
   Card,
   CardContent,
@@ -9,15 +9,15 @@ import {
   CardFooter,
   CardHeader,
   // CardTitle,
-} from '@/components/ui/card';
+} from '@/components/ui/card'
 
 type CardWrapperProps = {
-  children: React.ReactNode;
-  headerLabel?: string;
-  redirectLinkLabel?: string;
-  redirectLinkHref?: string;
-  showSocialLogins?: boolean;
-};
+  children: React.ReactNode
+  headerLabel?: string
+  redirectLinkLabel?: string
+  redirectLinkHref?: string
+  showSocialLogins?: boolean
+}
 export default function CardWrapper({
   children,
   headerLabel = '',
@@ -41,5 +41,5 @@ export default function CardWrapper({
         </CardFooter>
       ) : null}
     </Card>
-  );
+  )
 }

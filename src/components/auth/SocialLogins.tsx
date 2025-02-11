@@ -1,6 +1,6 @@
-import SocialLoginBtn from '@/components/auth/SocialLoginBtn';
-import { FcGoogle } from 'react-icons/fc';
-import { FaGithub } from 'react-icons/fa';
+import SocialLoginBtn from '@/components/auth/SocialLoginBtn'
+import { FcGoogle } from 'react-icons/fc'
+import { FaGithub } from 'react-icons/fa'
 export default function SocialLogins() {
   return (
     <div className="mt-8 flex w-full flex-col gap-4">
@@ -13,5 +13,5 @@ export default function SocialLogins() {
         <span>GitHub</span>
       </SocialLoginBtn>
     </div>
-  );
+  )
 }

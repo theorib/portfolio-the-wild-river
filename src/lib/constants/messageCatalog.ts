@@ -16,14 +16,14 @@ export const messageCatalog = {
     message: 'Request successful',
     code: 200,
   },
-} as const satisfies Record<string, MessageCatalogEntry<string>>;
+} as const satisfies Record<string, MessageCatalogEntry<string>>
 export type MessageCatalogEntry<K extends string> = {
-  name: K;
-  message: string;
-  code?: number;
-};
-export type MessageCatalog = keyof typeof messageCatalog;
-export type MessageCatalogName = MessageCatalog;
+  name: K
+  message: string
+  code?: number
+}
+export type MessageCatalog = keyof typeof messageCatalog
+export type MessageCatalogName = MessageCatalog
 export type MessageCatalogMessage =
-  (typeof messageCatalog)[MessageCatalog]['message'];
-export type MessageCatalogCode = number | string;
+  (typeof messageCatalog)[MessageCatalog]['message']
+export type MessageCatalogCode = number | string

@@ -1,9 +1,9 @@
-'use client';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+'use client'
+import { type z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Form,
   FormControl,
@@ -11,20 +11,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { toast } from 'sonner';
-import paths from '@/lib/constants/paths';
+} from '@/components/ui/form'
+import { toast } from 'sonner'
+import paths from '@/lib/constants/paths'
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 
-import { useServerAction } from 'zsa-react';
-import { loginUserAction } from '@/lib/auth';
-import { LoginFormSchema } from '@/lib/auth/authZodSchemas';
+import { useServerAction } from 'zsa-react'
+import { loginUserAction } from '@/lib/auth'
+import { LoginFormSchema } from '@/lib/auth/authSchemasTypes'
 
 export default function LoginForm() {
-  const router = useRouter();
+  const router = useRouter()
   const { isPending, execute, error, isError, reset, isSuccess } =
-    useServerAction(loginUserAction);
+    useServerAction(loginUserAction)
   // 1. Define your form.
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
@@ -33,24 +33,24 @@ export default function LoginForm() {
       password: '',
     },
     mode: 'onBlur',
-  });
+  })
 
   if (isError) {
-    console.error(error);
-    toast.error(error.message);
-    reset();
-    form.reset();
+    console.error(error)
+    toast.error(error.message)
+    reset()
+    form.reset()
   }
 
   if (isSuccess && !isPending) {
-    toast.success('You are signed in!');
+    toast.success('You are signed in!')
     // router.push(paths.dashboard.paths);
-    reset();
+    reset()
     // form.reset();
   }
 
   async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
-    await execute(values);
+    await execute(values)
   }
   return (
     <Form {...form}>
@@ -101,5 +101,5 @@ export default function LoginForm() {
         </Button>
       </form>
     </Form>
-  );
+  )
 }

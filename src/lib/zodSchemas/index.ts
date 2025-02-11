@@ -1,1 +1,1 @@
-export * from '@/lib/zodSchemas/otherZodSchemas';
+export * from '@/lib/zodSchemas/otherZodSchemas'

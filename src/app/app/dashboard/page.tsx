@@ -1,6 +1,6 @@
-import PageHeader from '@/components/layout/PageHeader';
+import PageHeader from '@/components/layout/PageHeader'
 
-async function DashboardPage() {
+function DashboardPage() {
   // const { user } = await validateSession();
 
   // if (!user) redirect(paths.login.path);
@@ -9,6 +9,6 @@ async function DashboardPage() {
     <>
       <PageHeader pageTitle="Dashboard" />
     </>
-  );
+  )
 }
-export default DashboardPage;
+export default DashboardPage

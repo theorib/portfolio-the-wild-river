@@ -1,1 +1,1 @@
-export * from '@/db/db';
+export * from '@/db/db'

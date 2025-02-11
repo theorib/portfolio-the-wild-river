@@ -1,7 +1,7 @@
 type PageHeaderProps = {
-  pageTitle: string;
-  children?: React.ReactNode;
-};
+  pageTitle: string
+  children?: React.ReactNode
+}
 
 export default function PageHeader({ pageTitle, children }: PageHeaderProps) {
   return (
@@ -9,5 +9,5 @@ export default function PageHeader({ pageTitle, children }: PageHeaderProps) {
       <h1 className="text-4xl font-bold">{pageTitle}</h1>
       {children}
     </header>
-  );
+  )
 }

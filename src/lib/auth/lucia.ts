@@ -1,10 +1,10 @@
-import { Lucia, TimeSpan } from 'lucia';
-import { DrizzleSQLiteAdapter } from '@lucia-auth/adapter-drizzle';
-import { db } from '@/db';
-import { sessions, UserRole, users } from '@/db/schemas';
-import { env } from '@/lib/env';
+import { Lucia, TimeSpan } from 'lucia'
+import { DrizzleSQLiteAdapter } from '@lucia-auth/adapter-drizzle'
+import { db } from '@/db'
+import { sessions, type UserRole, users } from '@/db/schemas'
+import { env } from '@/lib/env'
 
-const adapter = new DrizzleSQLiteAdapter(db, sessions, users);
+const adapter = new DrizzleSQLiteAdapter(db, sessions, users)
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
@@ -25,20 +25,20 @@ export const lucia = new Lucia(adapter, {
       image: attributes.image,
       role: attributes.role,
       emailVerified: attributes.emailVerified,
-    };
+    }
   },
-});
+})
 
 declare module 'lucia' {
   interface Register {
-    Lucia: typeof lucia;
-    DatabaseUserAttributes: DatabaseUserAttributes;
+    Lucia: typeof lucia
+    DatabaseUserAttributes: DatabaseUserAttributes
   }
 }
 interface DatabaseUserAttributes {
-  email: string;
-  name: string;
-  image: string;
-  role: UserRole;
-  emailVerified: boolean;
+  email: string
+  name: string
+  image: string
+  role: UserRole
+  emailVerified: boolean
 }

@@ -4,19 +4,19 @@ import {
   SidebarMenuTrigger,
   SidebarMenuContent,
   SidebarMenuList,
-} from '@/components/ui/SidebarMenu';
+} from '@/components/ui/SidebarMenu'
 import {
   CalendarDays,
   LayoutDashboard,
   School,
   Settings,
   Users,
-} from 'lucide-react';
-import paths from '@/lib/constants/paths';
-import Link from 'next/link';
+} from 'lucide-react'
+import paths from '@/lib/constants/paths'
+import Link from 'next/link'
 
-const iconSize = 20;
-const strokeWidth = 1;
+const iconSize = 20
+const strokeWidth = 1
 
 export default function TestTwoPage() {
   return (
@@ -54,5 +54,5 @@ export default function TestTwoPage() {
         </SidebarMenuItem>
       </SidebarMenuList>
     </SidebarMenu>
-  );
+  )
 }

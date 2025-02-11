@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { vi } from 'vitest'
 
 /**
  * Defines the shape of a font module, which maps font names to objects that provide
@@ -6,10 +6,10 @@ import { vi } from 'vitest';
  */
 interface FontModule {
   [fontName: string]: () => {
-    style: React.CSSProperties;
-    className: string;
-    variable: string;
-  };
+    style: React.CSSProperties
+    className: string
+    variable: string
+  }
 }
 
 /** Creates a single font module for tests that use Next.js `next/font/google`.
@@ -22,7 +22,7 @@ interface FontModule {
  * @returns A font module object with a method for the font.
  */
 function createFontModuleSingle(fontName: string): FontModule {
-  const fontNameLowerCase = fontName.toLowerCase();
+  const fontNameLowerCase = fontName.toLowerCase()
   return {
     [fontName]: () => ({
       style: {
@@ -32,7 +32,7 @@ function createFontModuleSingle(fontName: string): FontModule {
       className: `mocked-${fontNameLowerCase}-class-name`,
       variable: `--font-${fontNameLowerCase}`,
     }),
-  };
+  }
 }
 
 /**
@@ -44,12 +44,12 @@ function createFontModuleSingle(fontName: string): FontModule {
  * @param fontNames - An array of font names to be mocked.
  * @returns A `FontModule` object containing the mocked font information.
  */
-function createFontModuleMultiple(fontNames: string[]): FontModule {
+function createFontModuleMultiple(fontNames: Array<string>): FontModule {
   const fontModules = fontNames.reduce((modules, name) => {
-    return { ...modules, ...createFontModuleSingle(name) };
-  }, {});
+    return { ...modules, ...createFontModuleSingle(name) }
+  }, {})
 
-  return fontModules;
+  return fontModules
 }
 
 /**
@@ -63,12 +63,12 @@ function createFontModuleMultiple(fontNames: string[]): FontModule {
  * @returns An object with a method for each font passed as an argument. Each method returns an object with mocked font styles, class names, and CSS variables.
  */
 const mockNextFontGoogle = vi.hoisted(() => {
-  const createMockedFontModules = function (fontNames: string | string[]) {
-    if (typeof fontNames === 'string') return createFontModuleSingle(fontNames);
-    if (Array.isArray(fontNames)) return createFontModuleMultiple(fontNames);
-  };
+  const createMockedFontModules = function (fontNames: string | Array<string>) {
+    if (typeof fontNames === 'string') return createFontModuleSingle(fontNames)
+    if (Array.isArray(fontNames)) return createFontModuleMultiple(fontNames)
+  }
 
-  return createMockedFontModules;
-});
+  return createMockedFontModules
+})
 
-export default mockNextFontGoogle;
+export default mockNextFontGoogle
