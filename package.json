@@ -181,10 +181,11 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "better-sqlite3",
       "@node-rs/argon2",
       "@swc/core",
+      "better-sqlite3",
       "esbuild",
+      "msw",
       "sharp"
     ]
   }
