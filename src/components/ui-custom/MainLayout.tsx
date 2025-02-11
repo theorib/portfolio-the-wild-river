@@ -22,7 +22,7 @@ export default async function MainLayout({ children }: PropsWithChildren) {
         <MainSidebarComponent />
         <SidebarInset>
           <PageHeaderComponent />
-          {children}
+          <main className="flex p-4">{children}</main>
         </SidebarInset>
       </SidebarProvider>
     </>
