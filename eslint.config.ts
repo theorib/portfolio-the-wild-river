@@ -1,28 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import tseslint from 'typescript-eslint';
-import eslintJs from '@eslint/js';
-import tsdoc from 'eslint-plugin-tsdoc';
-import react from 'eslint-plugin-react';
-import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint'
+import eslintJs from '@eslint/js'
+import tsdoc from 'eslint-plugin-tsdoc'
+import react from 'eslint-plugin-react'
+import reactRefresh from 'eslint-plugin-react-refresh'
 // @ts-expect-error there are no type definitions for this
-import reactHooks from 'eslint-plugin-react-hooks';
-import prettier from 'eslint-config-prettier';
-import vitest from 'eslint-plugin-vitest';
-import testingLibrary from 'eslint-plugin-testing-library';
-import jestDom from 'eslint-plugin-jest-dom';
+import reactHooks from 'eslint-plugin-react-hooks'
+import prettier from 'eslint-config-prettier'
+import vitest from 'eslint-plugin-vitest'
+import testingLibrary from 'eslint-plugin-testing-library'
+import jestDom from 'eslint-plugin-jest-dom'
 // @ts-expect-error there are no type definitions for this
-import next from '@next/eslint-plugin-next';
-import globals from 'globals';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
+import next from '@next/eslint-plugin-next'
+import globals from 'globals'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
 // @ts-expect-error there are no type definitions for this
-import importPlugin from 'eslint-plugin-import';
-import pluginQuery from '@tanstack/eslint-plugin-query';
-import { FlatCompat } from '@eslint/eslintrc';
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { type Linter, type ESLint } from 'eslint';
-import { type TSESLint } from '@typescript-eslint/utils';
+import importPlugin from 'eslint-plugin-import'
+import pluginQuery from '@tanstack/eslint-plugin-query'
+import { FlatCompat } from '@eslint/eslintrc'
+import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import { type Linter, type ESLint } from 'eslint'
+import { type TSESLint } from '@typescript-eslint/utils'
 
 /**
  * Replace Types from 'eslint' such as the ones from Linter and ESLint and it's sub types such as Linter.Config with stricter types from '\@typescript-eslint/utils'
@@ -30,24 +30,24 @@ import { type TSESLint } from '@typescript-eslint/utils';
  * @see {@link https://typescript-eslint.io/packages/utils}
  */
 // Eslint Default is Linter.Config
-type Config = TSESLint.FlatConfig.Config;
+type Config = TSESLint.FlatConfig.Config
 // Eslint Default is Array<Linter.Config>
-type ConfigArray = TSESLint.FlatConfig.ConfigArray;
+type ConfigArray = TSESLint.FlatConfig.ConfigArray
 // Eslint Default is Array<string | string[]>
-type ConfigFiles = TSESLint.FlatConfig.Config['files'];
+type ConfigFiles = TSESLint.FlatConfig.Config['files']
 // Eslint Default is Array<string>
-type ConfigIgnores = TSESLint.FlatConfig.Config['ignores'];
+type ConfigIgnores = TSESLint.FlatConfig.Config['ignores']
 // Eslint Default is ESLint.Plugin
-type ConfigPlugin = TSESLint.FlatConfig.Plugin;
+type ConfigPlugin = TSESLint.FlatConfig.Plugin
 // Eslint Default is Record<string, ESLint.Plugin>
-type ConfigPlugins = TSESLint.FlatConfig.Plugins | undefined;
+type ConfigPlugins = TSESLint.FlatConfig.Plugins | undefined
 // Eslint Default is Linter.RulesRecord
-type ConfigRules = TSESLint.FlatConfig.Config['rules'];
+type ConfigRules = TSESLint.FlatConfig.Config['rules']
 // Eslint Default is Linter.LanguageOptions
-type ConfigLanguageOptions = TSESLint.FlatConfig.Config['languageOptions'];
+type ConfigLanguageOptions = TSESLint.FlatConfig.Config['languageOptions']
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 /**
  * FlatCompat is a utility class that allows us to use eslintrc Config files (pre ESLint v9) with ESlint v9  Flat Config files
@@ -58,39 +58,39 @@ const compat = new FlatCompat({
   recommendedConfig: eslintJs.configs.recommended,
   resolvePluginsRelativeTo: __dirname,
   // allConfig: eslintJs.configs.all,
-});
+})
 
-const JS_FILE_PATTERNS = ['**/*.?(c|m)js'] satisfies ConfigFiles;
-const JSX_FILE_PATTERNS = ['**/*.?(c|m)jsx'] satisfies ConfigFiles;
-const TS_FILE_PATTERNS = ['**/*.?(c|m)ts'] satisfies ConfigFiles;
-const TSX_FILE_PATTERNS = ['**/*.?(c|m)tsx'] satisfies ConfigFiles;
+const JS_FILE_PATTERNS = ['**/*.?(c|m)js'] satisfies ConfigFiles
+const JSX_FILE_PATTERNS = ['**/*.?(c|m)jsx'] satisfies ConfigFiles
+const TS_FILE_PATTERNS = ['**/*.?(c|m)ts'] satisfies ConfigFiles
+const TSX_FILE_PATTERNS = ['**/*.?(c|m)tsx'] satisfies ConfigFiles
 const JSX_TSX_FILE_PATTERNS = [
   ...JSX_FILE_PATTERNS,
   ...TSX_FILE_PATTERNS,
-] satisfies ConfigFiles;
+] satisfies ConfigFiles
 const JS_JSX_TS_TSX_FILE_PATTERNS = [
   ...JS_FILE_PATTERNS,
   ...JSX_FILE_PATTERNS,
   ...TS_FILE_PATTERNS,
   ...TSX_FILE_PATTERNS,
-] satisfies ConfigFiles;
+] satisfies ConfigFiles
 const NEXT_JS_JSX_TS_TSX_FILE_PATTERNS = [
   'src/**/*.?(c|m)[jt]s?(x)',
-] satisfies ConfigFiles;
+] satisfies ConfigFiles
 
 const TEST_FILE_PATTERNS_JS = [
   '**/__tests__/**/*.?(c|m)js?(x)',
   '**/*.(spec|test).?(c|m)js?(x)',
-] satisfies ConfigFiles;
+] satisfies ConfigFiles
 const TEST_FILE_PATTERNS_TS = [
   '**/__tests__/**/*.?(c|m)ts?(x)',
   '**/*.(spec|test).?(c|m)ts?(x)',
-] satisfies ConfigFiles;
+] satisfies ConfigFiles
 
 const TEST_FILE_PATTERNS = [
   ...TEST_FILE_PATTERNS_JS,
   ...TEST_FILE_PATTERNS_TS,
-] satisfies ConfigFiles;
+] satisfies ConfigFiles
 
 const IGNORE_PATTERNS = [
   '.next/',
@@ -99,7 +99,7 @@ const IGNORE_PATTERNS = [
   '**/dist/',
   '**/coverage/',
   'playwright-report',
-] satisfies ConfigIgnores;
+] satisfies ConfigIgnores
 
 /**
  * 'eslint-plugin-tsdoc' does not have a recommended config that is directly compatible with flat config files ESlint v9+ so we need to create our own
@@ -113,7 +113,7 @@ const tsdocRecommended = {
   rules: {
     'tsdoc/syntax': 'warn',
   },
-} satisfies Config;
+} satisfies Config
 
 /**
  * This is the recommended configuration for React projects
@@ -145,7 +145,7 @@ const reactRecommended = {
     },
   },
   settings: { react: { version: 'detect' } },
-} satisfies Config;
+} satisfies Config
 
 /**
  * JSX Runtime is recommended for React v17+ projects
@@ -155,7 +155,7 @@ const reactJsxRuntime = {
   name: 'react/jsx-runtime',
   files: [...JS_JSX_TS_TSX_FILE_PATTERNS],
   ...react.configs.flat['jsx-runtime'],
-} satisfies Config;
+} satisfies Config
 
 /**
  * This eslint plugin enforces React's Rule of Hooks
@@ -174,7 +174,7 @@ const reactHooksRecommended = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },
-} satisfies Config;
+} satisfies Config
 
 /**
  * This plugin Validate that your components can safely be updated with Fast Refresh or hot reloading.
@@ -185,7 +185,7 @@ const reactRefreshRecommended = {
   name: 'react-refresh/recommended',
   files: [...JS_JSX_TS_TSX_FILE_PATTERNS],
   ...reactRefresh.configs.recommended,
-} satisfies Config;
+} satisfies Config
 
 /**
  * This ESLint plugin will display any violations of the rules of React in your editor. When it does this, it means that the compiler has skipped over optimizing that component or hook. This is perfectly okay, and the compiler can recover and continue optimizing other components in your codebase.
@@ -203,13 +203,13 @@ const [compilerConfigCompat] = compat.config({
   rules: {
     'react-compiler/react-compiler': 'error',
   },
-});
+})
 
 const reactCompilerRecommended = {
   files: [...JS_JSX_TS_TSX_FILE_PATTERNS],
   ...compilerConfigCompat,
   name: 'react-compiler/recommended',
-} satisfies Config;
+} satisfies Config
 
 /**
  * This plugin does a static evaluation of the JSX in your code to spot accessibility issues in React apps.
@@ -220,7 +220,7 @@ const jsxA11yRecommended = {
   files: [...JS_JSX_TS_TSX_FILE_PATTERNS],
   ...jsxA11y.flatConfigs.recommended,
   name: 'jsx-a11y/recommended',
-} satisfies Config;
+} satisfies Config
 
 /**
  * This plugin Turns off all eslint rules that are unnecessary or might conflict with Prettier.
@@ -232,7 +232,7 @@ const prettierRecommended = {
   files: [...JS_JSX_TS_TSX_FILE_PATTERNS],
   ...prettier,
   name: 'prettier/recommended',
-} satisfies Config;
+} satisfies Config
 
 /**
  * The current recommended ways of implementing 'eslint-plugin-next' is:
@@ -251,7 +251,7 @@ const nextNextRecommended = {
     ...(next.configs.recommended.rules as ConfigRules),
   },
   files: [...NEXT_JS_JSX_TS_TSX_FILE_PATTERNS],
-} satisfies Config;
+} satisfies Config
 
 /**
  * The current recommended ways of implementing 'eslint-config-next' is:
@@ -325,7 +325,7 @@ const configNext = {
     'react/jsx-no-target-blank': 'off',
   },
   files: [...NEXT_JS_JSX_TS_TSX_FILE_PATTERNS],
-} satisfies Config;
+} satisfies Config
 
 /**
  * next/core-web-vitals updates eslint-plugin-next to error on a number of rules that are warnings by default if they affect Core Web Vitals
@@ -342,7 +342,7 @@ const coreWebVitals = {
     '@next/next/no-html-link-for-pages': 'error',
     '@next/next/no-sync-scripts': 'error',
   },
-} satisfies Config;
+} satisfies Config
 
 /**
  * 'eslint-plugin-vitest' is a plugin that provides linting rules for automated testing with vitest.
@@ -372,7 +372,7 @@ const vitestRecommended = {
       ...vitest.environments.env.globals,
     },
   },
-} satisfies Config;
+} satisfies Config
 
 /**
  * 'eslint-plugin-vitest' is a plugin that provides linting rules for automated testing with vitest.
@@ -386,7 +386,7 @@ const vitestDisableTypeChecked = {
   rules: {
     '@typescript-eslint/await-thenable': 'warn',
   },
-} satisfies Config;
+} satisfies Config
 
 /**
  * 'eslint-plugin-testing-library' is a plugin that provides linting rules for testing with testing-library. In this case we are using it for react-testing-library with their recommended configuration:
@@ -396,7 +396,7 @@ const testingLibraryRecommended = {
   name: 'testing-library/recommended',
   files: [...TEST_FILE_PATTERNS],
   ...testingLibrary.configs['flat/react'],
-};
+}
 
 /**
  * 'eslint-plugin-jest-dom' is a plugin to follow best practices and anticipate common mistakes when writing tests with jest-dom.
@@ -407,7 +407,7 @@ const jestDomRecommended = {
   name: 'jest-dom/recommended',
   files: [...TEST_FILE_PATTERNS],
   ...jestDom.configs['flat/recommended'],
-};
+}
 
 /**
  * This config file is a wrapper for all the ESlint ignore patterns for this project.
@@ -415,7 +415,7 @@ const jestDomRecommended = {
 const ignoreConfig = {
   name: 'ignores',
   ignores: [...IGNORE_PATTERNS],
-} satisfies Config;
+} satisfies Config
 
 /**
  * This config file is a wrapper for all the ESlint recommended rules from '\@eslint/js'.
@@ -432,7 +432,7 @@ const eslintDefaults = [
     name: 'eslint/recommended',
     ...eslintJs.configs.recommended,
   },
-] satisfies ConfigArray;
+] satisfies ConfigArray
 
 /**
  * 'typescript-eslint' enables ESLint to run on TypeScript code. It brings in the best of both tools to help you write the best JavaScript or TypeScript code you possibly can.
@@ -442,7 +442,7 @@ const eslintDefaults = [
  */
 const typescriptEslintRecommendedTypeChecked = [
   ...tseslint.configs.recommendedTypeChecked,
-] satisfies ConfigArray;
+] satisfies ConfigArray
 
 /**
  * This config adds the recommended type checked language options for 'typescript-eslint'.
@@ -459,7 +459,7 @@ const typescriptEslintRecommendedTypeCheckedLanguageOptions = {
       tsconfigRootDir: import.meta.dirname,
     },
   },
-} satisfies Config;
+} satisfies Config
 
 /**
  * This config disables type checking set by typescriptEslintRecommendedTypeChecked for non typescript files to avoid false positives.
@@ -472,7 +472,7 @@ const typescriptEslintDisableTypeChecked = {
   rules: {
     ...tseslint.configs.disableTypeChecked.rules,
   },
-} satisfies Config;
+} satisfies Config
 
 const eslintConfig = [
   ignoreConfig,
@@ -545,6 +545,6 @@ const eslintConfig = [
       'jsx-a11y/anchor-has-content': 'warn',
     },
   },
-] satisfies ConfigArray;
+] satisfies ConfigArray
 
-export default eslintConfig;
+export default eslintConfig

@@ -1,6 +1,6 @@
-import type { Config } from 'drizzle-kit';
-import { defineConfig } from 'drizzle-kit';
-import { env } from '@/lib/env';
+import { type Config } from 'drizzle-kit'
+import { defineConfig } from 'drizzle-kit'
+import { env } from '@/lib/env'
 // import * as dotenv from 'dotenv';
 // dotenv.config();
 
@@ -14,4 +14,4 @@ export default defineConfig({
   },
   verbose: true,
   strict: true,
-}) satisfies Config;
+}) satisfies Config
