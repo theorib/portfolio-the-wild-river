@@ -1,9 +1,9 @@
-import PageHeader from '@/components/layout/PageHeader'
+import { PageHeader, PageHeaderTitle } from '@/components/layout/PageHeader'
 
 export default function UsersPage() {
   return (
-    <>
-      <PageHeader pageTitle="Users" />
-    </>
+    <PageHeader>
+      <PageHeaderTitle>Users</PageHeaderTitle>
+    </PageHeader>
   )
 }
