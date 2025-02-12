@@ -1,5 +1,3 @@
-import Logo from '@/components/layout/Logo'
-
 type AuthLayoutProps = {
   children: React.ReactNode
 }
