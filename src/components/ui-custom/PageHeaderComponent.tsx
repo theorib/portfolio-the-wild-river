@@ -1,6 +1,5 @@
 import DarkModeToggle from '@/components/ui-custom/DarkModeToggle'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-
 import { SidebarTrigger } from '@/components/ui/sidebar'
 
 export default function PageHeaderComponent() {

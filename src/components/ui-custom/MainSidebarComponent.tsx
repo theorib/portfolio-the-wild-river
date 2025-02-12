@@ -1,3 +1,4 @@
+'use client'
 import type * as React from 'react'
 
 import {
@@ -9,8 +10,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SidebarTrigger,
+  useSidebar,
 } from '@/components/ui/sidebar'
-import Logo from '@/components/layout/Logo'
+import Logo from '@/components/ui-custom/Logo'
 import {
   CalendarDays,
   House,
@@ -62,6 +65,8 @@ const data = {
 export function MainSidebarComponent({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const { isMobile } = useSidebar()
+
   return (
     <Sidebar
       variant="sidebar"
@@ -70,6 +75,7 @@ export function MainSidebarComponent({
       //
     >
       <SidebarHeader>
+        {isMobile ? <SidebarTrigger /> : null}
         <Logo />
       </SidebarHeader>
       <SidebarContent>
