@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
+// @ts-expect-error since TypeScript can't resolve css files
 import './globals.css'
 import { raleway } from '@/lib/fonts'
-// import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Providers from '@/components/providers/Providers'
@@ -15,13 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${raleway.className}`}
-        // className={cn(
-        //   raleway.className,
-        //   'flex min-h-screen w-full flex-col items-center justify-center',
-        // )}
-      >
+      <body className={`${raleway.className} `}>
         <Providers>
           {children}
           <Toaster />
