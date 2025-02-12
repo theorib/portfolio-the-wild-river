@@ -1,13 +1,28 @@
-type PageHeaderProps = {
-  pageTitle: string
-  children?: React.ReactNode
+/* eslint-disable jsx-a11y/heading-has-content */
+import { cn } from '@/lib/utils'
+
+export function PageHeader({
+  className,
+  ...props
+}: React.ComponentProps<'header'>) {
+  return (
+    <header
+      data-slot="page-header"
+      className={cn('flex items-center justify-between gap-2', className)}
+      {...props}
+    />
+  )
 }
 
-export default function PageHeader({ pageTitle, children }: PageHeaderProps) {
+export function PageHeaderTitle({
+  className,
+  ...props
+}: React.ComponentProps<'h1'>) {
   return (
-    <header className="mb-4 flex items-center justify-between">
-      <h1 className="text-4xl font-bold">{pageTitle}</h1>
-      {children}
-    </header>
+    <h1
+      data-slot="page-header-title"
+      className={cn('text-3xl font-bold tracking-tight', className)}
+      {...props}
+    />
   )
 }
