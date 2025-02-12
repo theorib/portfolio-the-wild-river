@@ -1,7 +1,7 @@
 import AuthLink from '@/components/auth/AuthLink'
 import CardHeading from '@/components/auth/CardHeader'
 import SocialLogins from '@/components/auth/SocialLogins'
-import Logo from '@/components/layout/Logo'
+import Logo from '@/components/ui-custom/Logo'
 import {
   Card,
   CardContent,
