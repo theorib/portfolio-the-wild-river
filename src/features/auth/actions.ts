@@ -2,7 +2,7 @@
 
 import { type LoginFormData } from '@/features/auth/authSchemas'
 import { parseLoginData } from '@/features/auth/helpers'
-import paths from '@/lib/constants/paths'
+import paths from '@/shared/constants/paths'
 import { createClient } from '@/services/supabase/supabaseServer'
 import { type User } from '@supabase/supabase-js'
 import { revalidatePath } from 'next/cache'

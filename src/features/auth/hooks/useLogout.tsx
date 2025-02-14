@@ -1,5 +1,5 @@
 import { logout } from '@/features/auth/actions'
-import paths from '@/lib/constants/paths'
+import paths from '@/shared/constants/paths'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'

@@ -3,7 +3,7 @@
 import { login } from '@/features/auth/actions'
 import { LoginFormDataSchema } from '@/features/auth/authSchemas'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 import { Button } from '@/shared/components/ui/button'
 import {
   Card,

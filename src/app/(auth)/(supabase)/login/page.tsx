@@ -1,5 +1,5 @@
 import LoginForm from '@/features/auth/components/LoginForm'
-import paths from '@/lib/constants/paths'
+import paths from '@/shared/constants/paths'
 import { GalleryVerticalEnd } from 'lucide-react'
 import Link from 'next/link'
 
