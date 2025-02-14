@@ -99,6 +99,8 @@ const IGNORE_PATTERNS = [
   '**/dist/',
   '**/coverage/',
   'playwright-report',
+  'test-results',
+  'test-examples',
 ] satisfies ConfigIgnores
 
 /**
