@@ -20,8 +20,6 @@ export type ParseLoginFormDataOutput =
 export const parseLoginData = (
   loginData: LoginFormData,
 ): ParseLoginFormDataOutput => {
-  console.log('parseLoginData', { loginData })
-
   const {
     success,
     data,
