@@ -1,17 +1,19 @@
+import { validateSession } from '@/features/auth/actions'
 import {
   DashboardFilter,
   DashboardFilterButton,
-} from '@/components/dashboard/DashboardFilter'
-import DashboardStats from '@/components/dashboard/DashboardStats'
-import DashboardSummary from '@/components/dashboard/DashboardSummary'
-import SalesChart from '@/components/dashboard/SalesChart'
-import StayChart from '@/components/dashboard/StayChart'
-import { PageHeader, PageHeaderTitle } from '@/components/layout/PageHeader'
+} from '@/features/dashboard/components/DashboardFilter'
+import DashboardStats from '@/features/dashboard/components/DashboardStats'
+import DashboardSummary from '@/features/dashboard/components/DashboardSummary'
+import SalesChart from '@/features/dashboard/components/SalesChart'
+import StayChart from '@/features/dashboard/components/StayChart'
+import {
+  PageHeader,
+  PageHeaderTitle,
+} from '@/shared/components/ui-custom/PageHeader'
 
-function DashboardPage() {
-  // const { user } = await validateSession();
-
-  // if (!user) redirect(paths.login.path);
+async function DashboardPage() {
+  await validateSession()
 
   return (
     <div className="grid w-full grid-cols-4 gap-4">

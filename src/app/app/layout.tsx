@@ -1,4 +1,4 @@
-import MainLayout from '@/components/ui-custom/MainLayout'
+import MainLayout from '@/shared/components/ui-custom/MainLayout'
 
 type AppLayoutProps = {
   children: React.ReactNode

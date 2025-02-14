@@ -9,7 +9,7 @@ import {
   TodaySummaryItemName,
   TodaySummaryItemNumber,
   TodaySummaryItemButton,
-} from '@/components/dashboard/TodaySummary'
+} from '@/features/dashboard/components/TodaySummary'
 import { cn } from '@/lib/utils'
 
 const data = [

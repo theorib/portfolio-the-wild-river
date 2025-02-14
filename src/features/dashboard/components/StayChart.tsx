@@ -11,13 +11,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/shared/components/ui/card'
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart'
+} from '@/shared/components/ui/chart'
 import { cn } from '@/lib/utils'
 const chartData = [
   { browser: 'chrome', visitors: 275, fill: 'var(--color-chrome)' },

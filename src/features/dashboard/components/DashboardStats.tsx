@@ -5,7 +5,7 @@ import {
   StatsTitle,
   StatsDescription,
   StatsContent,
-} from '@/components/dashboard/Stats'
+} from '@/features/dashboard/components/Stats'
 import { cn } from '@/lib/utils'
 
 export default function DashboardStats({

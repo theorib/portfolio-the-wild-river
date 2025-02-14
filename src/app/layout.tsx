@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 // @ts-expect-error since TypeScript can't resolve css files
 import './globals.css'
 import { raleway } from '@/lib/fonts'
-import { Toaster } from '@/components/ui/sonner'
+import { Toaster } from '@/shared/components/ui/sonner'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import Providers from '@/components/providers/Providers'
+import Providers from '@/shared/providers/Providers'
 import { type PropsWithChildren } from 'react'
 
 export const metadata: Metadata = {
