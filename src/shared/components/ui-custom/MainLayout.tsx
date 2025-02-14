@@ -1,8 +1,7 @@
+import { MainSidebarComponent } from '@/shared/components/ui-custom/MainSidebarComponent'
+import PageHeaderComponent from '@/shared/components/ui-custom/PageHeaderComponent'
+import { SidebarInset } from '@/shared/components/ui/sidebar'
 import { type PropsWithChildren } from 'react'
-
-import { SidebarInset } from '@/components/ui/sidebar'
-import { MainSidebarComponent } from '@/components/ui-custom/MainSidebarComponent'
-import PageHeaderComponent from '@/components/ui-custom/PageHeaderComponent'
 
 export default function MainLayout({ children }: PropsWithChildren) {
   return (

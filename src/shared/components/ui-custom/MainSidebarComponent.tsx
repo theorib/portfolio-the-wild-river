@@ -1,5 +1,4 @@
 'use client'
-import type * as React from 'react'
 
 import {
   Sidebar,
@@ -12,8 +11,8 @@ import {
   SidebarRail,
   SidebarTrigger,
   useSidebar,
-} from '@/components/ui/sidebar'
-import Logo from '@/components/ui-custom/Logo'
+} from '@/shared/components/ui/sidebar'
+import Logo from '@/shared/components/ui-custom/Logo'
 import {
   CalendarDays,
   House,
