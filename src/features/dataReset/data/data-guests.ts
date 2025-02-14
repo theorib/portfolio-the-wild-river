@@ -1,8 +1,7 @@
-// Search for: 'jo', 'fa', 'mar', 'emm', 'ah'
+import { type Guests } from '@/features/dataReset/schemas'
 
-export const guests = [
+export const guests: Guests = [
   {
-    // id: 1000,
     fullName: 'Jonas Schmedtmann',
     email: 'hello@jonas.io',
     nationality: 'Portugal',
@@ -214,4 +213,4 @@ export const guests = [
     nationalID: '3456117890',
     countryFlag: 'https://flagcdn.com/tw.svg',
   },
-];
+]

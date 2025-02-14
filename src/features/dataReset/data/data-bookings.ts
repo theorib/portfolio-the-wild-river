@@ -1,12 +1,7 @@
-import { add } from 'date-fns';
+import { type Bookings } from '@/features/dataReset/schemas'
+import { fromToday } from '@/shared/lib/utils/helpers'
 
-function fromToday(numDays, withTime = false) {
-  const date = add(new Date(), { days: numDays });
-  if (!withTime) date.setUTCHours(0, 0, 0, 0);
-  return date.toISOString().slice(0, -1);
-}
-
-export const bookings = [
+export const bookings: Bookings = [
   // CABIN 001
   {
     created_at: fromToday(-20, true),
@@ -290,4 +285,4 @@ export const bookings = [
     isPaid: true,
     numGuests: 7,
   },
-];
+]
