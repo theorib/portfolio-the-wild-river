@@ -18,7 +18,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/shared/components/ui/chart'
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 const chartData = [
   { browser: 'chrome', visitors: 275, fill: 'var(--color-chrome)' },
   { browser: 'safari', visitors: 200, fill: 'var(--color-safari)' },

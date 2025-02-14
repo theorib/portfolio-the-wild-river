@@ -10,7 +10,7 @@ import {
   TodaySummaryItemNumber,
   TodaySummaryItemButton,
 } from '@/features/dashboard/components/TodaySummary'
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 
 const data = [
   { status: 'arrived', name: 'Jonas', flag: '🇨🇬', number: 7 },

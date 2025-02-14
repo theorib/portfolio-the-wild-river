@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 
 function Stats({ className, ...props }: React.ComponentProps<'div'>) {
   return (

@@ -1,5 +1,5 @@
-import AvatarDropdownMenu from '@/shared/components/ui-custom/AvatarDropdownMenu'
-import DarkModeToggle from '@/shared/components/ui-custom/DarkModeToggle'
+import AvatarDropdownMenu from '@/features/avatarDropDown/AvatarDropdownMenu'
+import DarkModeToggle from '@/features/darkMode/components/DarkModeToggle'
 import { SidebarTrigger } from '@/shared/components/ui/sidebar'
 
 export default function PageHeaderComponent() {

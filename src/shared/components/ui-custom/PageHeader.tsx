@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/heading-has-content */
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 
 export function PageHeader({
   className,
