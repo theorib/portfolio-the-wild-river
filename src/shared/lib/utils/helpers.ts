@@ -1,4 +1,4 @@
-import { differenceInDays, formatDistance, parseISO } from 'date-fns'
+import { differenceInDays, formatDistance, parseISO, add } from 'date-fns'
 
 type DateType = Date | string
 type GetTodayOptions = {
@@ -25,6 +25,12 @@ export const getToday = (options: GetTodayOptions = {}): string => {
   }
 
   return today.toISOString()
+}
+
+export const fromToday = (numDays: number, withTime = false) => {
+  const date = add(new Date(), { days: numDays })
+  if (!withTime) date.setUTCHours(0, 0, 0, 0)
+  return date.toISOString().slice(0, -1)
 }
 
 export const formatCurrency = (value: number): string =>
