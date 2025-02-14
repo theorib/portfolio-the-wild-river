@@ -29,6 +29,8 @@
     "test:e2e:codegen": "exec playwright codegen",
     "prepare": "husky",
     "shad": "pnpm dlx shadcn@canary add",
+    "supabase:generate:types": "dotenv -- supabase gen types typescript --project-id=\"$SUPABASE_PROJECT_ID\" > src/lib/types/supabase.types.ts && eslint --fix src/lib/types/supabase.types.ts",
+    "supabase:generate:schemas": "supazod -i src/lib/types/supabase.types.ts -o src/lib/schemas/supabaseSchemas.ts && eslint --fix src/lib/schemas/supabaseSchemas.ts",
     "db:push": "pnpm drizzle-kit push --config drizzle.main.config.ts",
     "db:start:local": "turso dev --db-file ./tursoLocal/turso_local.db --port 8088",
     "db:start:studio": "pnpm drizzle-kit studio --verbose --config drizzle.main.config.ts --host 127.0.0.1 --port 8087",
@@ -71,6 +73,8 @@
     "@radix-ui/react-toggle": "^1.1.2",
     "@radix-ui/react-toggle-group": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.8",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.48.1",
     "@t3-oss/env-nextjs": "^0.12.0",
     "@tabler/icons-react": "^3.30.0",
     "@tanstack/react-query": "^5.66.0",
@@ -96,6 +100,7 @@
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
     "next-themes": "^0.4.4",
+    "postgres": "^3.4.5",
     "rate-limiter-flexible": "^5.0.5",
     "react": "19.0.0",
     "react-day-picker": "8.10.1",
@@ -148,6 +153,7 @@
     "commitizen": "^4.3.1",
     "context@latest": "link:@vitest/browser/context@latest",
     "daisyui": "^4.12.23",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "eslint-config-prettier": "^10.0.1",
@@ -171,6 +177,8 @@
     "postcss": "^8.5.2",
     "prettier": "^3.5.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "supabase": "^2.12.1",
+    "supazod": "^1.1.2",
     "tailwindcss": "^4.0.6",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
@@ -186,7 +194,8 @@
       "better-sqlite3",
       "esbuild",
       "msw",
-      "sharp"
+      "sharp",
+      "supabase"
     ]
   }
 }
