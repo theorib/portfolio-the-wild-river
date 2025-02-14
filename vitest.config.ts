@@ -16,7 +16,7 @@ export default defineConfig({
       '**/cypress/**',
       '**/.next/**',
     ],
-    setupFiles: ['./src/lib/testUtils/setupTests.ts'],
+    setupFiles: ['./src/shared/lib/testUtils/setupTests.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['html'],
