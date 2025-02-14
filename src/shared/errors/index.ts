@@ -4,7 +4,7 @@ import {
   type ErrorCatalogCode,
   type ErrorCatalogMessage,
   type ErrorCatalogName,
-} from '@/lib/constants/errorCatalog'
+} from '@/shared/constants/errorCatalog'
 
 // Extend the standard ErrorOptions
 interface AppErrorOptions extends ErrorOptions {

@@ -49,6 +49,10 @@ const paths = {
     pathname: '/login',
     isProtectedRoute: false,
   },
+  signup: {
+    pathname: '/signup',
+    isProtectedRoute: false,
+  },
   register: {
     pathname: '/register',
     isProtectedRoute: false,
@@ -56,6 +60,7 @@ const paths = {
 } as const
 
 // Type assertion to ensure all properties are of type Path
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const typedPaths: Record<keyof typeof paths, Path> = paths
 export type Paths = typeof typedPaths
 

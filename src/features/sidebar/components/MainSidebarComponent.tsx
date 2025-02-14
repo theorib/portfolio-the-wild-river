@@ -12,7 +12,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/shared/components/ui/sidebar'
-import Logo from '@/shared/components/ui-custom/Logo'
+import Logo from '@/features/logo/components/Logo'
 import {
   CalendarDays,
   House,
@@ -22,41 +22,74 @@ import {
   Users,
 } from 'lucide-react'
 import Link from 'next/link'
-import paths from '@/lib/constants/paths'
+import paths from '@/shared/constants/paths'
 
-const iconSize = 40
-const strokeWidth = 1
+import {
+  SIDEBAR_ICON_SIZE,
+  SIDEBAR_ICON_STROKE_WIDTH,
+} from '@/features/sidebar/lib/constants'
+
 const data = {
   navMain: [
     {
       title: 'Home',
       url: paths.homePage,
-      logo: <House size={iconSize} strokeWidth={strokeWidth} />,
+      logo: (
+        <House
+          size={SIDEBAR_ICON_SIZE}
+          strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
+        />
+      ),
     },
     {
       title: 'Dashboard',
       url: paths.dashboard,
-      logo: <LayoutDashboard size={iconSize} strokeWidth={strokeWidth} />,
+      logo: (
+        <LayoutDashboard
+          size={SIDEBAR_ICON_SIZE}
+          strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
+        />
+      ),
     },
     {
       title: 'Bookings',
       url: paths.bookings,
-      logo: <CalendarDays size={iconSize} strokeWidth={strokeWidth} />,
+      logo: (
+        <CalendarDays
+          size={SIDEBAR_ICON_SIZE}
+          strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
+        />
+      ),
     },
     {
       title: 'Cabins',
       url: paths.cabins,
-      logo: <School size={iconSize} strokeWidth={strokeWidth} />,
+      logo: (
+        <School
+          size={SIDEBAR_ICON_SIZE}
+          strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
+        />
+      ),
     },
     {
       title: 'Users',
       url: paths.users,
-      logo: <Users size={iconSize} strokeWidth={strokeWidth} />,
+      logo: (
+        <Users
+          size={SIDEBAR_ICON_SIZE}
+          strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
+        />
+      ),
     },
     {
       title: 'Settings',
       url: paths.settings,
-      logo: <Settings size={iconSize} strokeWidth={strokeWidth} />,
+      logo: (
+        <Settings
+          size={SIDEBAR_ICON_SIZE}
+          strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
+        />
+      ),
     },
   ],
 }

@@ -1,4 +1,4 @@
-import { type Paths } from '@/lib/constants/paths'
+import { type Paths } from '@/shared/constants/paths'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { type NextRequest } from 'next/server'
