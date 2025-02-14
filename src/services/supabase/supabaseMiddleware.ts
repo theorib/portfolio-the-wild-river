@@ -1,5 +1,5 @@
-import paths from '@/lib/constants/paths'
-import { env } from '@/lib/env'
+import paths from '@/shared/constants/paths'
+import { env } from '@/shared/lib/env'
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 

@@ -1,4 +1,4 @@
-import { env } from '@/lib/env'
+import { env } from '@/shared/lib/env'
 import { createBrowserClient } from '@supabase/ssr'
 
 const url = env.SUPABASE_URL
