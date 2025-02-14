@@ -1,9 +1,9 @@
 // In Next.js, this file would be called: app/providers.jsx
 
-import QueryClientProvider from '@/components/providers/QueryClientProvider'
-import { ThemeProvider } from '@/components/providers/ThemeProvider'
-import { SidebarProvider } from '@/components/ui/sidebar'
-import { TooltipProvider } from '@/components/ui/tooltip'
+import QueryClientProvider from '@/shared/providers/QueryClientProvider'
+import { ThemeProvider } from '@/shared/providers/ThemeProvider'
+import { SidebarProvider } from '@/shared/components/ui/sidebar'
+import { TooltipProvider } from '@/shared/components/ui/tooltip'
 import { SIDEBAR_COOKIE_NAME } from '@/lib/constants'
 import { getCookie } from 'cookies-next/server'
 import { cookies } from 'next/headers'
