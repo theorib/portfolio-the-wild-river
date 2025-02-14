@@ -7,6 +7,10 @@ import {
   SidebarMenuSubItem,
 } from '@/shared/components/ui/sidebar'
 import {
+  SIDEBAR_ICON_SIZE,
+  SIDEBAR_ICON_STROKE_WIDTH,
+} from '@/shared/constants'
+import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
@@ -31,8 +35,8 @@ export default function DataReset() {
               <RefreshCw />
               {'Reset Data'}{' '}
               <ChevronRight
-                size={iconSize}
-                strokeWidth={strokeWidth}
+                size={SIDEBAR_ICON_SIZE}
+                strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
                 className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90"
               />
             </SidebarMenuButton>

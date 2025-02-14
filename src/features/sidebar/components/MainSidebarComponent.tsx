@@ -23,11 +23,10 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import paths from '@/shared/constants/paths'
-
 import {
   SIDEBAR_ICON_SIZE,
   SIDEBAR_ICON_STROKE_WIDTH,
-} from '@/features/sidebar/lib/constants'
+} from '@/shared/constants'
 
 const data = {
   navMain: [
