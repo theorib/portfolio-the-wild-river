@@ -18,9 +18,11 @@ import jsxA11y from 'eslint-plugin-jsx-a11y'
 import importPlugin from 'eslint-plugin-import'
 import pluginQuery from '@tanstack/eslint-plugin-query'
 import { FlatCompat } from '@eslint/eslintrc'
+// @ts-expect-error these are not used on purpose
 import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
+// @ts-expect-error these are not used on purpose
 import { type Linter, type ESLint } from 'eslint'
 import { type TSESLint } from '@typescript-eslint/utils'
 
@@ -40,10 +42,12 @@ type ConfigIgnores = TSESLint.FlatConfig.Config['ignores']
 // Eslint Default is ESLint.Plugin
 type ConfigPlugin = TSESLint.FlatConfig.Plugin
 // Eslint Default is Record<string, ESLint.Plugin>
+// @ts-expect-error these are not used on purpose
 type ConfigPlugins = TSESLint.FlatConfig.Plugins | undefined
 // Eslint Default is Linter.RulesRecord
 type ConfigRules = TSESLint.FlatConfig.Config['rules']
 // Eslint Default is Linter.LanguageOptions
+// @ts-expect-error these are not used on purpose
 type ConfigLanguageOptions = TSESLint.FlatConfig.Config['languageOptions']
 
 const __filename = fileURLToPath(import.meta.url)
@@ -64,6 +68,7 @@ const JS_FILE_PATTERNS = ['**/*.?(c|m)js'] satisfies ConfigFiles
 const JSX_FILE_PATTERNS = ['**/*.?(c|m)jsx'] satisfies ConfigFiles
 const TS_FILE_PATTERNS = ['**/*.?(c|m)ts'] satisfies ConfigFiles
 const TSX_FILE_PATTERNS = ['**/*.?(c|m)tsx'] satisfies ConfigFiles
+// @ts-expect-error these are not used on purpose
 const JSX_TSX_FILE_PATTERNS = [
   ...JSX_FILE_PATTERNS,
   ...TSX_FILE_PATTERNS,
@@ -98,9 +103,9 @@ const IGNORE_PATTERNS = [
   '.git/',
   '**/dist/',
   '**/coverage/',
-  'playwright-report',
-  'test-results',
-  'test-examples',
+  'playwright-report/',
+  'test-results/',
+  'tests-examples/',
 ] satisfies ConfigIgnores
 
 /**
@@ -206,7 +211,7 @@ const [compilerConfigCompat] = compat.config({
     'react-compiler/react-compiler': 'error',
   },
 })
-
+// @ts-expect-error these are not used on purpose
 const reactCompilerRecommended = {
   files: [...JS_JSX_TS_TSX_FILE_PATTERNS],
   ...compilerConfigCompat,
@@ -394,6 +399,7 @@ const vitestDisableTypeChecked = {
  * 'eslint-plugin-testing-library' is a plugin that provides linting rules for testing with testing-library. In this case we are using it for react-testing-library with their recommended configuration:
  * @see {@link https://github.com/testing-library/eslint-plugin-testing-library?tab=readme-ov-file#react}
  */
+// @ts-expect-error these are not used on purpose
 const testingLibraryRecommended = {
   name: 'testing-library/recommended',
   files: [...TEST_FILE_PATTERNS],
@@ -405,6 +411,7 @@ const testingLibraryRecommended = {
  * We are following the their recommended configuration:
  * @see {@link https://github.com/testing-library/eslint-plugin-jest-dom?tab=readme-ov-file#recommended-configuration}
  */
+// @ts-expect-error these are not used on purpose
 const jestDomRecommended = {
   name: 'jest-dom/recommended',
   files: [...TEST_FILE_PATTERNS],
