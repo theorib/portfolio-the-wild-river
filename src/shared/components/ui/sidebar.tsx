@@ -5,8 +5,8 @@ import { Slot } from '@radix-ui/react-slot'
 import { type VariantProps, cva } from 'class-variance-authority'
 import { PanelLeftIcon } from 'lucide-react'
 
-import { useIsMobile } from '@/hooks/use-mobile'
-import { cn } from '@/lib/utils'
+import { useIsMobile } from '@/shared/hooks/use-mobile'
+import { cn } from '@/shared/lib/utils'
 import { Button } from '@/shared/components/ui/button'
 import { Input } from '@/shared/components/ui/input'
 import { Separator } from '@/shared/components/ui/separator'
@@ -25,7 +25,7 @@ import {
   TooltipTrigger,
 } from '@/shared/components/ui/tooltip'
 import { useSetCookie } from 'cookies-next/client'
-import { SIDEBAR_COOKIE_NAME as SIDEBAR_COOKIE_NAME_CONSTANT } from '@/lib/constants'
+import { SIDEBAR_COOKIE_NAME as SIDEBAR_COOKIE_NAME_CONSTANT } from '@/shared/constants'
 
 const SIDEBAR_COOKIE_NAME = SIDEBAR_COOKIE_NAME_CONSTANT
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
