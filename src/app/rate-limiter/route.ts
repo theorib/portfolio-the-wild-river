@@ -2,7 +2,7 @@ import {
   NextRateLimiter,
   type NextRateLimiterOptions,
   type NextRateLimiterResponse,
-} from '@/lib/nextRateLimiter'
+} from '@/features/nextRateLimiter'
 import { type NextRequest } from 'next/server'
 
 export async function POST(
