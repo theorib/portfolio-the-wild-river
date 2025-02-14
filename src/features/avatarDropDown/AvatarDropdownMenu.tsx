@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu'
 
-import { getInitials } from '@/lib/utils'
+import { getInitials } from '@/shared/lib/utils'
 import { ChevronDown } from 'lucide-react'
 
 import useUser from '@/features/auth/hooks/useUser'
