@@ -1,4 +1,3 @@
-import { validateSession } from '@/features/auth/actions'
 import {
   DashboardFilter,
   DashboardFilterButton,
@@ -12,9 +11,7 @@ import {
   PageHeaderTitle,
 } from '@/shared/components/ui-custom/PageHeader'
 
-async function DashboardPage() {
-  await validateSession()
-
+function DashboardPage() {
   return (
     <div className="grid w-full grid-cols-4 gap-4">
       <PageHeader className="xs:flex-row col-span-4 flex w-full flex-col items-center justify-between gap-4 md:col-span-4">

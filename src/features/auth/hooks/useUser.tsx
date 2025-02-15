@@ -1,23 +1,31 @@
 import { getUser } from '@/features/auth/actions'
-import useLogout from '@/features/auth/hooks/useLogout'
+import paths from '@/shared/constants/paths'
 
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import { queryOptions, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 export const userQuery = queryOptions({
   queryKey: ['user'],
   queryFn: getUser,
+  refetchInterval: Infinity,
 })
 
 export default function useUser() {
-  const { mutate: logout } = useLogout()
-  const userQueryResult = useQuery(userQuery)
-  const unkwnownErrorMessage = 'Unknown user error'
+  console.log('useUser')
 
-  if (userQueryResult.status !== 'error') {
-    return userQueryResult
+  const queryClient = useQueryClient()
+  const router = useRouter()
+  const userQueryResult = useQuery(userQuery)
+
+  const isInvalidUser: boolean =
+    userQueryResult.isSuccess && !userQueryResult.data
+
+  if (userQueryResult.status === 'error' || isInvalidUser) {
+    queryClient.clear()
+    router.push(paths.login.pathname)
+    toast('Invalid user, please login with a valid user')
   }
-  if (userQueryResult.status === 'error') {
-    logout()
-    throw new Error(unkwnownErrorMessage)
-  } else throw new Error(unkwnownErrorMessage)
+
+  return userQueryResult
 }

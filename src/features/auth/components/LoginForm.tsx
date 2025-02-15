@@ -25,6 +25,7 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form'
 import { type z } from 'zod'
+import { toast } from 'sonner'
 
 export default function LoginForm({
   className,
@@ -42,9 +43,10 @@ export default function LoginForm({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     void form.handleSubmit(async values => {
-      console.log('onSubmit', { values })
       await login(values)
     })(e)
+
+    toast.success('You have succefully logged in.')
   }
 
   return (

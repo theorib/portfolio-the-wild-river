@@ -7,28 +7,63 @@ import { createClient } from '@/services/supabase/supabaseServer'
 import { type User } from '@supabase/supabase-js'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import logger from '@/features/logger'
 
 export async function login(loginFormData: LoginFormData) {
-  console.log('login action', { loginFormData })
   const supabase = await createClient()
 
   const { success, data, error: parsingError } = parseLoginData(loginFormData)
 
   if (!success) {
-    console.error(parsingError)
+    logger
+      .withMetadata({
+        function: 'login',
+        loginFormData,
+      })
+      .withError(parsingError)
+      .error(
+        'loginFormData for user %s failed to be parsed with parsingError: %s',
+        loginFormData.email,
+        parsingError.message,
+      )
     return
   }
 
-  const { error } = await supabase.auth.signInWithPassword(data)
+  const { error, data: supabaseData } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password,
+  })
 
   if (error) {
-    redirect('/error')
+    logger
+      .withMetadata({
+        function: 'login',
+        loginFormData,
+        supabaseData,
+      })
+      .withError(error)
+      .error(
+        'User %s failed to login to Supabase with error: %s',
+        loginFormData.email,
+        error.message,
+      )
+    return
   }
+
+  logger
+    .withMetadata({
+      function: 'login',
+      loginFormData,
+      supabaseData,
+    })
+    .info(
+      'User %s successfully logged in to Supabase Auth',
+      loginFormData.email,
+    )
 
   revalidatePath(paths.dashboard.pathname, 'layout')
   redirect(paths.dashboard.pathname)
 }
-
 export async function signup(formData: FormData) {
   const supabase = await createClient()
 
@@ -57,12 +92,15 @@ export async function signup(formData: FormData) {
 }
 
 export const logout = async () => {
-  console.log('logout')
-
   const supabase = await createClient()
   const { error } = await supabase.auth.signOut()
   if (error) {
-    throw new Error(error.message, error)
+    logger
+      .withMetadata({
+        function: 'logout',
+      })
+      .withError(error)
+      .error('Error logging out user')
   }
 }
 
@@ -71,21 +109,29 @@ export const getUser = async (): Promise<User> => {
 
   const { data, error } = await supabase.auth.getUser()
 
-  if (error) {
-    throw new Error(error.message, error)
+  if (error || !data?.user) {
+    logger
+      .withMetadata({
+        function: 'getUser',
+        supabaseData: data,
+      })
+      .withError(error)
+      .error('Error getting user')
+    redirect(paths.login.pathname)
   }
 
-  if (!data?.user) {
-    throw new Error('Unknown auth error')
-  }
   return data.user
 }
-
 export const validateSession = async (): Promise<void> => {
   try {
     await getUser()
   } catch (error) {
-    console.error(error)
+    logger
+      .withMetadata({
+        function: 'validateSession',
+      })
+      .withError(error)
+
     redirect(paths.login.pathname)
   }
 }

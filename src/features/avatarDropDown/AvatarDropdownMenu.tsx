@@ -11,48 +11,50 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu'
-
-import { getInitials } from '@/shared/lib/utils'
+import { isSomeTrue } from '@/shared/lib/utils'
 import { ChevronDown } from 'lucide-react'
 
 import useUser from '@/features/auth/hooks/useUser'
 import useLogout from '@/features/auth/hooks/useLogout'
-import { z } from 'zod'
+import { getAvatarDropdownData } from '@/features/avatarDropDown/utils'
 
 export default function AvatarDropdownMenu() {
-  const { data: user } = useUser()
-  const logoutQuery = useLogout()
+  console.log('rendering AvatarDropdownMenu')
 
-  const { data: userFullName } = z
-    .string()
-    .safeParse(user?.user_metadata?.fullName)
+  const useUserQuery = useUser()
+  const { data: user } = useUserQuery
+  const useLogoutQuery = useLogout()
+  const { logout } = useLogoutQuery
 
-  const { data: avatarUrl } = z
-    .string()
-    .url()
-    .safeParse(user?.user_metadata?.avatar)
+  const isLoading = isSomeTrue([useUserQuery.isLoading, useUserQuery.isPending])
+  const isLoggingOut = useLogoutQuery.isPending
 
-  const initials = userFullName ? getInitials(userFullName) : '**'
+  if (isLoggingOut) return <p>logging out...</p>
 
-  const userName = userFullName || 'unkwnown user'
+  if (isLoading) return <p>loading...</p>
+
+  const { avatarUrl, firstName, initials, fullName } = getAvatarDropdownData({
+    fullName: user?.user_metadata?.fullName,
+    avatarUrl: user?.user_metadata?.avatar,
+    isLoading,
+  })
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-2">
-        <Avatar>
+        <Avatar className="size-9">
           {avatarUrl ? (
-            <AvatarImage src={avatarUrl} alt={`${userName}'s avatar`} />
+            <AvatarImage src={avatarUrl} alt={`${fullName}'s avatar`} />
           ) : (
-            <AvatarFallback>{initials}</AvatarFallback>
+            <AvatarFallback className="text-sm">{initials}</AvatarFallback>
           )}
         </Avatar>
-        <p>{userName}</p>
+        <p>{firstName}</p>
         <ChevronDown size={16} strokeWidth={1} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => logoutQuery.mutate()}>
-          Logout
-        </DropdownMenuItem>
+        <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
