@@ -2,13 +2,8 @@ import { type NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   experimental: {
-    // serverExternalPackages: ['@node-rs/argon2', 'oslo/password'],
-    // serverComponentsExternalPackages: ['@node-rs/argon2', 'oslo/password'],
-
     reactCompiler: true,
   },
-  // serverExternalPackages: ['@node-rs/argon2', 'oslo/password'],
-  serverExternalPackages: ['@node-rs/argon2'],
   // we will handle errors with git action hooks
   typescript: {
     ignoreBuildErrors: true,

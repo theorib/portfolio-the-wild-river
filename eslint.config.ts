@@ -8,7 +8,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import reactHooks from 'eslint-plugin-react-hooks'
 import prettier from 'eslint-config-prettier'
 import vitest from 'eslint-plugin-vitest'
-import testingLibrary from 'eslint-plugin-testing-library'
+// import testingLibrary from 'eslint-plugin-testing-library'
 import jestDom from 'eslint-plugin-jest-dom'
 // @ts-expect-error there are no type definitions for this
 import next from '@next/eslint-plugin-next'
@@ -399,12 +399,12 @@ const vitestDisableTypeChecked = {
  * 'eslint-plugin-testing-library' is a plugin that provides linting rules for testing with testing-library. In this case we are using it for react-testing-library with their recommended configuration:
  * @see {@link https://github.com/testing-library/eslint-plugin-testing-library?tab=readme-ov-file#react}
  */
-// @ts-expect-error these are not used on purpose
-const testingLibraryRecommended = {
-  name: 'testing-library/recommended',
-  files: [...TEST_FILE_PATTERNS],
-  ...testingLibrary.configs['flat/react'],
-}
+
+// const testingLibraryRecommended = {
+//   name: 'testing-library/recommended',
+//   files: [...TEST_FILE_PATTERNS],
+//   ...testingLibrary.configs['flat/react'],
+// }
 
 /**
  * 'eslint-plugin-jest-dom' is a plugin to follow best practices and anticipate common mistakes when writing tests with jest-dom.
