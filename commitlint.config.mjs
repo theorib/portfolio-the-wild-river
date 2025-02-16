@@ -1,24 +1,25 @@
 const config = {
-  extends: ['@commitlint/config-conventional'],
-  parserPreset: 'conventional-changelog-conventionalcommits',
+  extends: ['@commitlint/config-conventional', 'gitmoji'],
+  parserPreset: 'conventional-changelog-atom',
   rules: {
     'type-enum': [
       2,
       'always',
       [
+        'build',
+        'chore',
+        'ci',
+        'docs',
         'feat',
         'fix',
-        'docs',
-        'style',
-        'chore',
-        'refactor',
-        'ci',
-        'test',
-        'revert',
         'perf',
-        'vercel',
+        'refactor',
+        'revert',
+        'style',
+        'test',
+        'i18n',
       ],
     ],
   },
-};
-export default config;
+}
+export default config
