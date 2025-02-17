@@ -7,7 +7,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 // @ts-expect-error there are no type definitions for this
 import reactHooks from 'eslint-plugin-react-hooks'
 import prettier from 'eslint-config-prettier'
-import vitest from 'eslint-plugin-vitest'
+import vitest from '@vitest/eslint-plugin'
 // import testingLibrary from 'eslint-plugin-testing-library'
 import jestDom from 'eslint-plugin-jest-dom'
 // @ts-expect-error there are no type definitions for this
