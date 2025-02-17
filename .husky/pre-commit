@@ -10,7 +10,7 @@ allowed_branches="main"
 # Check if the current branch is in the allowed list
 if echo "$allowed_branches" | grep -q "$branch"; then
   pnpm lint-staged -v
-  pnpm vitest run
+  pnpm vitest run --browser.headless
 else
   echo "Skipping pre-commit hook on branch $branch"
 fi
