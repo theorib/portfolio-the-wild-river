@@ -10,7 +10,7 @@ function TodaySummaryItemList({
     <ul
       data-slot="today-summary-item"
       className={cn(
-        'grid grid-cols-[max-content_max-content_10fr_5fr_max-content] items-center gap-2',
+        'grid grid-cols-[max-content_max-content_10fr_5fr_max-content] items-center gap-x-4 gap-y-2',
         className,
       )}
       {...props}
@@ -34,7 +34,7 @@ function TodaySummaryItemBadge({
   return (
     <Badge
       data-slot="today-summary-item-badge"
-      className={cn('uppercase', className)}
+      className={cn('inline-flex w-full uppercase', className)}
       {...props}
     />
   )
@@ -96,7 +96,7 @@ function TodaySummaryContent({
   return (
     <div
       data-slot="stats-content"
-      className={cn('p-6 text-4xl', className)}
+      className={cn('flex flex-col gap-4 p-6 text-4xl', className)}
       {...props}
     />
   )
