@@ -8,7 +8,7 @@ mv .husky/prepare-commit-msg .husky/prepare-commit-msg.bak
 
 # Create temporary hooks
 echo '#!/bin/sh
-npx --no -- commitlint --edit $1' > .husky/commit-msg
+pnpm dlx commitlint --edit $1' > .husky/commit-msg
 
 echo '#!/bin/sh
 pnpm install' > .husky/post-merge
