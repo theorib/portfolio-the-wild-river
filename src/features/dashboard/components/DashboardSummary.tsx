@@ -31,13 +31,22 @@ export default function DashboardSummary({
       <TodaySummaryContent>
         <TodaySummaryTitle>Today Summary</TodaySummaryTitle>
         <TodaySummaryItemList>
+          <TodaySummaryItem className="text-sm">
+            <span>Status</span>
+            <span>Country</span>
+            <span>Name</span>
+            <span>Guests</span>
+            <span></span>
+          </TodaySummaryItem>
           {data.map(item => (
             <TodaySummaryItem key={item.name}>
               <TodaySummaryItemBadge>{item.status}</TodaySummaryItemBadge>
               <TodaySummaryItemFlag>{item.flag}</TodaySummaryItemFlag>
               <TodaySummaryItemName>{item.name}</TodaySummaryItemName>
               <TodaySummaryItemNumber>{item.number}</TodaySummaryItemNumber>
-              <TodaySummaryItemButton>check in</TodaySummaryItemButton>
+              <TodaySummaryItemButton>
+                {item.status === 'arrived' ? 'check out' : 'check in'}
+              </TodaySummaryItemButton>
             </TodaySummaryItem>
           ))}
         </TodaySummaryItemList>
