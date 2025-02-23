@@ -337,6 +337,18 @@ const configNext = {
 } satisfies Config
 
 /**
+ * Some Next.js files have default async exports with function such as GET, POST, generateMetadata, generateStaticParams, etc.
+ * When these functions are used, depending on the implementation they don't necessarily need to await for values thus we ewnt to turn some rules into warnings only in some specific files.
+ */
+const configNextCustomRoutes = {
+  name: 'next/custom-routes',
+  files: ['src/**/?(route|page|layout).?(c|m)?(t|j)s?(x)'],
+  rules: {
+    '@typescript-eslint/require-await': ['warn'],
+  },
+} satisfies Config
+
+/**
  * next/core-web-vitals updates eslint-plugin-next to error on a number of rules that are warnings by default if they affect Core Web Vitals
  * @see {@link https://nextjs.org/docs/app/api-reference/config/eslint#with-core-web-vitals}
  * @see {@link https://web.dev/articles/vitals}
@@ -503,6 +515,7 @@ const eslintConfig = [
 
   nextNextRecommended,
   configNext,
+  configNextCustomRoutes,
 
   coreWebVitals,
   vitestRecommended,
