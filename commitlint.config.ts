@@ -1,6 +1,8 @@
-const config = {
-  extends: ['@commitlint/config-conventional', 'gitmoji'],
-  parserPreset: 'conventional-changelog-atom',
+import type { UserConfig } from '@commitlint/types'
+
+const config: UserConfig = {
+  extends: ['gitmoji'],
+
   rules: {
     'type-enum': [
       2,
