@@ -1,3 +1,4 @@
+import BookingsTable from '@/features/bookings/BookingsTable'
 import {
   PageHeader,
   PageHeaderTitle,
@@ -5,8 +6,11 @@ import {
 
 export default function BookingsPage() {
   return (
-    <PageHeader>
-      <PageHeaderTitle>Bookings</PageHeaderTitle>
-    </PageHeader>
+    <>
+      <PageHeader>
+        <PageHeaderTitle>Bookings</PageHeaderTitle>
+      </PageHeader>
+      <BookingsTable />
+    </>
   )
 }
