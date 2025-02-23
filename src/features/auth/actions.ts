@@ -122,6 +122,7 @@ export const getUser = async (): Promise<User> => {
 
   return data.user
 }
+
 export const validateSession = async (): Promise<void> => {
   try {
     await getUser()
