@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { isFuture, isPast, isToday } from 'date-fns'
 
 import { guests } from '@/features/dataReset/data/data-guests'
-import { createClient } from '@/services/supabase/supabaseClient'
+import { createClient } from '@/services/supabase/supabaseBrowser'
 import { bookings } from '@/features/dataReset/data/data-bookings'
 import { cabins } from '@/features/dataReset/data/data-cabins'
 import logger from '@/features/logger'

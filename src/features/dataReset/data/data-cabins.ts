@@ -1,7 +1,7 @@
 import { type Cabins as Cabins } from '@/features/dataReset/schemas'
 import { env } from '@/shared/lib/env'
 
-const imageUrl = `${env.SUPABASE_URL}/storage/v1/object/public/cabin-images/`
+const imageUrl = `${env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/cabin-images/`
 
 export const cabins: Cabins = [
   {
