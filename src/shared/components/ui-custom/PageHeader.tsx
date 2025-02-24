@@ -8,7 +8,7 @@ export function PageHeader({
   return (
     <header
       data-slot="page-header"
-      className={cn('flex items-center justify-between gap-2', className)}
+      className={cn('mb-4 flex items-center justify-between gap-2', className)}
       {...props}
     />
   )
