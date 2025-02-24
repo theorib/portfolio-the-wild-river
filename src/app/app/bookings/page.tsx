@@ -1,4 +1,6 @@
-import BookingsTable from '@/features/bookings/BookingsTable'
+import BookingsFilter from '@/features/bookings/components/BookingsFilter'
+import BookingsSort from '@/features/bookings/components/BookingsSort'
+import BookingsTable from '@/features/bookings/components/BookingsTable'
 import {
   PageHeader,
   PageHeaderTitle,
@@ -9,6 +11,10 @@ export default function BookingsPage() {
     <>
       <PageHeader>
         <PageHeaderTitle>Bookings</PageHeaderTitle>
+        <div className="flex items-center gap-3">
+          <BookingsFilter />
+          <BookingsSort />
+        </div>
       </PageHeader>
       <BookingsTable />
     </>
