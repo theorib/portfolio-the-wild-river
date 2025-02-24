@@ -5,11 +5,11 @@ type GetTodayOptions = {
   end?: boolean
 }
 
-export const subtractDates = (dateStr1: DateType, dateStr2: DateType): number =>
-  differenceInDays(parseISO(String(dateStr1)), parseISO(String(dateStr2)))
+export const subtractDates = (date1: Date, date2: Date): number =>
+  differenceInDays(date1, date2)
 
-export const formatDistanceFromNow = (dateStr: string): string =>
-  formatDistance(parseISO(dateStr), new Date(), {
+export const formatDistanceFromNow = (date: Date): string =>
+  formatDistance(date, new Date(), {
     addSuffix: true,
   })
     .replace('about ', '')
