@@ -1,48 +1,46 @@
 'use client'
-import { type Booking, type Bookings } from '@/services/supabase/supabase.types'
-import { type ColumnDef } from '@tanstack/react-table'
+import { type Booking } from '@/services/supabase/supabase.types'
+import { createColumnHelper } from '@tanstack/react-table'
 
-// CABIN
-// GUEST
-// DATES
-// STATUS
-// AMOUNT
+const columnHelper = createColumnHelper<Booking>()
 
-export const bookingsColumns: Array<ColumnDef<Booking>> = [
-  {
+export const bookingsColumns = [
+  columnHelper.accessor('cabinId', {
     header: 'Cabin',
-    accessorKey: 'cabinId',
-  },
-  {
+    cell: booking => booking.getValue(),
+  }),
+
+  columnHelper.accessor('guestId.fullName', {
     header: 'Guest',
-    accessorKey: 'guestId.fullName',
-  },
-  {
+    cell: booking => booking.getValue(),
+  }),
+  columnHelper.accessor('guestId.email', {
     header: 'Email',
-    accessorKey: 'guestId.email',
-  },
-  {
+    cell: booking => booking.getValue(),
+  }),
+  columnHelper.accessor('startDate', {
     header: 'Dates',
-    accessorKey: 'startDate',
-  },
-  {
+    cell: booking => booking.getValue(),
+  }),
+  columnHelper.accessor('endDate', {
     header: 'End date',
-    accessorKey: 'endDate',
-  },
-  {
+    cell: booking => booking.getValue(),
+  }),
+  columnHelper.accessor('status', {
     header: 'Status',
-    accessorKey: 'status',
-  },
-  {
+    cell: booking => booking.getValue(),
+  }),
+  columnHelper.accessor('totalPrice', {
     header: 'Total price',
-    accessorKey: 'totalPrice',
-  },
-  {
+    cell: booking => booking.getValue(),
+  }),
+  columnHelper.accessor('numNights', {
     header: 'Nights',
-    accessorKey: 'numNights',
-  },
-  {
+    cell: booking => booking.getValue(),
+  }),
+  columnHelper.accessor('numGuests', {
     header: 'Guests',
-    accessorKey: 'numGuests',
-  },
+    cell: booking => booking.getValue(),
+  }),
 ]
+export type BookingColumns = typeof bookingsColumns

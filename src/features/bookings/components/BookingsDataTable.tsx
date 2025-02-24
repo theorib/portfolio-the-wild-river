@@ -16,15 +16,25 @@ import {
   TableRow,
 } from '@/shared/components/ui/table'
 
-interface BookingsDataTableProps<TData, TValue> {
-  columns: Array<ColumnDef<TData, TValue>>
+/** Here we are using any as the any way I found to be able to type the columns object when building it using createColumnHelper
+ *  @see {@link https://github.com/TanStack/table/discussions/5218}
+ *  @see {@link https://github.com/TanStack/table/discussions/5794}
+ * otherwise we would normally use `columns: Array<ColumnHelper<TValue>>` while passing TValue to both the function and the
+ * BookingsDataTableProps\<TData, TValue\>
+ * BookingsDataTable\<TData, TValue\>
+ * BookingsDataTable\<TData, TValue\>
+ * BookingsDataTableProps\<TData, TValue\>
+ **/
+interface BookingsDataTableProps<TData> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  columns: Array<ColumnDef<TData, any>>
   data: Array<TData>
 }
 
-export default function BookingsDataTable<TData, TValue>({
+export default function BookingsDataTable<TData>({
   columns,
   data,
-}: BookingsDataTableProps<TData, TValue>) {
+}: BookingsDataTableProps<TData>) {
   const table = useReactTable({
     data,
     columns,
