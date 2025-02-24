@@ -19,6 +19,7 @@
     "lint:next": "next lint",
     "lint:staged": "pnpm lint-staged -v --config lint-staged.config.mjs",
     "lint:tsc": "tsc --noEmit --skipLibCheck",
+    "package:sort": "pnpm dlx sort-package-json",
     "prepare": "husky && husky install",
     "shad": "pnpm dlx shadcn@canary add",
     "start": "next start",
