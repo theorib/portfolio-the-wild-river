@@ -6,11 +6,11 @@ export default function Logo() {
   return (
     <div className="flex w-full justify-center">
       <Image
-        src="/logo.svg"
+        src="/WildRiverLogo.svg"
         alt="hotel logo"
         width={logoSize}
         height={logoSize}
-        className=""
+        className="rounded-full bg-white p-2 invert dark:invert-0"
         priority
       />
     </div>
