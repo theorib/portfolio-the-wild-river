@@ -1,6 +1,10 @@
 // In Next.js, this file would be called: app/providers.jsx
 'use client'
 
+import {
+  DEFAULT_QUERY_FETCH_INTERVAL,
+  DEFAULT_QUERY_STALE_TIME,
+} from '@/shared/constants'
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 import {
   isServer,
@@ -16,8 +20,8 @@ function makeQueryClient() {
         // With SSR, we usually want to set some default staleTime
         // above 0 to avoid refetching immediately on the client
         // staleTime: 60 * 1000,
-        staleTime: 6 * 1000,
-        refetchInterval: 6 * 1000,
+        staleTime: DEFAULT_QUERY_STALE_TIME,
+        refetchInterval: DEFAULT_QUERY_FETCH_INTERVAL,
       },
     },
   })
