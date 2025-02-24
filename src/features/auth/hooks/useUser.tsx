@@ -12,8 +12,6 @@ export const userQuery = queryOptions({
 })
 
 export default function useUser() {
-  console.log('useUser')
-
   const queryClient = useQueryClient()
   const router = useRouter()
   const userQueryResult = useQuery(userQuery)

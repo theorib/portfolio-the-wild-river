@@ -19,8 +19,6 @@ import useLogout from '@/features/auth/hooks/useLogout'
 import { getAvatarDropdownData } from '@/features/avatarDropDown/utils'
 
 export default function AvatarDropdownMenu() {
-  console.log('rendering AvatarDropdownMenu')
-
   const useUserQuery = useUser()
   const { data: user } = useUserQuery
   const useLogoutQuery = useLogout()
