@@ -14,7 +14,9 @@ type GetBookingsProps = {
 }
 
 export const getBookings = async ({ supabaseClient }: GetBookingsProps) => {
-  const { data, error } = await supabaseClient.from('bookings').select('*')
+  const { data, error } = await supabaseClient
+    .from('bookings')
+    .select(`*, guestId(fullName, id, email)`)
 
   if (error || !data) {
     logger
@@ -24,7 +26,9 @@ export const getBookings = async ({ supabaseClient }: GetBookingsProps) => {
       })
       .withError(error)
       .error('Error getting bookings')
+
+    throw error
   }
 
-  return { data, error }
+  return data
 }
