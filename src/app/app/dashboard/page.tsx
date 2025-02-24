@@ -16,7 +16,7 @@ function DashboardPage() {
     <div className="grid w-full grid-cols-4 gap-4">
       <PageHeader className="xs:flex-row col-span-4 flex w-full flex-col items-center justify-between gap-4 md:col-span-4">
         <PageHeaderTitle>Dashboard</PageHeaderTitle>
-        <ToggleGroup type="single" defaultValue="Last 7 Days">
+        <ToggleGroup type="single" defaultValue="Last 7 Days" variant="outline">
           <ToggleGroupItem value="Last 7 Days">Last 7 Days</ToggleGroupItem>
           <ToggleGroupItem value="Last 30 Days">Last 30 Days</ToggleGroupItem>
           <ToggleGroupItem value="Last 90 Days">Last 90 Days</ToggleGroupItem>
