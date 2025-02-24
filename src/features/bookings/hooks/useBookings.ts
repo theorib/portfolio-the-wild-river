@@ -1,4 +1,4 @@
-import { getBookings } from '@/features/bookings/actions'
+import { getBookings } from '@/services/supabase/queries/bookings'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 import { type TypedSupabaseClient } from '@/services/supabase/supabase.types'
 import useSupabaseBrowser from '@/services/supabase/supabaseBrowser'
