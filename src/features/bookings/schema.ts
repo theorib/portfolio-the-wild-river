@@ -1,11 +1,16 @@
 import * as z from 'zod'
 
-export const BookingsStatusFilterSchema = z.union([
-  z.literal('all'),
+export const BookingsStatusSchema = z.union([
   z.literal('checked-out'),
   z.literal('checked-in'),
   z.literal('unconfirmed'),
 ])
+export type BookingsStatus = z.output<typeof BookingsStatusSchema>
+
+export const BookingsStatusFilterSchema = BookingsStatusSchema.or(
+  z.literal('all'),
+)
+
 export type BookingsStatusFilter = z.output<typeof BookingsStatusFilterSchema>
 
 export const BookingsSortSchema = z.union([
