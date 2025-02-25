@@ -20,7 +20,7 @@ export function BookingDataCellBold({
   return (
     <span
       data-slot="booking-data-cell-bold"
-      className={cn('font-bold', className)}
+      className={cn('font-medium', className)}
       {...props}
     />
   )
@@ -33,7 +33,7 @@ export function BookingDataCellLight({
   return (
     <span
       data-slot="booking-data-cell-light"
-      className={cn('opacity-70', className)}
+      className={cn('opacity-55', className)}
       {...props}
     />
   )

@@ -8,7 +8,10 @@ export function PageHeader({
   return (
     <header
       data-slot="page-header"
-      className={cn('mb-4 flex items-center justify-between gap-2', className)}
+      className={cn(
+        'mb-4 flex items-center justify-between gap-2 uppercase',
+        className,
+      )}
       {...props}
     />
   )
@@ -21,7 +24,7 @@ export function PageHeaderTitle({
   return (
     <h1
       data-slot="page-header-title"
-      className={cn('text-3xl font-bold tracking-tight', className)}
+      className={cn('text-3xl font-bold uppercase', className)}
       {...props}
     />
   )
