@@ -1,5 +1,17 @@
 import * as z from 'zod'
 
+export const DatesColumnDataSchema = z.object({
+  startDate: z
+    .string()
+    .datetime({ local: true })
+    .transform(date => new Date(date)),
+  endDate: z
+    .string()
+    .datetime({ local: true })
+    .transform(date => new Date(date)),
+  numNights: z.number().int().positive(),
+})
+
 export const BookingsStatusSchema = z.union([
   z.literal('checked-out'),
   z.literal('checked-in'),
