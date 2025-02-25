@@ -1,13 +1,41 @@
 'use client'
+
 import {
   BookingDataCellLight,
   BookingDataCellBold,
   BookingDataCellContainer,
 } from '@/features/bookings/components/BookingCellItems'
+import { BookingsStatusSchema } from '@/features/bookings/schema'
 import { type Booking } from '@/services/supabase/supabase.types'
-import { formatDistanceFromNow } from '@/shared/lib/utils/helpers'
+import { Badge } from '@/shared/components/ui/badge'
+
+import { cn } from '@/shared/lib/utils'
+import {
+  formatCurrency,
+  formatDistanceFromNow,
+} from '@/shared/lib/utils/helpers'
+import {
+  DropdownMenu,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuPortal,
+  DropdownMenuSubContent,
+} from '@/shared/components/ui/dropdown-menu'
 import { createColumnHelper } from '@tanstack/react-table'
+
 import { format, isToday } from 'date-fns'
+import Link from 'next/link'
+
+import { z } from 'zod'
+import { Button } from '@/shared/components/ui/button'
+import { EllipsisVertical, Eye, LogOut, OctagonX } from 'lucide-react'
 
 const columnHelper = createColumnHelper<Booking>()
 
@@ -15,7 +43,6 @@ export const bookingsColumns = [
   columnHelper.accessor('cabinId', {
     header: 'Cabin',
     cell: props => props.getValue(),
-    // cell: props => props.cell.row.original.cabinId,
   }),
 
   columnHelper.accessor(
@@ -25,23 +52,25 @@ export const bookingsColumns = [
     {
       header: 'Guest',
       cell: props => {
+        const { data: email, success } = z
+          .string()
+          .email()
+          .safeParse(props.getValue().email)
+
         return (
           <BookingDataCellContainer>
             <BookingDataCellBold>
               {props.getValue().fullName}
             </BookingDataCellBold>
             <BookingDataCellLight>
-              {props.getValue().email}
+              {success ? <Link href={`mailto:${email}`}>{email}</Link> : null}
             </BookingDataCellLight>
           </BookingDataCellContainer>
         )
       },
     },
   ),
-  // columnHelper.accessor('guestId.email', {
-  //   header: 'Email',
-  //   cell: props => props.getValue(),
-  // }),
+
   columnHelper.accessor(
     row => ({
       startDate: row.startDate,
@@ -76,20 +105,94 @@ export const bookingsColumns = [
           </BookingDataCellContainer>
         )
       },
-      //     cell: props => props.cell.row.original.cabinId,
     },
   ),
-  // columnHelper.accessor('endDate', {
-  //   header: 'End date',
-  //   cell: props => props.getValue(),
-  // }),
+
   columnHelper.accessor('status', {
     header: 'Status',
-    cell: props => props.getValue(),
+    cell: props => {
+      const {
+        success,
+        data: status,
+        error,
+      } = BookingsStatusSchema.safeParse(props.getValue())
+
+      if (error) return null
+
+      const variant = {
+        'checked-out': 'bg-zinc-200 text-zinc-800',
+        'checked-in': 'bg-green-200 text-green-800',
+        unconfirmed: 'bg-sky-200 text-blue-800',
+      }
+
+      if (success && status)
+        return (
+          <Badge className={cn('inline-flex font-bold', variant[status])}>
+            {status}
+          </Badge>
+        )
+    },
   }),
   columnHelper.accessor('totalPrice', {
     header: 'Amount',
-    cell: props => props.getValue(),
+    cell: props => {
+      const {
+        data: amount,
+        error,
+        success,
+      } = z
+        .number()
+        .transform(value => formatCurrency(value))
+        .safeParse(props.getValue())
+
+      if (error) return null
+
+      if (success && amount)
+        return <span className="font-bold opacity-65">{amount}</span>
+    },
+  }),
+
+  columnHelper.display({
+    id: 'actions',
+    header: 'Actions',
+    cell: props => {
+      console.log(props.row.original.id)
+      const bookingId = props.row.original.id
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost">
+              <EllipsisVertical />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>{`Booking #${bookingId}`}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                <Link
+                  href={`bookings/${bookingId}`}
+                  className="flex items-center gap-2"
+                >
+                  <Eye />
+                  See Details
+                </Link>
+                {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <LogOut /> Check out
+                {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <OctagonX /> Delete
+                {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
   }),
   // columnHelper.accessor('numNights', {
   //   header: 'Nights',
