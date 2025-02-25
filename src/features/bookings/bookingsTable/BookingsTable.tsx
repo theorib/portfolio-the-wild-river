@@ -31,7 +31,7 @@ interface BookingsDataTableProps<TData> {
   data: Array<TData>
 }
 
-export default function BookingsDataTable<TData>({
+export default function BookingsTable<TData>({
   columns,
   data,
 }: BookingsDataTableProps<TData>) {

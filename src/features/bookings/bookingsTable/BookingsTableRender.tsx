@@ -1,10 +1,10 @@
 'use client'
 
-import { bookingsColumns } from '@/features/bookings/components/BookingsColumns'
-import BookingsDataTable from '@/features/bookings/components/BookingsDataTable'
+import { bookingsTableColumns } from '@/features/bookings/bookingsTable/BookingsTableColumns'
+import BookingsTable from '@/features/bookings/bookingsTable/BookingsTable'
 import useBookings from '@/features/bookings/hooks/useBookings'
 
-export default function BookingsTable() {
+export default function BookingsTableRender() {
   const {
     data: bookings,
     isLoading,
@@ -22,7 +22,7 @@ export default function BookingsTable() {
   if (status === 'success' && bookings)
     return (
       <div>
-        <BookingsDataTable data={bookings ?? []} columns={bookingsColumns} />
+        <BookingsTable data={bookings ?? []} columns={bookingsTableColumns} />
       </div>
     )
 }

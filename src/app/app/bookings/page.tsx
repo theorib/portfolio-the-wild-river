@@ -1,6 +1,6 @@
 import BookingsFilter from '@/features/bookings/components/BookingsFilter'
 import BookingsSort from '@/features/bookings/components/BookingsSort'
-import BookingsTable from '@/features/bookings/components/BookingsTable'
+import BookingsTableRender from '@/features/bookings/bookingsTable/BookingsTableRender'
 import {
   PageHeader,
   PageHeaderTitle,
@@ -16,7 +16,7 @@ export default function BookingsPage() {
           <BookingsSort />
         </div>
       </PageHeader>
-      <BookingsTable />
+      <BookingsTableRender />
     </>
   )
 }
