@@ -1,6 +1,5 @@
-import { differenceInDays, formatDistance, parseISO, add } from 'date-fns'
+import { differenceInDays, formatDistance, add } from 'date-fns'
 
-type DateType = Date | string
 type GetTodayOptions = {
   end?: boolean
 }
