@@ -1,5 +1,8 @@
 import localFont from 'next/font/local'
 
+/**
+ * The following paths have to be relative to this file not the root of the project or src folder, or any other location.
+ */
 export const objektiv = localFont({
   src: [
     {
