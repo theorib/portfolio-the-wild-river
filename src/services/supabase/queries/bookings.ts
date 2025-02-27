@@ -32,3 +32,30 @@ export const getBookings = async ({ supabaseClient }: GetBookingsProps) => {
 
   return data
 }
+
+export const getBookingById = async ({
+  supabaseClient,
+  bookingId,
+}: {
+  supabaseClient: TypedSupabaseClient
+  bookingId: number
+}) => {
+  const { data, error } = await supabaseClient
+    .from('bookings')
+    .select(`*, guestId(fullName, id, email)`)
+    .eq('id', bookingId)
+    .single()
+
+  if (error || !data) {
+    logger
+      .withMetadata({
+        function: 'getBookingById',
+        supabaseData: data,
+      })
+      .withError(error)
+      .error('Error getting booking')
+    throw error
+  }
+
+  return data
+}
