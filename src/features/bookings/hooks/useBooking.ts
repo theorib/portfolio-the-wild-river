@@ -1,5 +1,5 @@
 import { getBookingById } from '@/services/supabase/queries/bookings'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import { queryOptions, useQuery, useQueryClient } from '@tanstack/react-query'
 import { type TypedSupabaseClient } from '@/services/supabase/supabase.types'
 import useSupabaseBrowser from '@/services/supabase/supabaseBrowser'
 
@@ -21,5 +21,13 @@ export const bookingQuery = ({
 
 export default function useBooking({ bookingId }: { bookingId: number }) {
   const supabaseClient = useSupabaseBrowser()
-  return useQuery(bookingQuery({ supabaseClient, bookingId }))
+  const queryClient = useQueryClient()
+  return useQuery({
+    ...bookingQuery({ supabaseClient, bookingId }),
+    // use initial data from prefetched data if available
+    initialData: () =>
+      queryClient.getQueryData(
+        bookingQuery({ supabaseClient, bookingId }).queryKey,
+      ),
+  })
 }
