@@ -11,7 +11,7 @@ import {
   DatesColumnDataSchema,
 } from '@/features/bookings/schema'
 import { type Booking } from '@/services/supabase/supabase.types'
-import { Badge } from '@/shared/components/ui/badge'
+
 import { cn } from '@/shared/lib/utils'
 import { formatCurrency } from '@/shared/lib/utils/helpers'
 import { createColumnHelper } from '@tanstack/react-table'
@@ -20,6 +20,7 @@ import { z } from 'zod'
 import BookingsTableColumnActionsRowItem from '@/features/bookings/bookingsTable/BookingsTableColumnActionsRowItem'
 import BookingsTableColumnDates from '@/features/bookings/bookingsTable/BookingsTableColumnDatesRowItem'
 import { fromError } from 'zod-validation-error'
+import { BookingStatusBadge } from '@/features/bookings/components/BookingStatusBadge'
 
 const columnHelper = createColumnHelper<Booking>()
 
@@ -89,17 +90,15 @@ export const bookingsTableColumns = [
 
       if (error) return null
 
-      const variant = {
-        'checked-out': 'bg-zinc-200 text-zinc-800',
-        'checked-in': 'bg-green-200 text-green-800',
-        unconfirmed: 'bg-sky-200 text-blue-800',
-      }
-
       if (success && status)
         return (
-          <Badge className={cn('inline-flex font-bold', variant[status])}>
+          <BookingStatusBadge
+            className={cn('inline-flex font-bold')}
+            variant={status}
+            size="full-width"
+          >
             {status}
-          </Badge>
+          </BookingStatusBadge>
         )
     },
   }),
