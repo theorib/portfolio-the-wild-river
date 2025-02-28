@@ -1,11 +1,16 @@
 import { DatesColumnDataSchema } from '@/features/bookings/schema'
-import { type Booking } from '@/services/supabase/supabase.types'
 import { formatDistanceFromNow } from '@/shared/lib/utils/helpers'
 import { format, isToday } from 'date-fns'
 import { ZodError } from 'zod'
 import { fromError } from 'zod-validation-error'
 
-export type BookingDates = {
+export type BookingDatesInput = {
+  startDate: unknown
+  endDate: unknown
+  numNights: unknown
+}
+
+export type BookingDatesOutput = {
   startDate: string
   endDate: string
   distance: string
@@ -13,7 +18,7 @@ export type BookingDates = {
 }
 
 type UseBookingDatesSuccess = {
-  data: BookingDates
+  data: BookingDatesOutput
   success: true
   error: undefined
 }
@@ -26,13 +31,13 @@ type UseBookingDatesError = {
 type UseBookingDatesReturn = UseBookingDatesSuccess | UseBookingDatesError
 
 export default function useBookingDates(
-  booking: Booking,
+  bookingDates: BookingDatesInput,
 ): UseBookingDatesReturn {
   try {
     const dates = DatesColumnDataSchema.parse({
-      startDate: booking?.startDate,
-      endDate: booking?.endDate,
-      numNights: booking?.numNights,
+      startDate: bookingDates?.startDate,
+      endDate: bookingDates?.endDate,
+      numNights: bookingDates?.numNights,
     })
 
     const formattedStartDate = format(
