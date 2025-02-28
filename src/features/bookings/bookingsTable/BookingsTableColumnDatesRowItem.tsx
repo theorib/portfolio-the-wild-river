@@ -1,51 +1,50 @@
+'use client'
 import {
   BookingsTableItemCellContainer,
   BookingTableItemCellBold,
+  BookingTableItemCellError,
   BookingTableItemCellLight,
 } from '@/features/bookings/bookingsTable/BookingsTableItemsCell'
-import { format, isToday } from 'date-fns'
-import { formatDistanceFromNow } from '@/shared/lib/utils/helpers'
+
+import useBookingDates, {
+  type BookingDatesInput,
+} from '@/features/bookings/hooks/useBookingDates'
 
 type BookingsTableColumnDatesProps = {
-  data: {
-    startDate: Date
-    endDate: Date
-    numNights: number
-  }
+  dates: BookingDatesInput
 }
 
 export default function BookingsTableColumnDates({
-  data,
+  dates,
 }: BookingsTableColumnDatesProps) {
-  const { startDate, endDate, numNights } = data
+  const { data, success, error } = useBookingDates(dates)
 
-  const formattedStartDate = format(new Date(startDate), 'MMM dd yyyy')
+  if (error) {
+    return (
+      <BookingTableItemCellError error={error}>
+        Invalid Dates
+      </BookingTableItemCellError>
+    )
+  }
 
-  const formattedEndDate = format(new Date(endDate), 'MMM dd yyyy')
+  if (success) {
+    const { startDate, endDate, distance, stayLength } = data
 
-  const distance = isToday(startDate)
-    ? 'Today'
-    : formatDistanceFromNow(startDate)
-  const stayLength = String(numNights)
-
-  return (
-    <BookingsTableItemCellContainer className="grid grid-cols-[max-content_max-content_max-content]">
-      <div className="contents">
-        <BookingTableItemCellBold>{distance}</BookingTableItemCellBold>
-        <BookingTableItemCellBold>&mdash;</BookingTableItemCellBold>
-        <BookingTableItemCellBold>
-          {stayLength} night stay
-        </BookingTableItemCellBold>
-      </div>
-      <div className="contents">
-        <BookingTableItemCellLight>
-          {formattedStartDate}
-        </BookingTableItemCellLight>
-        <BookingTableItemCellLight>&mdash;</BookingTableItemCellLight>
-        <BookingTableItemCellLight>
-          {formattedEndDate}
-        </BookingTableItemCellLight>
-      </div>
-    </BookingsTableItemCellContainer>
-  )
+    return (
+      <BookingsTableItemCellContainer className="grid grid-cols-[max-content_max-content_max-content]">
+        <div className="contents">
+          <BookingTableItemCellBold>{distance}</BookingTableItemCellBold>
+          <BookingTableItemCellBold>&mdash;</BookingTableItemCellBold>
+          <BookingTableItemCellBold>
+            {stayLength} night stay
+          </BookingTableItemCellBold>
+        </div>
+        <div className="contents">
+          <BookingTableItemCellLight>{startDate}</BookingTableItemCellLight>
+          <BookingTableItemCellLight>&mdash;</BookingTableItemCellLight>
+          <BookingTableItemCellLight>{endDate}</BookingTableItemCellLight>
+        </div>
+      </BookingsTableItemCellContainer>
+    )
+  }
 }

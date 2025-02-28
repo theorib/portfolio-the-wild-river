@@ -4,12 +4,8 @@ import {
   BookingTableItemCellLight,
   BookingTableItemCellBold,
   BookingsTableItemCellContainer,
-  BookingTableItemCellError,
 } from '@/features/bookings/bookingsTable/BookingsTableItemsCell'
-import {
-  BookingsStatusSchema,
-  DatesColumnDataSchema,
-} from '@/features/bookings/schema'
+import { BookingsStatusSchema } from '@/features/bookings/schema'
 import { type Booking } from '@/services/supabase/supabase.types'
 
 import { cn } from '@/shared/lib/utils'
@@ -19,7 +15,6 @@ import Link from 'next/link'
 import { z } from 'zod'
 import BookingsTableColumnActionsRowItem from '@/features/bookings/bookingsTable/BookingsTableColumnActionsRowItem'
 import BookingsTableColumnDates from '@/features/bookings/bookingsTable/BookingsTableColumnDatesRowItem'
-import { fromError } from 'zod-validation-error'
 import { BookingStatusBadge } from '@/features/bookings/components/BookingStatusBadge'
 
 const columnHelper = createColumnHelper<Booking>()
@@ -64,18 +59,7 @@ export const bookingsTableColumns = [
     }),
     {
       header: 'Dates',
-      cell: props => {
-        const { data, success, error } = DatesColumnDataSchema.safeParse(
-          props.renderValue(),
-        )
-        if (error)
-          return (
-            <BookingTableItemCellError error={fromError(error)}>
-              Invalid Dates
-            </BookingTableItemCellError>
-          )
-        if (success && data) return <BookingsTableColumnDates data={data} />
-      },
+      cell: props => <BookingsTableColumnDates dates={props.getValue()} />,
     },
   ),
 
