@@ -16,6 +16,7 @@ export const bookingQuery = ({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: ['booking', { bookingId }],
     queryFn: () => getBookingById({ supabaseClient, bookingId }),
+    refetchInterval: 5 * 1000,
   })
 
 export default function useBooking({ bookingId }: { bookingId: number }) {
