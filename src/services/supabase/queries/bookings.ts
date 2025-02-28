@@ -42,7 +42,7 @@ export const getBookingById = async ({
 }) => {
   const { data, error } = await supabaseClient
     .from('bookings')
-    .select(`*, guestId(fullName, id, email), cabinId(name)`)
+    .select(`*, guestId(*), cabinId(name)`)
     .eq('id', bookingId)
     .single()
 
