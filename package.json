@@ -20,7 +20,7 @@
     "lint:staged": "pnpm lint-staged -v --config lint-staged.config.mjs",
     "lint:tsc": "tsc --noEmit --skipLibCheck",
     "package:sort": "pnpm dlx sort-package-json",
-    "prepare": "husky && husky install",
+    "prepare": "husky",
     "shad": "pnpm dlx shadcn@canary add",
     "start": "next start",
     "supabase:generate:schemas": "supazod -i src/lib/types/supabase.types.ts -o src/lib/schemas/supabaseSchemas.ts && eslint --fix src/lib/schemas/supabaseSchemas.ts",
