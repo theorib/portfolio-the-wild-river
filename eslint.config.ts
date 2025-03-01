@@ -21,7 +21,6 @@ import { FlatCompat } from '@eslint/eslintrc'
 import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-// @ts-expect-error these are not used on purpose
 import { type Linter, type ESLint } from 'eslint'
 import { type TSESLint } from '@typescript-eslint/utils'
 
