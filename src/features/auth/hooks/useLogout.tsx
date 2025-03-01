@@ -1,6 +1,6 @@
 import { logout } from '@/features/auth/actions'
-import paths from '@/shared/constants/paths'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { $path } from 'next-typesafe-url'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -26,8 +26,8 @@ export default function useLogout() {
     throwOnError: false,
     onSuccess: () => {
       queryClient.clear()
-      router.push(paths.login.pathname)
-      toast('You have succefully logged out.')
+      router.push($path({ route: '/login' }))
+      toast('You have successfully logged out.')
     },
   })
 

@@ -19,6 +19,7 @@ import {
 import { useQueryClient } from '@tanstack/react-query'
 
 import { EllipsisVertical, Eye, LogIn, LogOut, OctagonX } from 'lucide-react'
+import { $path } from 'next-typesafe-url'
 import Link from 'next/link'
 
 type BookingListItemDropdownProps = {
@@ -93,7 +94,10 @@ export default function BookingsTableColumnActionsRowItem({
         <DropdownMenuGroup>
           <DropdownMenuItem onMouseEnter={prefetchBookingQuery}>
             <Link
-              href={`bookings/${bookingId}`}
+              href={$path({
+                route: '/app/bookings/[bookingId]',
+                routeParams: { bookingId },
+              })}
               className="flex items-center gap-2"
             >
               <Eye />

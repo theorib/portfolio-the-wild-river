@@ -22,17 +22,18 @@ import {
   Users,
 } from 'lucide-react'
 import Link from 'next/link'
-import paths from '@/shared/constants/paths'
+
 import {
   SIDEBAR_ICON_SIZE,
   SIDEBAR_ICON_STROKE_WIDTH,
 } from '@/shared/constants'
+import { $path } from 'next-typesafe-url'
 
 const data = {
   navMain: [
     {
       title: 'Home',
-      url: paths.homePage,
+      url: $path({ route: '/' }),
       logo: (
         <House
           size={SIDEBAR_ICON_SIZE}
@@ -42,7 +43,7 @@ const data = {
     },
     {
       title: 'Dashboard',
-      url: paths.dashboard,
+      url: $path({ route: '/app/dashboard' }),
       logo: (
         <LayoutDashboard
           size={SIDEBAR_ICON_SIZE}
@@ -52,7 +53,7 @@ const data = {
     },
     {
       title: 'Bookings',
-      url: paths.bookings,
+      url: $path({ route: '/app/bookings' }),
       logo: (
         <CalendarDays
           size={SIDEBAR_ICON_SIZE}
@@ -62,7 +63,7 @@ const data = {
     },
     {
       title: 'Cabins',
-      url: paths.cabins,
+      url: $path({ route: '/app/cabins' }),
       logo: (
         <School
           size={SIDEBAR_ICON_SIZE}
@@ -72,7 +73,7 @@ const data = {
     },
     {
       title: 'Users',
-      url: paths.users,
+      url: $path({ route: '/app/users' }),
       logo: (
         <Users
           size={SIDEBAR_ICON_SIZE}
@@ -82,7 +83,7 @@ const data = {
     },
     {
       title: 'Settings',
-      url: paths.settings,
+      url: $path({ route: '/app/settings' }),
       logo: (
         <Settings
           size={SIDEBAR_ICON_SIZE}
