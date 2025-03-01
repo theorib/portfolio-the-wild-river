@@ -168,10 +168,7 @@ const reactJsxRuntime = {
 /**
  * This eslint plugin enforces React's Rule of Hooks
  * @see {@link https://react.dev/reference/rules/rules-of-hooks}
- * As of 'eslint-plugin-react-hooks' v5.1.0 and 'eslint' v9.19.0, there is a bug when implementing the current recommended way of adding this plugin.
- * It breaks ESlint `TypeError: Cannot read properties of undefined (reading 'plugins')`
- * This configuration follows the plugin's custom configuration suggestion which is currently exactly the same as what their recommended config should be:
- * @see {@link https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks#custom-configuration}
+ * This configuration follows the plugin's latest recommended rules with the addition of adding the files property for narrowing down the files that should be linted.
  */
 const reactHooksRecommended = {
   ...reactHooks.configs['recommended-latest'],
