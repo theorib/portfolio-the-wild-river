@@ -13,7 +13,7 @@ export default function BookingPageTitleBadge() {
 
     status,
   } = useBooking({
-    bookingId: Number(bookingId),
+    bookingId: parseInt(bookingId),
   })
 
   const { success, data: bookingStatus } = BookingsStatusSchema.safeParse(

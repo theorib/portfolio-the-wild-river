@@ -59,7 +59,7 @@ export default function BookingDetails() {
     isLoading,
     status,
   } = useBooking({
-    bookingId: Number(bookingId),
+    bookingId: parseInt(bookingId),
   })
   const {
     data: dates,
@@ -85,7 +85,7 @@ export default function BookingDetails() {
             <div className="flex items-center gap-2">
               <University />
               <span>
-                {stayLength} nights in C abin {booking.cabinId?.name}
+                {stayLength} nights in Cabin {booking.cabinId?.name}
               </span>
             </div>
             <span>{`${startDate} (${distance}) - ${endDate}`}</span>
