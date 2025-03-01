@@ -1,5 +1,3 @@
-# !/bin/sh
-
 # Get the current branch name
 branch="$(git rev-parse --abbrev-ref HEAD)"
 
@@ -9,7 +7,7 @@ allowed_branches="main"
 
 # Check if the current branch is in the allowed list
 if echo "$allowed_branches" | grep -q "$branch"; then
-  pnpx --no -- commitlint --edit $1
+  pnpm dlx commitlint --edit $1
 else
   echo "Skipping commit-msg hook on branch $branch"
 fi
