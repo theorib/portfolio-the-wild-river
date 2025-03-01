@@ -141,7 +141,10 @@ async function createBookings() {
         .withError(error)
       throw error
     }
-    const numNights = subtractDates(booking.endDate, booking.startDate)
+    const numNights = subtractDates(
+      new Date(booking.endDate),
+      new Date(booking.startDate),
+    )
     const cabinPrice = numNights * (cabin.regularPrice - cabin.discount)
     const extrasPrice = booking.hasBreakfast
       ? numNights * 15 * booking.numGuests
