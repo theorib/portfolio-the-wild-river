@@ -28,11 +28,22 @@ type UseBookingDatesError = {
   error: Error
 }
 
+type BookingDatesFormat = {
+  startDate?: string
+  endDate?: string
+}
+
+type UseBookingDatesProps = {
+  bookingDates: BookingDatesInput
+  bookingDatesFormat?: BookingDatesFormat
+}
+
 type UseBookingDatesReturn = UseBookingDatesSuccess | UseBookingDatesError
 
-export default function useBookingDates(
-  bookingDates: BookingDatesInput,
-): UseBookingDatesReturn {
+export default function useBookingDates({
+  bookingDates,
+  bookingDatesFormat,
+}: UseBookingDatesProps): UseBookingDatesReturn {
   try {
     const dates = DatesColumnDataSchema.parse({
       startDate: bookingDates?.startDate,
@@ -42,11 +53,11 @@ export default function useBookingDates(
 
     const formattedStartDate = format(
       new Date(dates.startDate || ''),
-      'MMM dd yyyy',
+      bookingDatesFormat?.startDate || 'MMM dd yyyy',
     )
     const formattedEndDate = format(
       new Date(dates.endDate || ''),
-      'MMM dd yyyy',
+      bookingDatesFormat?.endDate || 'MMM dd yyyy',
     )
     const distance = isToday(dates.startDate)
       ? 'Today'
