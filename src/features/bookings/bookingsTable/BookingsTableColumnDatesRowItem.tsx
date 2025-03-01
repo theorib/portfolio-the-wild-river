@@ -11,13 +11,13 @@ import useBookingDates, {
 } from '@/features/bookings/hooks/useBookingDates'
 
 type BookingsTableColumnDatesProps = {
-  dates: BookingDatesInput
+  bookingDates: BookingDatesInput
 }
 
 export default function BookingsTableColumnDates({
-  dates,
+  bookingDates,
 }: BookingsTableColumnDatesProps) {
-  const { data, success, error } = useBookingDates(dates)
+  const { data, success, error } = useBookingDates({ bookingDates })
 
   if (error) {
     return (

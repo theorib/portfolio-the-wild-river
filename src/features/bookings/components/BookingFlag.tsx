@@ -33,6 +33,7 @@ export default function BookingFlag({
         alt={`${parsedNationality} country flag`}
         width={flagSize}
         height={flagSize}
+        className="border"
       />
     )
 }

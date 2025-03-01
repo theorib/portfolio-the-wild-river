@@ -15,10 +15,16 @@ import {
   // CardHeader,
   // CardTitle,
 } from '@/shared/components/ui/card'
+import { SIDEBAR_ICON_STROKE_WIDTH } from '@/shared/constants'
 import { cn } from '@/shared/lib/utils'
 import { formatCurrency } from '@/shared/lib/utils/helpers'
 import { format } from 'date-fns'
-import { CircleCheck, CircleX, University } from 'lucide-react'
+import {
+  CircleCheck,
+  CircleDollarSign,
+  CircleX,
+  University,
+} from 'lucide-react'
 import Link from 'next/link'
 
 import { useParams } from 'next/navigation'
@@ -66,9 +72,15 @@ export default function BookingDetails() {
     success,
     error: datesError,
   } = useBookingDates({
-    startDate: booking?.startDate,
-    endDate: booking?.endDate,
-    numNights: booking?.numNights,
+    bookingDates: {
+      startDate: booking?.startDate,
+      endDate: booking?.endDate,
+      numNights: booking?.numNights,
+    },
+    bookingDatesFormat: {
+      startDate: 'ccc, PP',
+      endDate: 'ccc, PP',
+    },
   })
 
   if (isLoading) return <BookingDetailsSkeleton />
@@ -83,12 +95,12 @@ export default function BookingDetails() {
         <CardHeader className="bg-sidebar border-b">
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <University />
+              <University strokeWidth={2} />
               <span>
                 {stayLength} nights in Cabin {booking.cabinId?.name}
               </span>
             </div>
-            <span>{`${startDate} (${distance}) - ${endDate}`}</span>
+            <span>{`${startDate} (${distance}) — ${endDate}`}</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-6 py-10">
@@ -121,16 +133,36 @@ export default function BookingDetails() {
           </BookingDetailsList>
 
           <div className="flex items-center gap-2">
-            {booking?.hasBreakfast ? <CircleCheck /> : <CircleX />}
-            {`Breakfast included? ${booking?.hasBreakfast ? 'yes' : 'no'}`}
+            {booking?.hasBreakfast ? (
+              <CircleCheck strokeWidth={SIDEBAR_ICON_STROKE_WIDTH} />
+            ) : (
+              <CircleX strokeWidth={SIDEBAR_ICON_STROKE_WIDTH} />
+            )}
+            <span className="font-bold">{`Breakfast included? `}</span>
+            <span>{`${booking?.hasBreakfast ? 'Yes' : 'No'}`}</span>
           </div>
-          <div className="text-muted bg-muted-foreground rounded-xl p-6">
-            {`Total price: ${formatCurrency(booking.totalPrice || 0)} (${formatCurrency(booking.cabinPrice || 0)} cabin + ${formatCurrency(booking.extrasPrice || 0)} extras)`}
-            <span>{booking.isPaid ? 'Paid' : 'Not paid'}</span>
+          <div
+            className={`flex items-center gap-2 rounded-xl p-6 ${booking?.isPaid ? 'bg-green-100' : 'bg-red-100'}`}
+          >
+            <CircleDollarSign strokeWidth={1} />
+            <div className="flex grow items-center gap-2">
+              <span>{`Total price: `}</span>
+              <span className="font-bold">
+                {`${formatCurrency(booking.totalPrice || 0)} `}
+              </span>
+              <span className="text-sm">
+                {`(${formatCurrency(booking.cabinPrice || 0)}`}
+                {` cabin + `}
+                {`${formatCurrency(booking.extrasPrice || 0)} extras)`}
+              </span>
+            </div>
+            <span className="font-bold tracking-tighter uppercase">
+              {booking.isPaid ? 'Paid' : 'Not paid'}
+            </span>
           </div>
         </CardContent>
-        <CardFooter className="bg-sidebar border-t pt-6">
-          Booked {format(new Date(booking.created_at), 'PPPPpppp')}
+        <CardFooter className="bg-sidebar justify-end border-t pt-6 text-sm">
+          Booked on {format(new Date(booking.created_at), 'PPPPpppp')}
         </CardFooter>
       </Card>
     )

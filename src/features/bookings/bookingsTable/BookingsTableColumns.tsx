@@ -59,7 +59,9 @@ export const bookingsTableColumns = [
     }),
     {
       header: 'Dates',
-      cell: props => <BookingsTableColumnDates dates={props.getValue()} />,
+      cell: props => (
+        <BookingsTableColumnDates bookingDates={props.getValue()} />
+      ),
     },
   ),
 
