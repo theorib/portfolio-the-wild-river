@@ -4,8 +4,7 @@ import eslintJs from '@eslint/js'
 import tsdoc from 'eslint-plugin-tsdoc'
 import react from 'eslint-plugin-react'
 import reactRefresh from 'eslint-plugin-react-refresh'
-// @ts-expect-error there are no type definitions for this
-import reactHooks from 'eslint-plugin-react-hooks'
+import * as reactHooks from 'eslint-plugin-react-hooks'
 import prettier from 'eslint-config-prettier'
 import vitest from '@vitest/eslint-plugin'
 // import testingLibrary from 'eslint-plugin-testing-library'
@@ -175,14 +174,8 @@ const reactJsxRuntime = {
  * @see {@link https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks#custom-configuration}
  */
 const reactHooksRecommended = {
-  name: 'react-hooks/recommended',
+  ...reactHooks.configs['recommended-latest'],
   files: [...JS_JSX_TS_TSX_FILE_PATTERNS],
-  // plugins: { 'react-hooks': reactHooks as ESLint.Plugin },
-  plugins: { 'react-hooks': reactHooks as ConfigPlugin },
-  rules: {
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
-  },
 } satisfies Config
 
 /**
