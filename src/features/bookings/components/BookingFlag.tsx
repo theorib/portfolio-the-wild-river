@@ -4,9 +4,14 @@ import { z } from 'zod'
 type BookingFlagProps = {
   url: unknown
   nationality: unknown
+  flagSize?: number
 }
 
-export default function BookingFlag({ url, nationality }: BookingFlagProps) {
+export default function BookingFlag({
+  url,
+  nationality,
+  flagSize = 20,
+}: BookingFlagProps) {
   const {
     data: parsedUrl,
     success: urlSuccess,
@@ -26,8 +31,8 @@ export default function BookingFlag({ url, nationality }: BookingFlagProps) {
       <Image
         src={parsedUrl}
         alt={`${parsedNationality} country flag`}
-        width={20}
-        height={20}
+        width={flagSize}
+        height={flagSize}
       />
     )
 }
