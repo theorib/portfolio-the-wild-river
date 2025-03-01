@@ -7,15 +7,14 @@ import {
   PageHeaderTitle,
 } from '@/shared/components/ui-custom/PageHeader'
 import { QueryClient } from '@tanstack/react-query'
+import { withParamValidation } from 'next-typesafe-url/app/hoc'
+import type { InferPagePropsType } from 'next-typesafe-url'
+import { Route, type RouteType } from './routeType'
 
-type BookingPageProps = {
-  params: Promise<{
-    bookingId: string
-  }>
-}
+type PageProps = InferPagePropsType<RouteType>
 
-export default async function BookingPage({ params }: BookingPageProps) {
-  const { bookingId } = await params
+export async function BookingPage({ routeParams }: PageProps) {
+  const { bookingId } = await routeParams
 
   const queryClient = new QueryClient()
   const supabaseClient = await createClient()
@@ -23,7 +22,7 @@ export default async function BookingPage({ params }: BookingPageProps) {
   await queryClient.prefetchQuery(
     bookingQuery({
       supabaseClient,
-      bookingId: parseInt(bookingId),
+      bookingId,
     }),
   )
 
@@ -39,3 +38,4 @@ export default async function BookingPage({ params }: BookingPageProps) {
     </div>
   )
 }
+export default withParamValidation(BookingPage, Route)
