@@ -1,22 +1,35 @@
 import logger from '@/features/logger'
+import { type BookingsStatusFilter } from '@/features/bookings/schema'
 import {
-  type BookingsPage,
-  type BookingsSort,
-  type BookingsStatusFilter,
-} from '@/features/bookings/schema'
-import { type TypedSupabaseClient } from '@/services/supabase/supabase.types'
-
-type GetBookingsProps = {
+  type PaginationLimit as Pagination,
+  type Sort,
+  type TypedSupabaseClient,
+  type BookingsAutoRow,
+} from '@/services/supabase/supabase.types'
+type GetBookingsProps<TData> = {
   supabaseClient: TypedSupabaseClient
   statusFilter?: BookingsStatusFilter
-  sort?: BookingsSort
-  page?: BookingsPage
+  sort?: Sort<TData>
+  pagination?: Pagination<TData>
 }
 
-export const getBookings = async ({ supabaseClient }: GetBookingsProps) => {
-  const { data, error } = await supabaseClient
+export const getBookings = async ({
+  supabaseClient,
+  sort = { columnName: 'id', ascending: true },
+  pagination = { columnName: 'id', lastValue: null, numberOfItems: 5 },
+}: GetBookingsProps<BookingsAutoRow>) => {
+  let query = supabaseClient
     .from('bookings')
     .select(`*, guestId(fullName, id, email)`)
+    .order(sort.columnName, { ascending: sort.ascending })
+    .limit(pagination.numberOfItems)
+
+  // Add pagination to the query if pagination is provided
+  if (pagination.lastValue) {
+    query = query.gt(pagination.columnName, pagination.lastValue)
+  }
+
+  const { data, error } = await query
 
   if (error || !data) {
     logger
