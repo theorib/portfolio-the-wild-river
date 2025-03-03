@@ -6,6 +6,7 @@ import {
   type TypedSupabaseClient,
   type BookingsAutoRow,
 } from '@/services/supabase/supabase.types'
+import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/shared/constants'
 type GetBookingsProps<TData> = {
   supabaseClient: TypedSupabaseClient
   statusFilter?: BookingsStatusFilter
@@ -16,7 +17,14 @@ type GetBookingsProps<TData> = {
 export const getBookings = async ({
   supabaseClient,
   sort = { columnName: 'id', ascending: true },
-  pagination = { columnName: 'id', lastValue: null, numberOfItems: 5 },
+  pagination = {
+    columnName: 'id',
+    range: {
+      startIndex: 0,
+      endIndex: DEFAULT_BOOKING_ITEMS_PER_PAGE - 1,
+    },
+    numberOfItems: DEFAULT_BOOKING_ITEMS_PER_PAGE,
+  },
 }: GetBookingsProps<BookingsAutoRow>) => {
   let query = supabaseClient
     .from('bookings')
@@ -25,8 +33,8 @@ export const getBookings = async ({
     .limit(pagination.numberOfItems)
 
   // Add pagination to the query if pagination is provided
-  if (pagination.lastValue) {
-    query = query.gt(pagination.columnName, pagination.lastValue)
+  if (pagination.range.startIndex > 0) {
+    query = query.range(pagination.range.startIndex, pagination.range.endIndex)
   }
 
   const { data, error } = await query
