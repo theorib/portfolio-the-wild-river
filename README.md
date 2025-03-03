@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hotel Booking Management Full Stack Application built with TypeScript, React, Next.js & Supabase
 
-## Getting Started
+A React Full Stack Application that serves as a hotel (fictional) internal booking management system.
 
-First, run the development server:
+## Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Check the [App live demo hosted on Vercel]()
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You can log in using the credentials below:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Email address: user@user.com
+Password: 12345678
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+When you sign in for the first time, click on **Reset and Upload ALL** on the sidebar to get fresh data on the dashboard. Creating new users is disabled for security reasons.
 
-## Learn More
+## App Description
 
-To learn more about Next.js, take a look at the following resources:
+This is an internal hotel booking management app that allows users (hotel employees) to:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Create new users
+- Create, delete, check-in and check-out Bookings
+- Create, delete and update Hotel Cabins
+- Set hotel settings such as minimum nights, maximun nights, maximun guests per booking and breakfast price
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Libraries and Features
 
-## Deploy on Vercel
+This app uses the following libraries and features:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Routing, Server Side functions and built using [Next.js](https://nextjs.org)
+- Remote state management using [Tanstack Query (React Query)](https://tanstack.com/query/latest)
+- Remote serverless database provided by [Supabase](https://supabase.com/database)
+- Schema validation using [Zod](https://zod.dev)
+- UI components using [shadcn/ui](https://ui.shadcn.com)
+- Testing using [Vitest](https://vitest.dev) and [Playwright](https://playwright.dev)
+- Server Side logging using [loglayer](https://loglayer.dev) and [tslog](https://tslog.js.org)
+- Authentication using [Supabase Authentication](https://supabase.com/auth)
+- Styling with [Tailwind CSS](https://tailwindcss.com)
+- Dark Mode
+- Lazy Loading using the Suspense API
+- Better handling of date objects using [date-fns](https://date-fns.org)
+- Form handling using [React Hook Form](https://react-hook-form.com)
+- Icons using [Lucide React](https://lucide.dev)
+- Dashboard charts using [Recharts](https://recharts.org/en-US/)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Context
+
+This project was written by me from the ground up using TypeScript, Next.js and Tailwind CSS. It was inspired by the final project from ['The Ultimate React Course 2024: React, Redux & More'](https://www.udemy.com/course/the-ultimate-react-course/) by [Jonas Schmedtmann](https://codingheroes.io/) completed February 2024 but there isn't a single component or function that was copied from the course. They where all written from the ground up for this project.
