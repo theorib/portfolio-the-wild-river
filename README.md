@@ -20,7 +20,7 @@ This is an internal hotel booking management app that allows users (hotel employ
 - Create new users
 - Create, delete, check-in and check-out Bookings
 - Create, delete and update Hotel Cabins
-- Set hotel settings such as minimum nights, maximun nights, maximun guests per booking and breakfast price
+- Set hotel settings such as minimum nights, maximum nights, maximum guests per booking and breakfast price
 
 ## Libraries and Features
 
