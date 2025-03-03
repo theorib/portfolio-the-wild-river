@@ -20,5 +20,5 @@ export type Sort<TData, TKey extends keyof TData = keyof TData> = {
 export type PaginationLimit<TData, Tkey extends keyof TData = keyof TData> = {
   numberOfItems: number
   columnName: Tkey
-  lastValue: TData[Tkey]
+  range: Range
 }
