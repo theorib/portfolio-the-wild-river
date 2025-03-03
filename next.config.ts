@@ -1,8 +1,11 @@
 import { type NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
   experimental: {
-    reactCompiler: true,
+    reactCompiler: process.env.NODE_ENV === 'production',
     optimizePackageImports: ['lucide-react'],
   },
   // we will handle errors with git action hooks
