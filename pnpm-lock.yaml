@@ -370,7 +370,7 @@ importers:
         specifier: ^4.0.6
         version: 4.0.9
       typescript:
-        specifier: ^5.7.3
+        specifier: ^5.8.2
         version: 5.8.2
       typescript-eslint:
         specifier: ^8.24.0
