@@ -6,7 +6,11 @@ import {
   PageHeader,
   PageHeaderTitle,
 } from '@/shared/components/ui-custom/PageHeader'
-import { QueryClient } from '@tanstack/react-query'
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query'
 import { withParamValidation } from 'next-typesafe-url/app/hoc'
 import type { InferPagePropsType } from 'next-typesafe-url'
 import { Route, type RouteType } from './routeType'
@@ -28,13 +32,15 @@ export async function BookingPage({ routeParams }: PageProps) {
 
   return (
     <div>
-      <PageHeader>
-        <PageHeaderTitle className="flex items-center gap-6">
-          Booking #{bookingId}
-          <BookingPageTitleBadge />
-        </PageHeaderTitle>
-      </PageHeader>
-      <BookingDetails />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <PageHeader>
+          <PageHeaderTitle className="flex items-center gap-6">
+            Booking #{bookingId}
+            <BookingPageTitleBadge />
+          </PageHeaderTitle>
+        </PageHeader>
+        <BookingDetails />
+      </HydrationBoundary>
     </div>
   )
 }
