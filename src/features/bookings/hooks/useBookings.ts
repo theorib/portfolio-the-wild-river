@@ -11,6 +11,7 @@ import useSupabaseBrowser from '@/services/supabase/supabaseBrowser'
 interface UseBookingsProps {
   sort?: Sort<BookingsAutoRow>
   pagination?: PaginationLimit<BookingsAutoRow>
+  enabled?: boolean
 }
 
 interface BookingsQueryProps extends UseBookingsProps {
@@ -31,7 +32,11 @@ export const bookingsQuery = ({
 export default function useBookings({
   sort,
   pagination,
+  enabled = true,
 }: UseBookingsProps = {}) {
   const supabaseClient = useSupabaseBrowser()
-  return useQuery(bookingsQuery({ supabaseClient, sort, pagination }))
+  return useQuery({
+    ...bookingsQuery({ supabaseClient, sort, pagination }),
+    enabled,
+  })
 }
