@@ -24,6 +24,7 @@ import {
 import Link from 'next/link'
 
 import {
+  DEFAULT_BOOKING_ITEMS_PER_PAGE,
   SIDEBAR_ICON_SIZE,
   SIDEBAR_ICON_STROKE_WIDTH,
 } from '@/shared/constants'
@@ -53,7 +54,23 @@ const data = {
     },
     {
       title: 'Bookings',
-      url: $path({ route: '/app/bookings' }),
+      url: $path({
+        route: '/app/bookings',
+        searchParams: {
+          sort: {
+            columnName: 'id',
+            ascending: true,
+          },
+          pagination: {
+            columnName: 'id',
+            range: {
+              startIndex: 0,
+              endIndex: DEFAULT_BOOKING_ITEMS_PER_PAGE - 1,
+            },
+            numberOfItems: DEFAULT_BOOKING_ITEMS_PER_PAGE,
+          },
+        },
+      }),
       logo: (
         <CalendarDays
           size={SIDEBAR_ICON_SIZE}
