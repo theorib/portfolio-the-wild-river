@@ -1,16 +1,15 @@
 import { getBookings } from '@/services/supabase/queries/bookings'
 import { queryOptions, useQuery } from '@tanstack/react-query'
-import {
-  type Sort,
-  type PaginationLimit,
-  type TypedSupabaseClient,
-  type BookingsAutoRow,
+import type {
+  TypedSupabaseClient,
+  BookingsAutoRow,
 } from '@/services/supabase/supabase.types'
 import useSupabaseBrowser from '@/services/supabase/supabaseBrowser'
+import type { Pagination, Sort } from '@/shared/types'
 
 interface UseBookingsProps {
   sort?: Sort<BookingsAutoRow>
-  pagination?: PaginationLimit<BookingsAutoRow>
+  pagination?: Pagination<BookingsAutoRow>
   enabled?: boolean
 }
 
