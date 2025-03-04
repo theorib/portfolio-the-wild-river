@@ -7,6 +7,7 @@ import {
 
 import { cn } from '@/shared/lib/utils'
 import { type Button, buttonVariants } from '@/shared/components/ui/button'
+import Link from 'next/link'
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
   return (
@@ -47,17 +48,20 @@ function PaginationLink({
   isActive,
   size = 'icon',
   ...props
-}: PaginationLinkProps) {
+}: PaginationLinkProps & React.ComponentProps<typeof Link>) {
   return (
-    <a
+    <Link
       aria-current={isActive ? 'page' : undefined}
       data-slot="pagination-link"
       data-active={isActive}
+      aria-disabled={!isActive}
+      tabIndex={isActive ? undefined : -1}
       className={cn(
         buttonVariants({
           variant: isActive ? 'outline' : 'ghost',
           size,
         }),
+        isActive ? '' : 'pointer-events-none cursor-not-allowed',
         className,
       )}
       {...props}
