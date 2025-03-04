@@ -1,12 +1,11 @@
 import logger from '@/features/logger'
 import { type BookingsStatusFilter } from '@/features/bookings/schema'
-import {
-  type PaginationLimit as Pagination,
-  type Sort,
-  type TypedSupabaseClient,
-  type BookingsAutoRow,
+import type {
+  TypedSupabaseClient,
+  BookingsAutoRow,
 } from '@/services/supabase/supabase.types'
 import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/shared/constants'
+import type { Pagination, Sort } from '@/shared/types'
 type GetBookingsProps<TData> = {
   supabaseClient: TypedSupabaseClient
   statusFilter?: BookingsStatusFilter
@@ -28,7 +27,7 @@ export const getBookings = async ({
 }: GetBookingsProps<BookingsAutoRow>) => {
   let query = supabaseClient
     .from('bookings')
-    .select(`*, guestId(fullName, id, email)`)
+    .select(`*, guestId(fullName, id, email)`, { count: 'exact' })
     .order(sort.columnName, { ascending: sort.ascending })
     .limit(pagination.numberOfItems)
 
@@ -37,7 +36,7 @@ export const getBookings = async ({
     query = query.range(pagination.range.startIndex, pagination.range.endIndex)
   }
 
-  const { data, error } = await query
+  const { data, error, count } = await query
 
   if (error || !data) {
     logger
@@ -51,7 +50,7 @@ export const getBookings = async ({
     throw error
   }
 
-  return data
+  return { data, count }
 }
 
 export const getBookingById = async ({
