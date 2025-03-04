@@ -8,37 +8,37 @@ import {
   PaginationPrevious,
 } from '@/shared/components/ui/pagination'
 
-import { useSearchParams } from 'next-typesafe-url/app'
-import { Route } from '@/app/app/bookings/routeType'
 import { $path } from 'next-typesafe-url'
 import useBookings from '@/features/bookings/hooks/useBookings'
-import {
-  bookingsTableDefaultPagination,
-  bookingsTableDefaultSort,
-} from '@/features/bookings/bookingsTable/BookingsTableRender'
 import type { BookingsSearchParams } from '@/services/supabase/supabase.types'
 import {
   getNextPaginationAndSort,
   getPreviousPaginationAndSort,
 } from '@/shared/lib/utils/paginationHelpers'
+import useBookingsTableSearchParams from '@/features/bookings/hooks/useBookingsTableSearchParams'
 
 export function BookingsTablePagination() {
   const { data: searchParams, isLoading: isLoadingSearchParams } =
-    useSearchParams(Route.searchParams)
+    useBookingsTableSearchParams()
 
-  const pagination = searchParams?.pagination ?? bookingsTableDefaultPagination
-  const sort = searchParams?.sort ?? bookingsTableDefaultSort
+  const pagination = searchParams?.pagination
+  const sort = searchParams?.sort
 
   const { data, status } = useBookings({
     pagination: pagination,
     sort: sort,
-    enabled: !isLoadingSearchParams && Boolean(searchParams),
+    enabled: !isLoadingSearchParams,
   })
-  const count = data?.count
-  const numberOfPages = Math.ceil(count ? count / pagination.numberOfItems : 0)
-  const hasPages = numberOfPages > 1
 
-  if (status === 'success' && data?.data && count && hasPages) {
+  if (status === 'success' && pagination && sort) {
+    const count = data?.count
+    const numberOfPages = Math.ceil(
+      count ? count / pagination.numberOfItems : 0,
+    )
+    const hasPages = numberOfPages > 1
+
+    if (!count || !hasPages) return null
+
     const isFirstPage = pagination.range.startIndex <= 0
     const isLastPage = pagination.range.endIndex >= (count ? count - 1 : 0)
     const pagesArray = Array.from({ length: numberOfPages }, (_, i) => i + 1)

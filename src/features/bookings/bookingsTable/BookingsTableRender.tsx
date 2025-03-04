@@ -4,43 +4,27 @@ import { bookingsTableColumns } from '@/features/bookings/bookingsTable/Bookings
 import BookingsTable from '@/features/bookings/bookingsTable/BookingsTable'
 import useBookings from '@/features/bookings/hooks/useBookings'
 
-import { useSearchParams } from 'next-typesafe-url/app'
-import { Route } from '@/app/app/bookings/routeType'
-import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/shared/constants'
 import { BookingsTablePagination } from '@/features/bookings/bookingsTable/BookingsTablePagination'
 import { BookingsTableItemsPerPage } from '@/features/bookings/bookingsTable/BookingsTableItemsPerPage'
-
-export const bookingsTableDefaultPagination = {
-  columnName: 'id',
-  range: {
-    startIndex: 0,
-    endIndex: DEFAULT_BOOKING_ITEMS_PER_PAGE - 1,
-  },
-  numberOfItems: DEFAULT_BOOKING_ITEMS_PER_PAGE,
-} as const
-
-export const bookingsTableDefaultSort = {
-  columnName: 'id',
-  ascending: true,
-} as const
+import useBookingsTableSearchParams from '@/features/bookings/hooks/useBookingsTableSearchParams'
 
 export default function BookingsTableRender() {
   const { data: searchParams, isLoading: isLoadingSearchParams } =
-    useSearchParams(Route.searchParams)
+    useBookingsTableSearchParams()
 
-  const pagination = searchParams?.pagination ?? bookingsTableDefaultPagination
-  const sort = searchParams?.sort ?? bookingsTableDefaultSort
+  const pagination = searchParams?.pagination
+  const sort = searchParams?.sort
 
   const { data, isLoading, isPending, isFetching, status } = useBookings({
     pagination: pagination,
     sort: sort,
-    enabled: !isLoadingSearchParams && Boolean(searchParams),
+    enabled: !isLoadingSearchParams,
   })
 
-  if (isLoading) {
+  if (isLoading || isLoadingSearchParams) {
     return <div>Loading...</div>
   }
-  if (!data?.data && !isFetching && !isPending && !isLoading)
+  if (!searchParams && !isFetching && !isPending && !isLoading)
     return <div>error...</div>
 
   if (searchParams && status === 'success' && data?.data) {

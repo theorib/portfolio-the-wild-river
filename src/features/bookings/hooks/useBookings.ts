@@ -1,5 +1,5 @@
 import { getBookings } from '@/services/supabase/queries/bookings'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import { keepPreviousData, queryOptions, useQuery } from '@tanstack/react-query'
 import type {
   TypedSupabaseClient,
   BookingsAutoRow,
@@ -26,6 +26,7 @@ export const bookingsQuery = ({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: ['bookings', sort, pagination],
     queryFn: () => getBookings({ supabaseClient, sort, pagination }),
+    placeholderData: keepPreviousData,
   })
 
 export default function useBookings({
