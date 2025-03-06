@@ -92,13 +92,13 @@ export default function BookingsTableColumnActionsRowItem({
         <DropdownMenuLabel>{`Booking #${bookingId}`}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem onMouseEnter={prefetchBookingQuery}>
+          <DropdownMenuItem onMouseEnter={prefetchBookingQuery} asChild>
             <Link
               href={$path({
                 route: '/app/bookings/[bookingId]',
                 routeParams: { bookingId },
               })}
-              className="flex items-center gap-2"
+              className="flex cursor-pointer items-center gap-2"
             >
               <Eye />
               See Details
@@ -106,15 +106,20 @@ export default function BookingsTableColumnActionsRowItem({
           </DropdownMenuItem>
           {bookingStatus && bookingStatus !== 'checked-out' ? (
             <DropdownMenuItem
-              className="flex items-center gap-2"
+              className="flex cursor-pointer items-center gap-2"
               onSelect={bookingStatusHandler[bookingStatus].onClickHandler}
+              asChild
             >
-              {bookingStatusHandler[bookingStatus].icon}
-              <span>{bookingStatusHandler[bookingStatus].label}</span>
+              <div>
+                {bookingStatusHandler[bookingStatus].icon}
+                <span>{bookingStatusHandler[bookingStatus].label}</span>
+              </div>
             </DropdownMenuItem>
           ) : null}
-          <DropdownMenuItem>
-            <OctagonX /> Delete
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <Link href="#">
+              <OctagonX /> Delete
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
