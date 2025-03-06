@@ -30,10 +30,22 @@ import {
 } from '@/shared/constants'
 import { $path } from 'next-typesafe-url'
 
-const data = {
+type DataItem = {
+  title: string
+  onMouseEnter: () => void
+  url: string
+  logo: React.ReactNode
+}
+
+type Data = {
+  navMain: Array<DataItem>
+}
+
+const data: Data = {
   navMain: [
     {
       title: 'Home',
+      onMouseEnter: () => {},
       url: $path({ route: '/' }),
       logo: (
         <House
@@ -44,6 +56,7 @@ const data = {
     },
     {
       title: 'Dashboard',
+      onMouseEnter: () => {},
       url: $path({ route: '/app/dashboard' }),
       logo: (
         <LayoutDashboard
@@ -54,6 +67,7 @@ const data = {
     },
     {
       title: 'Bookings',
+      onMouseEnter: () => {},
       url: $path({
         route: '/app/bookings',
         searchParams: {
@@ -80,6 +94,7 @@ const data = {
     },
     {
       title: 'Cabins',
+      onMouseEnter: () => {},
       url: $path({ route: '/app/cabins' }),
       logo: (
         <School
@@ -90,6 +105,7 @@ const data = {
     },
     {
       title: 'Users',
+      onMouseEnter: () => {},
       url: $path({ route: '/app/users' }),
       logo: (
         <Users
@@ -100,6 +116,7 @@ const data = {
     },
     {
       title: 'Settings',
+      onMouseEnter: () => {},
       url: $path({ route: '/app/settings' }),
       logo: (
         <Settings
@@ -109,7 +126,7 @@ const data = {
       ),
     },
   ],
-}
+} as const
 
 export function MainSidebarComponent({
   ...props
@@ -133,7 +150,11 @@ export function MainSidebarComponent({
             {data.navMain.map(item => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild>
-                  <Link href={item.url} className="font-medium">
+                  <Link
+                    href={item.url}
+                    className="font-medium"
+                    onMouseEnter={item.onMouseEnter}
+                  >
                     {item?.logo}
                     {item.title}
                   </Link>
