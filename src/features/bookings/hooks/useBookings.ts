@@ -6,6 +6,21 @@ import type {
 } from '@/services/supabase/supabase.types'
 import useSupabaseBrowser from '@/services/supabase/supabaseBrowser'
 import type { Pagination, Sort } from '@/shared/types'
+import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/shared/constants'
+
+export const bookingsTableDefaultPagination = {
+  columnName: 'id',
+  range: {
+    startIndex: 0,
+    endIndex: DEFAULT_BOOKING_ITEMS_PER_PAGE - 1,
+  },
+  numberOfItems: DEFAULT_BOOKING_ITEMS_PER_PAGE,
+} as const
+
+export const bookingsTableDefaultSort = {
+  columnName: 'id',
+  ascending: true,
+} as const
 
 interface UseBookingsProps {
   sort?: Sort<BookingsAutoRow>
@@ -19,8 +34,8 @@ interface BookingsQueryProps extends UseBookingsProps {
 
 export const bookingsQuery = ({
   supabaseClient,
-  sort,
-  pagination,
+  sort = bookingsTableDefaultSort,
+  pagination = bookingsTableDefaultPagination,
 }: BookingsQueryProps) =>
   queryOptions({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps

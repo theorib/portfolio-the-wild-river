@@ -1,5 +1,8 @@
 import { Route, type RouteType } from '@/app/app/bookings/routeType'
-import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/shared/constants'
+import {
+  bookingsTableDefaultPagination,
+  bookingsTableDefaultSort,
+} from '@/features/bookings/hooks/useBookings'
 
 import { type InferRoute } from 'next-typesafe-url'
 
@@ -17,20 +20,6 @@ export type UseBookingsTableSearchParamsResults =
       data: BookingsSearchParams
       isLoading: false
     }
-
-export const bookingsTableDefaultPagination = {
-  columnName: 'id',
-  range: {
-    startIndex: 0,
-    endIndex: DEFAULT_BOOKING_ITEMS_PER_PAGE - 1,
-  },
-  numberOfItems: DEFAULT_BOOKING_ITEMS_PER_PAGE,
-} as const
-
-export const bookingsTableDefaultSort = {
-  columnName: 'id',
-  ascending: true,
-} as const
 
 export default function useBookingsTableSearchParams(
   defaultSearchParams: BookingsSearchParams = {
