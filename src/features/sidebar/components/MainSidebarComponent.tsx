@@ -29,14 +29,20 @@ import {
   SIDEBAR_ICON_STROKE_WIDTH,
 } from '@/shared/constants'
 import { $path } from 'next-typesafe-url'
+import { type QueryClient, useQueryClient } from '@tanstack/react-query'
+import { bookingsQuery } from '@/features/bookings/hooks/useBookings'
+import { type TypedSupabaseClient } from '@/services/supabase/supabase.types'
+import useSupabaseBrowser from '@/services/supabase/supabaseBrowser'
 
 type DataItem = {
   title: string
-  onMouseEnter: () => void
+  onMouseEnter: (
+    queryClient: QueryClient,
+    supabaseClient: TypedSupabaseClient,
+  ) => Promise<void>
   url: string
   logo: React.ReactNode
 }
-
 type Data = {
   navMain: Array<DataItem>
 }
@@ -45,7 +51,7 @@ const data: Data = {
   navMain: [
     {
       title: 'Home',
-      onMouseEnter: () => {},
+      onMouseEnter: async () => {},
       url: $path({ route: '/' }),
       logo: (
         <House
@@ -56,7 +62,7 @@ const data: Data = {
     },
     {
       title: 'Dashboard',
-      onMouseEnter: () => {},
+      onMouseEnter: async () => {},
       url: $path({ route: '/app/dashboard' }),
       logo: (
         <LayoutDashboard
@@ -67,7 +73,9 @@ const data: Data = {
     },
     {
       title: 'Bookings',
-      onMouseEnter: () => {},
+      onMouseEnter: async (queryClient: QueryClient, supabaseClient) => {
+        await queryClient.prefetchQuery(bookingsQuery({ supabaseClient }))
+      },
       url: $path({
         route: '/app/bookings',
         searchParams: {
@@ -94,7 +102,7 @@ const data: Data = {
     },
     {
       title: 'Cabins',
-      onMouseEnter: () => {},
+      onMouseEnter: async () => {},
       url: $path({ route: '/app/cabins' }),
       logo: (
         <School
@@ -105,7 +113,7 @@ const data: Data = {
     },
     {
       title: 'Users',
-      onMouseEnter: () => {},
+      onMouseEnter: async () => {},
       url: $path({ route: '/app/users' }),
       logo: (
         <Users
@@ -116,7 +124,7 @@ const data: Data = {
     },
     {
       title: 'Settings',
-      onMouseEnter: () => {},
+      onMouseEnter: async () => {},
       url: $path({ route: '/app/settings' }),
       logo: (
         <Settings
@@ -131,7 +139,9 @@ const data: Data = {
 export function MainSidebarComponent({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const queryClient = useQueryClient()
   const { isMobile } = useSidebar()
+  const supabaseClient = useSupabaseBrowser()
 
   return (
     <Sidebar
@@ -153,7 +163,9 @@ export function MainSidebarComponent({
                   <Link
                     href={item.url}
                     className="font-medium"
-                    onMouseEnter={item.onMouseEnter}
+                    onMouseEnter={() =>
+                      void item.onMouseEnter(queryClient, supabaseClient)
+                    }
                   >
                     {item?.logo}
                     {item.title}
