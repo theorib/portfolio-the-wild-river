@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
   type SortingState,
   useReactTable,
+  type VisibilityState,
 } from '@tanstack/react-table'
 import { useState } from 'react'
 
@@ -25,19 +26,31 @@ export interface DataTableProps<TData> {
   columns: Array<ColumnDef<TData, any>>
   data: Array<TData>
   rowCount: number
+  defaultSorting?: SortingState
+  defaultColumnFilters?: ColumnFiltersState
+  defaultColumnVisibility?: VisibilityState
 }
 
 export default function useDataTable<TData>({
   columns,
   data,
   rowCount,
+  defaultSorting,
+  defaultColumnFilters,
+  defaultColumnVisibility,
 }: DataTableProps<TData>) {
   const [pagination, setPagination] = useState({
     pageIndex: 0, //initial page index
     pageSize: DEFAULT_BOOKING_ITEMS_PER_PAGE, //default page size
   })
-  const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [sorting, setSorting] = useState<SortingState>(defaultSorting || [])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+    defaultColumnFilters || [],
+  )
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
+    defaultColumnVisibility || {},
+  )
+
   const table = useReactTable({
     columns,
     data,
@@ -48,12 +61,14 @@ export default function useDataTable<TData>({
     onPaginationChange: setPagination,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
     autoResetPageIndex: false,
     rowCount,
     state: {
       pagination,
       sorting,
       columnFilters,
+      columnVisibility,
     },
   })
   return { table }

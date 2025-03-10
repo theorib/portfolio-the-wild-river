@@ -20,8 +20,18 @@ export default function DataTable<TData>({
   columns,
   data,
   rowCount,
+  defaultColumnVisibility,
+  defaultSorting,
+  defaultColumnFilters,
 }: DataTableProps<TData>) {
-  const { table } = useDataTable({ columns, data, rowCount })
+  const { table } = useDataTable({
+    columns,
+    data,
+    rowCount,
+    defaultColumnVisibility,
+    defaultSorting,
+    defaultColumnFilters,
+  })
 
   return (
     <div>
