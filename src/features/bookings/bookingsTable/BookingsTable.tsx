@@ -27,6 +27,7 @@ export default function BookingsTable() {
           data={data.data || []}
           rowCount={data.count || 0}
           columns={bookingsTableColumns}
+          defaultColumnVisibility={{ bookingId: false }}
         />
 
         <div className="flex justify-between">
