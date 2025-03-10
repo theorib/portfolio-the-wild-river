@@ -24,10 +24,8 @@ export default function BookingsTableRender() {
     return (
       <div className="grid grid-cols-1 gap-4">
         <DataTable
-          data={{
-            data: data.data || [],
-            count: data.count ?? 0,
-          }}
+          data={data.data || []}
+          rowCount={data.count || 0}
           columns={bookingsTableColumns}
         />
 
