@@ -1,40 +1,14 @@
 import logger from '@/features/logger'
-import { type BookingsStatusFilter } from '@/features/bookings/schema'
-import type {
-  TypedSupabaseClient,
-  BookingsAutoRow,
-} from '@/services/supabase/supabase.types'
-import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/shared/constants'
-import type { Pagination, Sort } from '@/shared/types'
-type GetBookingsProps<TData> = {
+import type { TypedSupabaseClient } from '@/services/supabase/supabase.types'
+
+type GetBookingsProps = {
   supabaseClient: TypedSupabaseClient
-  statusFilter?: BookingsStatusFilter
-  sort?: Sort<TData>
-  pagination?: Pagination<TData>
 }
 
-export const getBookings = async ({
-  supabaseClient,
-  sort = { columnName: 'id', ascending: true },
-  pagination = {
-    columnName: 'id',
-    range: {
-      startIndex: 0,
-      endIndex: DEFAULT_BOOKING_ITEMS_PER_PAGE - 1,
-    },
-    numberOfItems: DEFAULT_BOOKING_ITEMS_PER_PAGE,
-  },
-}: GetBookingsProps<BookingsAutoRow>) => {
-  let query = supabaseClient
+export const getBookings = async ({ supabaseClient }: GetBookingsProps) => {
+  const query = supabaseClient
     .from('bookings')
     .select(`*, guestId(fullName, id, email)`, { count: 'exact' })
-    .order(sort.columnName, { ascending: sort.ascending })
-    .limit(pagination.numberOfItems)
-
-  // Add pagination to the query if pagination is provided
-  if (pagination.range.startIndex > 0) {
-    query = query.range(pagination.range.startIndex, pagination.range.endIndex)
-  }
 
   const { data, error, count } = await query
 

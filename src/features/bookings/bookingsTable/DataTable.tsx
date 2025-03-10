@@ -4,6 +4,7 @@ import {
   type ColumnDef,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 
@@ -15,6 +16,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/components/ui/table'
+import { useState } from 'react'
+import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/shared/constants'
+import { DataTablePagination } from '@/features/bookings/bookingsTable/DataTablePagination'
 
 /** Here we are using any as the any way I found to be able to type the columns object when building it using createColumnHelper
  *  @see {@link https://github.com/TanStack/table/discussions/5218}
@@ -25,20 +29,34 @@ import {
  * BookingsDataTable\<TData, TValue\>
  * BookingsDataTableProps\<TData, TValue\>
  **/
-interface BookingsDataTableProps<TData> {
+export interface DataTableProps<TData> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: Array<ColumnDef<TData, any>>
-  data: Array<TData>
+  data: { count: number; data: Array<TData> }
 }
 
-export default function BookingsTable<TData>({
+export default function DataTable<TData>({
   columns,
   data,
-}: BookingsDataTableProps<TData>) {
+}: DataTableProps<TData>) {
+  const [pagination, setPagination] = useState({
+    pageIndex: 0, //initial page index
+    pageSize: DEFAULT_BOOKING_ITEMS_PER_PAGE, //default page size
+  })
+
   const table = useReactTable({
-    data,
     columns,
+    data: data.data,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+
+    onPaginationChange: setPagination,
+
+    autoResetPageIndex: false,
+    rowCount: data.count,
+    state: {
+      pagination,
+    },
   })
   return (
     <div className="rounded-md border">
@@ -84,6 +102,10 @@ export default function BookingsTable<TData>({
           )}
         </TableBody>
       </Table>
+
+      <div className="flex justify-between p-4">
+        <DataTablePagination table={table} />
+      </div>
     </div>
   )
 }

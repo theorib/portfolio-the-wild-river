@@ -6,8 +6,7 @@ import {
 } from 'lucide-react'
 
 import { cn } from '@/shared/lib/utils'
-import { type Button, buttonVariants } from '@/shared/components/ui/button'
-import Link from 'next/link'
+import { Button } from '@/shared/components/ui/button'
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
   return (
@@ -48,19 +47,17 @@ function PaginationLink({
   isActive,
   size = 'icon',
   ...props
-}: PaginationLinkProps & React.ComponentProps<typeof Link>) {
+}: PaginationLinkProps & React.ComponentProps<typeof Button>) {
   return (
-    <Link
+    <Button
       aria-current={isActive ? 'page' : undefined}
       data-slot="pagination-link"
       data-active={isActive}
       aria-disabled={!isActive}
       tabIndex={isActive ? undefined : -1}
+      variant={isActive ? 'outline' : 'ghost'}
+      size={size}
       className={cn(
-        buttonVariants({
-          variant: isActive ? 'outline' : 'ghost',
-          size,
-        }),
         isActive ? '' : 'pointer-events-none cursor-not-allowed',
         className,
       )}
