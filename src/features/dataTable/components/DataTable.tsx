@@ -6,6 +6,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -35,12 +36,16 @@ export default function DataTable<TData>({
 
   return (
     <div>
-      <div className="flex items-center justify-end py-4">
-        <DataTableViewOptions table={table} />
-      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
+            <TableRow>
+              <TableCell colSpan={columns.length}>
+                <div className="flex justify-end">
+                  <DataTableViewOptions table={table} />
+                </div>
+              </TableCell>
+            </TableRow>
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
@@ -86,10 +91,14 @@ export default function DataTable<TData>({
               </TableRow>
             )}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={columns.length}>
+                <DataTablePagination table={table} />
+              </TableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
-        <div className="flex justify-between p-4">
-          <DataTablePagination table={table} />
-        </div>
       </div>
     </div>
   )
