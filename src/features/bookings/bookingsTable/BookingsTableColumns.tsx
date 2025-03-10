@@ -16,12 +16,16 @@ import { z } from 'zod'
 import BookingsTableColumnActionsRowItem from '@/features/bookings/bookingsTable/BookingsTableColumnActionsRowItem'
 import BookingsTableColumnDates from '@/features/bookings/bookingsTable/BookingsTableColumnDatesRowItem'
 import { BookingStatusBadge } from '@/features/bookings/components/BookingStatusBadge'
+import { DataTableColumnHeader } from '@/features/dataTable/components/DataTableColumnHeader'
 
 const columnHelper = createColumnHelper<Booking>()
 
 export const bookingsTableColumns = [
   columnHelper.accessor('cabinId', {
-    header: 'Cabin',
+    id: 'cabin',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Cabin" />
+    ),
     cell: props => props.getValue(),
   }),
 
@@ -30,7 +34,10 @@ export const bookingsTableColumns = [
       return { fullName: row.guestId?.fullName, email: row.guestId?.email }
     },
     {
-      header: 'Guest',
+      id: 'guest',
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Guest" />
+      ),
       cell: props => {
         const { data: email, success } = z
           .string()
@@ -58,7 +65,11 @@ export const bookingsTableColumns = [
       numNights: row.numNights,
     }),
     {
-      header: 'Dates',
+      // header: 'Dates',
+      id: 'dates',
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Dates" />
+      ),
       cell: props => (
         <BookingsTableColumnDates bookingDates={props.getValue()} />
       ),
@@ -66,7 +77,9 @@ export const bookingsTableColumns = [
   ),
 
   columnHelper.accessor('status', {
-    header: 'Status',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
     cell: props => {
       const {
         success,
@@ -89,7 +102,9 @@ export const bookingsTableColumns = [
     },
   }),
   columnHelper.accessor('totalPrice', {
-    header: 'Amount',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Amount" />
+    ),
     cell: props => {
       const {
         data: amount,
