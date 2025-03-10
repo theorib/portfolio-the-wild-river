@@ -1,12 +1,12 @@
 'use client'
 
 import { bookingsTableColumns } from '@/features/bookings/bookingsTable/BookingsTableColumns'
-import DataTable from '@/features/bookings/bookingsTable/DataTable'
+import DataTable from '@/features/dataTable/components/DataTable'
 import useBookings from '@/features/bookings/hooks/useBookings'
 
 import useBookingsTableSearchParams from '@/features/bookings/hooks/useBookingsTableSearchParams'
 
-export default function BookingsTableRender() {
+export default function BookingsTable() {
   const { data: searchParams, isLoading: isLoadingSearchParams } =
     useBookingsTableSearchParams()
 

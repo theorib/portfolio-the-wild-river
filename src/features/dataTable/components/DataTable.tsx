@@ -10,11 +10,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/components/ui/table'
-import { DataTablePagination } from '@/features/bookings/bookingsTable/DataTablePagination'
+import { DataTablePagination } from '@/features/dataTable/components/DataTablePagination'
 import useDataTable, {
   type DataTableProps,
-} from '@/features/bookings/hooks/useDataTable'
-import { DataTableViewOptions } from '@/features/bookings/bookingsTable/DataTableViewOptions'
+} from '@/features/dataTable/hooks/useDataTable'
+import { DataTableViewOptions } from '@/features/dataTable/components/DataTableViewOptions'
 
 export default function DataTable<TData>({
   columns,

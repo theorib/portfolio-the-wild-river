@@ -16,7 +16,7 @@ import { z } from 'zod'
 import BookingsTableColumnActionsRowItem from '@/features/bookings/bookingsTable/BookingsTableColumnActionsRowItem'
 import BookingsTableColumnDates from '@/features/bookings/bookingsTable/BookingsTableColumnDatesRowItem'
 import { BookingStatusBadge } from '@/features/bookings/components/BookingStatusBadge'
-import { DataTableColumnHeader } from '@/features/bookings/bookingsTable/DataTableColumnHeader'
+import { DataTableColumnHeader } from '@/features/dataTable/components/DataTableColumnHeader'
 
 const columnHelper = createColumnHelper<Booking>()
 

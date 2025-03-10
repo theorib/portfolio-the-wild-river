@@ -1,4 +1,4 @@
-import BookingsTableRender from '@/features/bookings/bookingsTable/BookingsTableRender'
+import BookingsTable from '@/features/bookings/bookingsTable/BookingsTable'
 import {
   PageHeader,
   PageHeaderTitle,
@@ -10,7 +10,7 @@ export default function BookingsPage() {
       <PageHeader>
         <PageHeaderTitle>Bookings</PageHeaderTitle>
       </PageHeader>
-      <BookingsTableRender />
+      <BookingsTable />
     </>
   )
 }
