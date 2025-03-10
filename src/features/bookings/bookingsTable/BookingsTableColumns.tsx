@@ -21,8 +21,19 @@ import { DataTableColumnHeader } from '@/features/dataTable/components/DataTable
 const columnHelper = createColumnHelper<Booking>()
 
 export const bookingsTableColumns = [
+  columnHelper.accessor('id', {
+    id: 'bookingId',
+    sortingFn: 'alphanumeric',
+
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Booking ID" />
+    ),
+    cell: props => props.getValue(),
+  }),
+
   columnHelper.accessor('cabinId', {
     id: 'cabin',
+    sortingFn: 'alphanumeric',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Cabin" />
     ),
@@ -35,6 +46,19 @@ export const bookingsTableColumns = [
     },
     {
       id: 'guest',
+      sortingFn: (a, b) => {
+        const aFullName = a.original.guestId?.fullName
+        const bFullName = b.original.guestId?.fullName
+        const aEmail = a.original.guestId?.email
+        const bEmail = b.original.guestId?.email
+        if (aFullName && bFullName) {
+          return aFullName.localeCompare(bFullName)
+        }
+        if (aEmail && bEmail) {
+          return aEmail.localeCompare(bEmail)
+        }
+        return 0
+      },
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Guest" />
       ),
@@ -65,8 +89,14 @@ export const bookingsTableColumns = [
       numNights: row.numNights,
     }),
     {
-      // header: 'Dates',
       id: 'dates',
+      sortingFn: (rowA, rowB) => {
+        const today = new Date().toLocaleString()
+        const aDate = new Date(rowA.original?.startDate || today)
+        const bDate = new Date(rowB.original?.startDate || today)
+        return aDate.getTime() - bDate.getTime()
+      },
+
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Dates" />
       ),
