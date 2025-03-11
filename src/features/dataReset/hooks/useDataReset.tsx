@@ -9,6 +9,8 @@ import { bookings } from '@/features/dataReset/data/data-bookings'
 import { cabins } from '@/features/dataReset/data/data-cabins'
 import logger from '@/features/logger'
 import { subtractDates } from '@/shared/lib/utils/helpers'
+import { useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 
 // const originalSettings = {
 //   minBookingLength: 3,
@@ -188,6 +190,7 @@ async function createBookings() {
 
 const useDataReset = () => {
   const [isLoading, setIsLoading] = useState(false)
+  const queryClient = useQueryClient()
 
   async function uploadAll() {
     setIsLoading(true)
@@ -201,15 +204,19 @@ const useDataReset = () => {
     await createCabins()
     await createBookings()
 
+    await queryClient.invalidateQueries({ refetchType: 'all' })
     setIsLoading(false)
-    window.location.reload()
+    toast.success('All Data successfully reset')
+    // window.location.reload()
   }
 
   async function uploadBookings() {
     setIsLoading(true)
     await deleteBookings()
     await createBookings()
+    await queryClient.invalidateQueries({ queryKey: ['bookings'] })
     setIsLoading(false)
+    toast.success('Bookings Data successfully reset')
   }
 
   return { uploadAll, uploadBookings, isLoading }

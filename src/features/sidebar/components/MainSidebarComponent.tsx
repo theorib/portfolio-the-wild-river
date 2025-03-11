@@ -3,18 +3,27 @@
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SidebarSeparator,
   SidebarTrigger,
   useSidebar,
 } from '@/shared/components/ui/sidebar'
 import Logo from '@/features/logo/components/Logo'
 import {
+  ArrowDownAZ,
   CalendarDays,
+  CalendarSync,
+  ChevronDown,
+  DatabaseBackup,
   House,
   LayoutDashboard,
   School,
@@ -33,6 +42,12 @@ import { type QueryClient, useQueryClient } from '@tanstack/react-query'
 import { bookingsQuery } from '@/features/bookings/hooks/useBookings'
 import { type TypedSupabaseClient } from '@/services/supabase/supabase.types'
 import useSupabaseBrowser from '@/services/supabase/supabaseBrowser'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/shared/components/ui/collapsible'
+import useDataReset from '@/features/dataReset/hooks/useDataReset'
 
 type DataItem = {
   title: string
@@ -142,7 +157,7 @@ export function MainSidebarComponent({
   const queryClient = useQueryClient()
   const { isMobile } = useSidebar()
   const supabaseClient = useSupabaseBrowser()
-
+  const { uploadAll, uploadBookings } = useDataReset()
   return (
     <Sidebar
       variant="sidebar"
@@ -175,6 +190,56 @@ export function MainSidebarComponent({
             ))}
           </SidebarMenu>
         </SidebarGroup>
+        <SidebarSeparator />
+
+        <Collapsible className="group/collapsible flex grow flex-col justify-end">
+          <SidebarGroup>
+            <SidebarGroupLabel asChild>
+              <CollapsibleTrigger asChild>
+                <SidebarMenuButton>
+                  <DatabaseBackup
+                    size={SIDEBAR_ICON_SIZE}
+                    strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
+                  />
+                  <span className="font-medium">Data</span>
+                  <ChevronDown />
+                </SidebarMenuButton>
+              </CollapsibleTrigger>
+            </SidebarGroupLabel>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      className="font-medium"
+                      onClick={() => void uploadAll()}
+                    >
+                      <ArrowDownAZ
+                        size={SIDEBAR_ICON_SIZE}
+                        strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
+                      />
+                      <span>Reset and Upload All</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      className="font-medium"
+                      onClick={() => {
+                        void uploadBookings()
+                      }}
+                    >
+                      <CalendarSync
+                        size={SIDEBAR_ICON_SIZE}
+                        strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
+                      />
+                      <span>Reset and Upload Bookings</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </SidebarGroup>
+        </Collapsible>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
