@@ -1,7 +1,9 @@
 import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/shared/constants'
 import {
   type ColumnDef,
+  type ColumnFilter,
   type ColumnFiltersState,
+  type ColumnSort,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -26,8 +28,8 @@ export interface DataTableProps<TData> {
   columns: Array<ColumnDef<TData, any>>
   data: Array<TData>
   rowCount: number
-  defaultSorting?: SortingState
-  defaultColumnFilters?: ColumnFiltersState
+  defaultSorting?: Array<ColumnSort>
+  defaultColumnFilters?: Array<ColumnFilter>
   defaultColumnVisibility?: VisibilityState
 }
 
