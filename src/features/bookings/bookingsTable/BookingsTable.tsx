@@ -28,12 +28,13 @@ export default function BookingsTable() {
           rowCount={data.count || 0}
           columns={bookingsTableColumns}
           defaultColumnVisibility={{ bookingId: false }}
+          defaultSorting={[
+            {
+              id: 'bookingId',
+              desc: false,
+            },
+          ]}
         />
-
-        <div className="flex justify-between">
-          {/* <BookingsTablePagination /> */}
-          {/* <BookingsTableItemsPerPage /> */}
-        </div>
       </div>
     )
   }
