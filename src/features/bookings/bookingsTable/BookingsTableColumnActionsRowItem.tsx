@@ -1,5 +1,7 @@
 'use client'
 import { bookingQuery } from '@/features/bookings/hooks/useBooking'
+import useCheckInStatus from '@/features/bookings/hooks/useCheckInStatus'
+import useDeleteBookingById from '@/features/bookings/hooks/useDeleteBookingById'
 import {
   BookingsStatusSchema,
   type BookingsStatus,
@@ -41,6 +43,12 @@ export default function BookingsTableColumnActionsRowItem({
   const bookingId = booking.id
   const queryClient = useQueryClient()
   const supabaseClient = useSupabaseBrowser()
+  const { mutate: mutateCheckIn } = useCheckInStatus({
+    bookingId,
+  })
+  const { mutate: deleteBooking } = useDeleteBookingById({
+    bookingId,
+  })
 
   const { data: bookingStatus, error } = BookingsStatusSchema.safeParse(
     booking.status,
@@ -69,14 +77,14 @@ export default function BookingsTableColumnActionsRowItem({
       icon: <LogOut />,
       label: 'Check out',
       onClickHandler: () => {
-        console.log('checking out')
+        mutateCheckIn('checked-out')
       },
     },
     unconfirmed: {
       icon: <LogIn />,
       label: 'Check in',
       onClickHandler: () => {
-        console.log('checking in')
+        mutateCheckIn('checked-in')
       },
     },
   } as const
@@ -110,16 +118,16 @@ export default function BookingsTableColumnActionsRowItem({
               onSelect={bookingStatusHandler[bookingStatus].onClickHandler}
               asChild
             >
-              <div>
+              <button className="w-full">
                 {bookingStatusHandler[bookingStatus].icon}
                 <span>{bookingStatusHandler[bookingStatus].label}</span>
-              </div>
+              </button>
             </DropdownMenuItem>
           ) : null}
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href="#">
+            <button className="w-full" onClick={() => deleteBooking()}>
               <OctagonX /> Delete
-            </Link>
+            </button>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
