@@ -142,7 +142,7 @@ export default function BookingDetails() {
             <span>{`${booking?.hasBreakfast ? 'Yes' : 'No'}`}</span>
           </div>
           <div
-            className={`flex items-center gap-2 rounded-xl p-6 ${booking?.isPaid ? 'bg-green-100' : 'bg-red-100'}`}
+            className={`flex items-center gap-2 rounded-xl p-6 ${booking?.isPaid ? 'bg-green-100 dark:bg-green-950' : 'bg-red-100 dark:bg-red-950'}`}
           >
             <CircleDollarSign strokeWidth={1} />
             <div className="flex grow items-center gap-2">
