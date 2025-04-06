@@ -10,7 +10,7 @@ export default function Logo() {
         alt="hotel logo"
         width={logoSize}
         height={logoSize}
-        className="rounded-full bg-white p-2 invert dark:invert-0"
+        className="rounded-full bg-white p-2 invert"
         priority
       />
     </div>
