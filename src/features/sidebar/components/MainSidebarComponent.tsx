@@ -76,7 +76,10 @@ const data: Data = {
     {
       title: 'Dashboard',
       onMouseEnter: async () => {},
-      url: $path({ route: '/app/dashboard' }),
+      url: $path({
+        route: '/app/dashboard',
+        searchParams: { numDays: 7 },
+      }),
       logo: (
         <LayoutDashboard
           size={SIDEBAR_ICON_SIZE}
