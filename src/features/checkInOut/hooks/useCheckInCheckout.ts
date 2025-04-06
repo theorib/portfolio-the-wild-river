@@ -9,11 +9,13 @@ type UseCheckInStatusProps = {
   bookingId: number
 }
 
-export default function useCheckInStatus({ bookingId }: UseCheckInStatusProps) {
+export default function useCheckInCheckOut({
+  bookingId,
+}: UseCheckInStatusProps) {
   const queryClient = useQueryClient()
   const supabaseClient = useSupabaseBrowser()
 
-  const useCheckIn = useMutation({
+  const useCheckInCheckOut = useMutation({
     mutationFn: (status: BookingsStatus) =>
       updateBookingById({
         supabaseClient,
@@ -21,7 +23,12 @@ export default function useCheckInStatus({ bookingId }: UseCheckInStatusProps) {
         bookingData: { status },
       }),
     onSuccess: async (_, status) => {
-      await queryClient.invalidateQueries({ queryKey: ['bookings'] })
+      await queryClient.invalidateQueries({
+        queryKey: ['bookings', 'todays-activities'],
+      })
+      await queryClient.refetchQueries({
+        queryKey: ['bookings', 'todays-activities'],
+      })
       toast.success(
         `Booking ${bookingId} successfully ${status === 'checked-in' ? 'checked in' : 'checked out'}`,
       )
@@ -32,5 +39,5 @@ export default function useCheckInStatus({ bookingId }: UseCheckInStatusProps) {
       toast.error(message)
     },
   })
-  return useCheckIn
+  return useCheckInCheckOut
 }
