@@ -1,6 +1,6 @@
 'use client'
 import { bookingQuery } from '@/features/bookings/hooks/useBooking'
-import useCheckInStatus from '@/features/bookings/hooks/useCheckInStatus'
+import useCheckInCheckOut from '@/features/checkInOut/hooks/useCheckInCheckout'
 import useDeleteBookingById from '@/features/bookings/hooks/useDeleteBookingById'
 import {
   BookingsStatusSchema,
@@ -43,7 +43,7 @@ export default function BookingsTableColumnActionsRowItem({
   const bookingId = booking.id
   const queryClient = useQueryClient()
   const supabaseClient = useSupabaseBrowser()
-  const { mutate: mutateCheckIn } = useCheckInStatus({
+  const { mutate: mutateCheckIn } = useCheckInCheckOut({
     bookingId,
   })
   const { mutate: deleteBooking } = useDeleteBookingById({
