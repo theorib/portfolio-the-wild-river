@@ -16,7 +16,6 @@ import {
 import useTodaysActivities from '@/features/dashboard/hooks/useTodaysActivities'
 import { cn } from '@/shared/lib/utils'
 import Image from 'next/image'
-import { useRef } from 'react'
 
 export default function DashboardSummary({
   className,
@@ -38,15 +37,16 @@ export default function DashboardSummary({
               <span></span>
             </TodaySummaryItem>
             {data.map(item => {
-              const { success, data: bookingStatus } =
-                BookingsStatusSchema.safeParse(item?.status)
+              const bookingStatus = BookingsStatusSchema.parse(item?.status)
 
               const status =
                 bookingStatus === 'checked-in' ? 'Departing' : 'Arriving'
 
               return (
                 <TodaySummaryItem key={item.id}>
-                  <TodaySummaryItemBadge>{status}</TodaySummaryItemBadge>
+                  <TodaySummaryItemBadge bookingStatus={bookingStatus}>
+                    {status}
+                  </TodaySummaryItemBadge>
                   <TodaySummaryItemFlag>
                     <Image
                       width={35}

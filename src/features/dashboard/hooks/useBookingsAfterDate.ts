@@ -21,7 +21,7 @@ export const bookingsAfterDateQuery = ({
       getBookingsAfterDate({ date: subDays(getToday(), days), supabaseClient }),
   })
 
-function useBookingsAfterDate(days?: number) {
+function useBookingsAfterDate({ days }: { days?: number }) {
   const supabaseClient = useSupabaseBrowser()
 
   return useQuery(bookingsAfterDateQuery({ days, supabaseClient }))

@@ -65,10 +65,10 @@ export async function getBookingsAfterDate({
 }) {
   const { data, error } = await supabaseClient
     .from('bookings')
-    .select('created_at, totalPrice, extrasPrice')
+    .select('created_at, totalPrice, extrasPrice, numNights')
     .gte('created_at', date.toISOString())
     .lte('created_at', getToday({ end: true }))
-
+    .order('created_at')
   if (error || !data) {
     logger
       .withMetadata({

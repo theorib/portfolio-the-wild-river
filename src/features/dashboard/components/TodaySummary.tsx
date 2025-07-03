@@ -1,3 +1,4 @@
+import { type BookingsStatus } from '@/features/bookings/schema'
 import { Badge } from '@/shared/components/ui/badge'
 import { Button } from '@/shared/components/ui/button'
 import { cn } from '@/shared/lib/utils'
@@ -27,14 +28,29 @@ function TodaySummaryItem({ className, ...props }: React.ComponentProps<'li'>) {
     />
   )
 }
+
+interface TodaySummaryItemBadgeProps extends React.ComponentProps<'span'> {
+  bookingStatus: BookingsStatus
+}
+
 function TodaySummaryItemBadge({
+  bookingStatus,
   className,
   ...props
-}: React.ComponentProps<'span'>) {
+}: TodaySummaryItemBadgeProps) {
+  const color = {
+    'checked-in': 'bg-green-500',
+    'checked-out': 'bg-slate-500',
+    unconfirmed: 'bg-amber-500',
+  }
   return (
     <Badge
       data-slot="today-summary-item-badge"
-      className={cn('inline-flex w-full uppercase', className)}
+      className={cn(
+        'inline-flex w-full uppercase',
+        color[bookingStatus],
+        className,
+      )}
       {...props}
     />
   )
