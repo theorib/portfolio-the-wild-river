@@ -7,18 +7,15 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import * as reactHooks from 'eslint-plugin-react-hooks'
 import prettier from 'eslint-config-prettier'
 import vitest from '@vitest/eslint-plugin'
-// import testingLibrary from 'eslint-plugin-testing-library'
 import jestDom from 'eslint-plugin-jest-dom'
-// @ts-expect-error there are no type definitions for this
+
 import next from '@next/eslint-plugin-next'
 import globals from 'globals'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
-// @ts-expect-error there are no type definitions for this
+
 import importPlugin from 'eslint-plugin-import'
-import pluginQuery from '@tanstack/eslint-plugin-query'
 import { FlatCompat } from '@eslint/eslintrc'
-// @ts-expect-error these are not used on purpose
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
+import { fixupPluginRules } from '@eslint/compat'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { type Linter, type ESLint } from 'eslint'
@@ -40,12 +37,10 @@ type ConfigIgnores = TSESLint.FlatConfig.Config['ignores']
 // Eslint Default is ESLint.Plugin
 type ConfigPlugin = TSESLint.FlatConfig.Plugin
 // Eslint Default is Record<string, ESLint.Plugin>
-// @ts-expect-error these are not used on purpose
 type ConfigPlugins = TSESLint.FlatConfig.Plugins | undefined
 // Eslint Default is Linter.RulesRecord
 type ConfigRules = TSESLint.FlatConfig.Config['rules']
 // Eslint Default is Linter.LanguageOptions
-// @ts-expect-error these are not used on purpose
 type ConfigLanguageOptions = TSESLint.FlatConfig.Config['languageOptions']
 
 const __filename = fileURLToPath(import.meta.url)
@@ -66,7 +61,6 @@ const JS_FILE_PATTERNS = ['**/*.?(c|m)js'] satisfies ConfigFiles
 const JSX_FILE_PATTERNS = ['**/*.?(c|m)jsx'] satisfies ConfigFiles
 const TS_FILE_PATTERNS = ['**/*.?(c|m)ts'] satisfies ConfigFiles
 const TSX_FILE_PATTERNS = ['**/*.?(c|m)tsx'] satisfies ConfigFiles
-// @ts-expect-error these are not used on purpose
 const JSX_TSX_FILE_PATTERNS = [
   ...JSX_FILE_PATTERNS,
   ...TSX_FILE_PATTERNS,
@@ -100,6 +94,7 @@ const IGNORE_PATTERNS = [
   '**/node_modules/',
   '.git/',
   'out',
+  'dist',
   'coverage',
   '**/dist/',
   '**/coverage/',
@@ -143,7 +138,6 @@ const reactRecommended = {
         modules: true,
         jsx: true,
       },
-      project: true, // change this to your project's tsconfig.json
       jsxPragma: null, // useful for typescript x react@17 https://github.com/jsx-eslint/eslint-plu
     },
     globals: {
@@ -167,10 +161,12 @@ const reactJsxRuntime = {
 /**
  * This eslint plugin enforces React's Rule of Hooks
  * @see {@link https://react.dev/reference/rules/rules-of-hooks}
+ * Since eslint-plugin-react-hooks@6.0.0-rc.1,  eslint-plugin-react-compiler was merged into eslint-plugin-react-hooks.
+ * @see {@link https://react.dev/blog/2025/04/21/react-compiler-rc}
  * This configuration follows the plugin's latest recommended rules with the addition of adding the files property for narrowing down the files that should be linted.
  */
 const reactHooksRecommended = {
-  ...reactHooks.configs['recommended-latest'],
+  ...reactHooks.configs.flat.recommended,
   files: [...JS_JSX_TS_TSX_FILE_PATTERNS],
 } satisfies Config
 
@@ -183,30 +179,6 @@ const reactRefreshRecommended = {
   name: 'react-refresh/recommended',
   files: [...JS_JSX_TS_TSX_FILE_PATTERNS],
   ...reactRefresh.configs.recommended,
-} satisfies Config
-
-/**
- * This ESLint plugin will display any violations of the rules of React in your editor. When it does this, it means that the compiler has skipped over optimizing that component or hook. This is perfectly okay, and the compiler can recover and continue optimizing other components in your codebase.
-
- * The current recommended ways of implementing this plugin are:
- * {@link https://react.dev/learn/react-compiler#installing-eslint-plugin-react-compiler}
- * {@link https://github.com/facebook/react/tree/main/compiler/packages/eslint-plugin-react-compiler}
- * However, as of 'eslint-plugin-react-compiler' v19.0.0-beta-714736e-20250131 and 'eslint' v9.19.0, there is a bug in both recommended ways of using this plugin.
- * The current workaround I found is to use the FlatCompat utility to patch the config from .eslintrc deprecated config styles.
- * Currently the plugin throw a TypeError: Cannot read properties of undefined (reading 'configs') when running eslint
-
- */
-const [compilerConfigCompat] = compat.config({
-  plugins: ['react-compiler'],
-  rules: {
-    'react-compiler/react-compiler': 'error',
-  },
-})
-// @ts-expect-error these are not used on purpose
-const reactCompilerRecommended = {
-  files: [...JS_JSX_TS_TSX_FILE_PATTERNS],
-  ...compilerConfigCompat,
-  name: 'react-compiler/recommended',
 } satisfies Config
 
 /**
@@ -245,7 +217,7 @@ const nextNextRecommended = {
   },
 
   rules: {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- This is a bug in eslint-plugin-next
+     
     ...(next.configs.recommended.rules as ConfigRules),
   },
   files: [...NEXT_JS_JSX_TS_TSX_FILE_PATTERNS],
@@ -280,7 +252,6 @@ const configNext = {
       ...globals.node,
     },
     parserOptions: {
-      project: true,
       tsconfigRootDir: import.meta.dirname,
       sourceType: 'module',
       ecmaFeatures: {
@@ -399,22 +370,10 @@ const vitestDisableTypeChecked = {
 } satisfies Config
 
 /**
- * 'eslint-plugin-testing-library' is a plugin that provides linting rules for testing with testing-library. In this case we are using it for react-testing-library with their recommended configuration:
- * @see {@link https://github.com/testing-library/eslint-plugin-testing-library?tab=readme-ov-file#react}
- */
-
-// const testingLibraryRecommended = {
-//   name: 'testing-library/recommended',
-//   files: [...TEST_FILE_PATTERNS],
-//   ...testingLibrary.configs['flat/react'],
-// }
-
-/**
  * 'eslint-plugin-jest-dom' is a plugin to follow best practices and anticipate common mistakes when writing tests with jest-dom.
  * We are following the their recommended configuration:
  * @see {@link https://github.com/testing-library/eslint-plugin-jest-dom?tab=readme-ov-file#recommended-configuration}
  */
-// @ts-expect-error these are not used on purpose
 const jestDomRecommended = {
   name: 'jest-dom/recommended',
   files: [...TEST_FILE_PATTERNS],
@@ -497,8 +456,6 @@ const eslintConfig = [
   reactJsxRuntime,
   reactHooksRecommended,
   reactRefreshRecommended,
-  // reactCompilerRecommended,
-  ...pluginQuery.configs['flat/recommended'],
 
   jsxA11yRecommended,
 
@@ -509,8 +466,7 @@ const eslintConfig = [
   coreWebVitals,
   vitestRecommended,
   vitestDisableTypeChecked,
-  // testingLibraryRecommended,
-  // jestDomRecommended,
+  jestDomRecommended,
   prettierRecommended,
   {
     name: 'custom-config',
