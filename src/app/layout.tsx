@@ -3,9 +3,10 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { objektiv } from '@/shared/lib/fonts'
 import { Toaster } from '@/shared/components/ui/sonner'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 import Providers from '@/shared/Providers'
 import { type PropsWithChildren } from 'react'
+import { DevtoolsProvider } from '@/shared/components/DevToolsProvider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,7 +20,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Providers>
           {children}
           <Toaster />
-          <ReactQueryDevtools initialIsOpen={false} />
+
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </Providers>
       </body>
     </html>

@@ -6,6 +6,7 @@ import { SIDEBAR_COOKIE_NAME } from '@/shared/constants'
 import { getCookie } from 'cookies-next/server'
 import { cookies } from 'next/headers'
 import { type PropsWithChildren } from 'react'
+import { DevtoolsProvider } from '@/shared/components/DevToolsProvider'
 
 export default async function Providers({ children }: PropsWithChildren) {
   const defaultOpen =
@@ -22,6 +23,7 @@ export default async function Providers({ children }: PropsWithChildren) {
         <TooltipProvider>
           <SidebarProvider defaultOpen={defaultOpen}>
             {children}
+            <DevtoolsProvider />
           </SidebarProvider>
         </TooltipProvider>
       </ThemeProvider>
