@@ -44,4 +44,4 @@ This app uses the following libraries and features:
 
 ## Context
 
-This project was written by me from the ground up using TypeScript, Next.js and Tailwind CSS. It was inspired by the final project from ['The Ultimate React Course 2024: React, Redux & More'](https://www.udemy.com/course/the-ultimate-react-course/) by [Jonas Schmedtmann](https://codingheroes.io/) completed February 2024 but there isn't a single component or function that was copied from the course. They where all written from the ground up for this project.
+This project was written by me from the ground up using TypeScript, Next.js and Tailwind CSS. It was inspired by the final project from ['The Ultimate React Course 2024: React, Redux & More'](https://www.udemy.com/course/the-ultimate-react-course/) by [Jonas Schmedtmann](https://codingheroes.io/) completed in February 2024 with all component and function written from the ground up for this project by me.
