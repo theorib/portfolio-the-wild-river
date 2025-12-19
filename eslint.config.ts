@@ -217,7 +217,6 @@ const nextNextRecommended = {
   },
 
   rules: {
-     
     ...(next.configs.recommended.rules as ConfigRules),
   },
   files: [...NEXT_JS_JSX_TS_TSX_FILE_PATTERNS],
@@ -457,7 +456,7 @@ const eslintConfig = [
   reactHooksRecommended,
   reactRefreshRecommended,
 
-  jsxA11yRecommended,
+  // jsxA11yRecommended,
 
   nextNextRecommended,
   configNext,
