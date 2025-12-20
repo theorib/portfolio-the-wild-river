@@ -1,21 +1,21 @@
-import { expect, test, describe } from 'vitest'
+import { describe, expect, test } from 'vitest';
 
-import { render } from 'vitest-browser-react'
+import { render } from 'vitest-browser-react';
 
-import HomePage from '@/app/page'
-import { Suspense } from 'react'
+import HomePage from '@/app/page';
+import { Suspense } from 'react';
 
 describe('Temp Test', () => {
-  test('Home Page Temp', async () => {
-    const screen = render(
-      <Suspense>
-        <HomePage />
-      </Suspense>,
-    )
-    const heading = screen.getByRole('heading', {
-      name: 'I am the home page',
-    })
+	test('Home Page Temp', async () => {
+		const screen = await render(
+			<Suspense>
+				<HomePage />
+			</Suspense>,
+		);
+		const heading = screen.getByRole('heading', {
+			name: 'I am the home page',
+		});
 
-    await expect.element(heading).toBeVisible()
-  })
-})
+		await expect.element(heading).toBeVisible();
+	});
+});
