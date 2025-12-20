@@ -32,7 +32,7 @@ async function DashboardPage({ searchParams }: PageProps) {
 			<div className="grid w-full grid-cols-4 gap-4">
 				<PageHeader className="xs:flex-row col-span-4 flex w-full flex-col items-center justify-between gap-4 md:col-span-4">
 					<PageHeaderTitle>Dashboard</PageHeaderTitle>
-					<ToggleGroup type="single" defaultValue="Last 7 Days" variant="outline">
+					<ToggleGroup defaultValue={["Last 7 Days"]} variant="outline">
 						<Link
 							href={$path({
 								route: '/app/dashboard',
