@@ -2,7 +2,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/shared/components/ui/toggle-grou
 
 export default function BookingsFilter() {
 	return (
-		<ToggleGroup type="single" defaultValue="all" variant="outline">
+		<ToggleGroup defaultValue={['all']} variant="outline">
 			<ToggleGroupItem value="all" aria-label="Toggle all bookings">
 				All
 			</ToggleGroupItem>
