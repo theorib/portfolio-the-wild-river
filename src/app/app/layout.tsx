@@ -1,9 +1,9 @@
-import MainLayout from '@/shared/components/ui-custom/MainLayout'
+import MainLayout from '@/shared/components/ui-custom/MainLayout';
 
 type AppLayoutProps = {
-  children: React.ReactNode
-}
+	children: React.ReactNode;
+};
 
 export default function AppLayout({ children }: AppLayoutProps) {
-  return <MainLayout>{children}</MainLayout>
+	return <MainLayout>{children}</MainLayout>;
 }

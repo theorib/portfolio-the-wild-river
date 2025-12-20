@@ -1,29 +1,28 @@
-import { getUser } from '@/features/auth/actions'
-import paths from '@/shared/constants/paths'
+import { getUser } from '@/features/auth/actions';
+import paths from '@/shared/constants/paths';
 
-import { queryOptions, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
+import { queryOptions, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export const userQuery = queryOptions({
-  queryKey: ['user'],
-  queryFn: getUser,
-  refetchInterval: Infinity,
-})
+	queryKey: ['user'],
+	queryFn: getUser,
+	refetchInterval: Infinity,
+});
 
 export default function useUser() {
-  const queryClient = useQueryClient()
-  const router = useRouter()
-  const userQueryResult = useQuery(userQuery)
+	const queryClient = useQueryClient();
+	const router = useRouter();
+	const userQueryResult = useQuery(userQuery);
 
-  const isInvalidUser: boolean =
-    userQueryResult.isSuccess && !userQueryResult.data
+	const isInvalidUser: boolean = userQueryResult.isSuccess && !userQueryResult.data;
 
-  if (userQueryResult.status === 'error' || isInvalidUser) {
-    queryClient.clear()
-    router.push(paths.login.pathname)
-    toast('Invalid user, please login with a valid user')
-  }
+	if (userQueryResult.status === 'error' || isInvalidUser) {
+		queryClient.clear();
+		router.push(paths.login.pathname);
+		toast('Invalid user, please login with a valid user');
+	}
 
-  return userQueryResult
+	return userQueryResult;
 }
