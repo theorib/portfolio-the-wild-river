@@ -1,1 +1,1 @@
-export * from '@/shared/schemas/otherZodSchemas'
+export * from '@/shared/schemas/otherZodSchemas';

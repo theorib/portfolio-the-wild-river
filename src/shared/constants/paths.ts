@@ -1,67 +1,67 @@
-export type PathFunction = (...args: Array<unknown>) => string
-export type PathCategory = 'sidebarMenu' | 'mainMenu'
+export type PathFunction = (...args: Array<unknown>) => string;
+export type PathCategory = 'sidebarMenu' | 'mainMenu';
 export type PathIcon = {
-  name: string
-  module: string
-}
+	name: string;
+	module: string;
+};
 export type Path = {
-  pathname: string | PathFunction
-  isProtectedRoute: boolean
-  title?: string
-  category?: Array<PathCategory>
-  icon?: PathIcon
-}
+	pathname: string | PathFunction;
+	isProtectedRoute: boolean;
+	title?: string;
+	category?: Array<PathCategory>;
+	icon?: PathIcon;
+};
 
 const paths = {
-  homePage: {
-    pathname: '/',
-    isProtectedRoute: false,
-  },
-  signInPage: {
-    pathname: '/sign-in',
-    isProtectedRoute: false,
-  },
-  app: {
-    pathname: '/app',
-    isProtectedRoute: true,
-  },
-  dashboard: {
-    pathname: '/app/dashboard',
-    isProtectedRoute: true,
-  },
-  bookings: {
-    pathname: '/app/bookings',
-    isProtectedRoute: true,
-  },
-  cabins: {
-    pathname: '/app/cabins',
-    isProtectedRoute: true,
-  },
-  users: {
-    pathname: '/app/users',
-    isProtectedRoute: true,
-  },
-  settings: {
-    pathname: '/app/settings',
-    isProtectedRoute: true,
-  },
-  login: {
-    pathname: '/login',
-    isProtectedRoute: false,
-  },
-  signup: {
-    pathname: '/signup',
-    isProtectedRoute: false,
-  },
-  register: {
-    pathname: '/register',
-    isProtectedRoute: false,
-  },
-} as const
+	homePage: {
+		pathname: '/',
+		isProtectedRoute: false,
+	},
+	signInPage: {
+		pathname: '/sign-in',
+		isProtectedRoute: false,
+	},
+	app: {
+		pathname: '/app',
+		isProtectedRoute: true,
+	},
+	dashboard: {
+		pathname: '/app/dashboard',
+		isProtectedRoute: true,
+	},
+	bookings: {
+		pathname: '/app/bookings',
+		isProtectedRoute: true,
+	},
+	cabins: {
+		pathname: '/app/cabins',
+		isProtectedRoute: true,
+	},
+	users: {
+		pathname: '/app/users',
+		isProtectedRoute: true,
+	},
+	settings: {
+		pathname: '/app/settings',
+		isProtectedRoute: true,
+	},
+	login: {
+		pathname: '/login',
+		isProtectedRoute: false,
+	},
+	signup: {
+		pathname: '/signup',
+		isProtectedRoute: false,
+	},
+	register: {
+		pathname: '/register',
+		isProtectedRoute: false,
+	},
+} as const;
 
 // Type assertion to ensure all properties are of type Path
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const typedPaths: Record<keyof typeof paths, Path> = paths
-export type Paths = typeof typedPaths
+const typedPaths: Record<keyof typeof paths, Path> = paths;
+export type Paths = typeof typedPaths;
 
-export default paths
+export default paths;

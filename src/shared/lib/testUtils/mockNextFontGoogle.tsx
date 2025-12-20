@@ -1,15 +1,15 @@
-import { vi } from 'vitest'
+import { vi } from 'vitest';
 
 /**
  * Defines the shape of a font module, which maps font names to objects that provide
  * CSS styles, class names, and CSS variables for that font.
  */
 interface FontModule {
-  [fontName: string]: () => {
-    style: React.CSSProperties
-    className: string
-    variable: string
-  }
+	[fontName: string]: () => {
+		style: React.CSSProperties;
+		className: string;
+		variable: string;
+	};
 }
 
 /** Creates a single font module for tests that use Next.js `next/font/google`.
@@ -22,17 +22,17 @@ interface FontModule {
  * @returns A font module object with a method for the font.
  */
 function createFontModuleSingle(fontName: string): FontModule {
-  const fontNameLowerCase = fontName.toLowerCase()
-  return {
-    [fontName]: () => ({
-      style: {
-        fontFamily: `mocked-${fontNameLowerCase}-font-family`,
-        fontStyle: 'normal',
-      },
-      className: `mocked-${fontNameLowerCase}-class-name`,
-      variable: `--font-${fontNameLowerCase}`,
-    }),
-  }
+	const fontNameLowerCase = fontName.toLowerCase();
+	return {
+		[fontName]: () => ({
+			style: {
+				fontFamily: `mocked-${fontNameLowerCase}-font-family`,
+				fontStyle: 'normal',
+			},
+			className: `mocked-${fontNameLowerCase}-class-name`,
+			variable: `--font-${fontNameLowerCase}`,
+		}),
+	};
 }
 
 /**
@@ -45,11 +45,11 @@ function createFontModuleSingle(fontName: string): FontModule {
  * @returns A `FontModule` object containing the mocked font information.
  */
 function createFontModuleMultiple(fontNames: Array<string>): FontModule {
-  const fontModules = fontNames.reduce((modules, name) => {
-    return { ...modules, ...createFontModuleSingle(name) }
-  }, {})
+	const fontModules = fontNames.reduce((modules, name) => {
+		return { ...modules, ...createFontModuleSingle(name) };
+	}, {});
 
-  return fontModules
+	return fontModules;
 }
 
 /**
@@ -63,12 +63,12 @@ function createFontModuleMultiple(fontNames: Array<string>): FontModule {
  * @returns An object with a method for each font passed as an argument. Each method returns an object with mocked font styles, class names, and CSS variables.
  */
 const mockNextFontGoogle = vi.hoisted(() => {
-  const createMockedFontModules = function (fontNames: string | Array<string>) {
-    if (typeof fontNames === 'string') return createFontModuleSingle(fontNames)
-    if (Array.isArray(fontNames)) return createFontModuleMultiple(fontNames)
-  }
+	const createMockedFontModules = function (fontNames: string | Array<string>) {
+		if (typeof fontNames === 'string') return createFontModuleSingle(fontNames);
+		if (Array.isArray(fontNames)) return createFontModuleMultiple(fontNames);
+	};
 
-  return createMockedFontModules
-})
+	return createMockedFontModules;
+});
 
-export default mockNextFontGoogle
+export default mockNextFontGoogle;
