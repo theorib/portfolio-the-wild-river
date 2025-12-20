@@ -1,5 +1,10 @@
 import { Button } from '@/shared/components/ui/button';
 import {
+	Collapsible,
+	CollapsibleContent,
+	CollapsibleTrigger,
+} from '@/shared/components/ui/collapsible';
+import {
 	SidebarGroup,
 	SidebarGroupLabel,
 	SidebarMenuButton,
@@ -7,7 +12,7 @@ import {
 	SidebarMenuSubItem,
 } from '@/shared/components/ui/sidebar';
 import { SIDEBAR_ICON_SIZE, SIDEBAR_ICON_STROKE_WIDTH } from '@/shared/constants';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
+
 import { ChevronRight, RefreshCw } from 'lucide-react';
 
 export default function DataReset() {
