@@ -144,7 +144,7 @@ function CardExample() {
 	);
 }
 
-const frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'] as const;
+const _frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'] as const;
 
 const roleItems = [
 	{ label: 'Developer', value: 'developer' },
