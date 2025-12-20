@@ -19,7 +19,8 @@ export function BookingsTableItemsPerPage() {
 	if (!isLoading && searchParams?.pagination) {
 		const { pagination } = searchParams;
 
-		const handleChange = (value: string) => {
+		const handleChange = (value: string | null) => {
+			if (!value) return;
 			const newUrl = $path({
 				route: '/app/bookings',
 				searchParams: {
@@ -39,7 +40,7 @@ export function BookingsTableItemsPerPage() {
 				<span>Page Size</span>
 				<Select defaultValue={String(pagination.numberOfItems)} onValueChange={handleChange}>
 					<SelectTrigger className="w-[80px]">
-						<SelectValue placeholder="Items per Page" />
+						<SelectValue />
 					</SelectTrigger>
 					<SelectContent>
 						<SelectGroup>
