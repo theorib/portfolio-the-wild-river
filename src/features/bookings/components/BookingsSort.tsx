@@ -29,8 +29,8 @@ function SelectItemText({ className, ...props }: React.ComponentProps<'span'>) {
 export default function BookingsSort() {
 	return (
 		<Select>
-			<SelectTrigger className="w-[180px]">
-				<SelectValue placeholder="Sort by" />
+			<SelectTrigger className="w-45">
+				<SelectValue>{(value: string) => value ?? 'Sort by'}</SelectValue>
 			</SelectTrigger>
 			<SelectContent>
 				<SelectGroup>
