@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
-// @ts-expect-error since TypeScript can't resolve css files
 import { Toaster } from '@/shared/components/ui/sonner';
 import { objektiv } from '@/shared/lib/fonts';
+import type { Metadata } from 'next';
+// @ts-expect-error since TypeScript can't resolve css files
 import './globals.css';
 
 import Providers from '@/shared/Providers';
