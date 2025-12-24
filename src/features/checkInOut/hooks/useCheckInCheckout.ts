@@ -14,6 +14,7 @@ export default function useCheckInCheckOut({ bookingId }: UseCheckInStatusProps)
 	const supabaseClient = useSupabaseBrowser();
 
 	const useCheckInCheckOut = useMutation({
+		mutationKey: ['bookings', { bookingId }, 'checkin-checkout'],
 		mutationFn: (status: BookingsStatus) =>
 			updateBookingById({
 				supabaseClient,
