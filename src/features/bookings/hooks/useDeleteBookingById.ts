@@ -13,6 +13,7 @@ export default function useDeleteBookingById({ bookingId }: UseCheckInStatusProp
 	const supabaseClient = useSupabaseBrowser();
 
 	const useCheckIn = useMutation({
+		mutationKey: ['bookings', { bookingId }, 'delete'],
 		mutationFn: () =>
 			deleteBookingById({
 				supabaseClient,
