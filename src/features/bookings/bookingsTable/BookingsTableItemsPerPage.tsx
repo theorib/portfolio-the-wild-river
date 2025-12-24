@@ -39,7 +39,7 @@ export function BookingsTableItemsPerPage() {
 			<div className="flex items-center gap-2">
 				<span>Page Size</span>
 				<Select defaultValue={String(pagination.numberOfItems)} onValueChange={handleChange}>
-					<SelectTrigger className="w-[80px]">
+					<SelectTrigger className="w-20">
 						<SelectValue />
 					</SelectTrigger>
 					<SelectContent>
