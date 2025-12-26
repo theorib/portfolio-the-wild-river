@@ -13,7 +13,7 @@ export const updateCabinById = async ({
 	cabinData,
 }: UpdateCabinByIdProps) => {
 	const { data, error } = await supabaseClient
-		.from('bookings')
+		.from('cabins')
 		.update(cabinData)
 		.eq('id', cabinId)
 		.select()
