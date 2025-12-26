@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
 	},
 
 	images: {
+		remotePatterns: [new URL('https://xymetprhvhaodfebesxu.supabase.co/**')],
 		formats: ['image/avif', 'image/webp'],
 		deviceSizes: [220, 390, 430, 640, 768, 1080, 1280, 1920, 2048, 2560, 3840],
 	},
