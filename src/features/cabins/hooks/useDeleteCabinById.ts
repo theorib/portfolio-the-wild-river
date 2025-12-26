@@ -20,7 +20,10 @@ export default function useDeleteCabinById({ cabinId }: UseCheckDeleteCabinByIdP
 				cabinId,
 			}),
 		onSuccess: async () => {
-			await queryClient.invalidateQueries({ queryKey: ['cabins'] });
+			await queryClient.invalidateQueries({ queryKey: ['cabins', ['bookings']] });
+			await queryClient.refetchQueries({
+				queryKey: ['cabins', 'bookings', 'todays-activities'],
+			});
 			toast.success(`Cabin ${cabinId} successfully deleted`);
 		},
 		onError: (error) => {

@@ -19,7 +19,7 @@ export const cabinsQuery = ({ supabaseClient }: CabinsQueryProps) =>
 		placeholderData: keepPreviousData,
 	});
 
-export default function useCabinss({ enabled = true }: UseCabinsProps = {}) {
+export default function useCabins({ enabled = true }: UseCabinsProps = {}) {
 	const supabaseClient = useSupabaseBrowser();
 	return useQuery({
 		...cabinsQuery({ supabaseClient }),

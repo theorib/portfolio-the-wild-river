@@ -11,7 +11,7 @@ type CabinQueryProps = {
 export const cabinQuery = ({ supabaseClient, cabinId }: CabinQueryProps) =>
 	queryOptions({
 		// eslint-disable-next-line @tanstack/query/exhaustive-deps
-		queryKey: ['booking', { cabinId }],
+		queryKey: ['cabin', { cabinId }],
 		queryFn: () => getCabinById({ supabaseClient, cabinId }),
 		refetchInterval: 5 * 1000,
 	});
