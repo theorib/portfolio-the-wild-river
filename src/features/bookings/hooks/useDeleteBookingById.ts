@@ -21,6 +21,11 @@ export default function useDeleteBookingById({ bookingId }: UseCheckInStatusProp
 			}),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: ['bookings'] });
+
+			await queryClient.refetchQueries({
+				queryKey: ['bookings', 'todays-activities'],
+			});
+
 			toast.success(`Booking ${bookingId} successfully deleted`);
 		},
 		onError: (error) => {
