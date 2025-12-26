@@ -16,6 +16,8 @@ export function BookingsTableItemsPerPage() {
 	const { data: searchParams, isLoading } = useSearchParams(Route.searchParams);
 	const router = useRouter();
 
+	const itemsPerPage = ['5', '10', '20', '25'];
+
 	if (!isLoading && searchParams?.pagination) {
 		const { pagination } = searchParams;
 
@@ -45,11 +47,13 @@ export function BookingsTableItemsPerPage() {
 					<SelectContent>
 						<SelectGroup>
 							<SelectLabel>Items per page</SelectLabel>
-							<SelectItem value="5">5</SelectItem>
-							<SelectItem value="10">10</SelectItem>
-							<SelectItem value="15">15</SelectItem>
-							<SelectItem value="20">20</SelectItem>
-							<SelectItem value={'25'}>25</SelectItem>
+							{itemsPerPage.map((item) => {
+								return (
+									<SelectItem value={item} key={`itemsPerPage-${item}`}>
+										{item}
+									</SelectItem>
+								);
+							})}
 						</SelectGroup>
 					</SelectContent>
 				</Select>
