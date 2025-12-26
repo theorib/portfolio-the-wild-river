@@ -11,13 +11,14 @@ declare module "@@@next-typesafe-url" {
   interface DynamicRouter {
     "/app/bookings/[bookingId]": InferRoute<import("./src/app/app/bookings/[bookingId]/routeType").RouteType>;
     "/app/bookings": InferRoute<import("./src/app/app/bookings/routeType").RouteType>;
+    "/app/cabins/[cabinId]": InferRoute<import("./src/app/app/cabins/[cabinId]/routeType").RouteType>;
+    "/app/cabins": InferRoute<import("./src/app/app/cabins/routeType").RouteType>;
     "/app/dashboard": InferRoute<import("./src/app/app/dashboard/routeType").RouteType>;
   }
 
   interface StaticRouter {
     "/login": StaticRoute;
     "/signup": StaticRoute;
-    "/app/cabins": StaticRoute;
     "/app/settings": StaticRoute;
     "/app/users": StaticRoute;
     "/": StaticRoute;
