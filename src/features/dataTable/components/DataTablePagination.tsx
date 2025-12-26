@@ -15,8 +15,8 @@ interface DataTablePaginationProps<TData> {
 }
 
 export function DataTablePagination<TData>({ table }: DataTablePaginationProps<TData>) {
-	const canGetPreviousPage = table.getCanPreviousPage();
-	const canGetNextPage = table.getCanNextPage();
+	const getCanPreviousPage = table.getCanPreviousPage();
+	const getCanNextPage = table.getCanNextPage();
 
 	return (
 		<div className="flex w-full items-center justify-between space-x-6 lg:space-x-8">
@@ -28,7 +28,7 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
 						table.setPageSize(Number(value));
 					}}
 				>
-					<SelectTrigger className="h-8 w-[70px]">
+					<SelectTrigger className="h-8 w-17.5">
 						<SelectValue />
 					</SelectTrigger>
 					<SelectContent side="top">
@@ -40,54 +40,54 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
 					</SelectContent>
 				</Select>
 			</div>
-			<div className="flex w-[100px] items-center justify-center text-sm font-medium">
+			<div className="flex w-25 items-center justify-center text-sm font-medium">
 				Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
 			</div>
 			<div className="flex items-center space-x-2">
 				<Button
-					data-active={canGetPreviousPage}
-					aria-disabled={!canGetPreviousPage}
-					tabIndex={canGetPreviousPage ? undefined : -1}
+					data-active={getCanPreviousPage}
+					aria-disabled={!getCanPreviousPage}
+					tabIndex={getCanPreviousPage ? undefined : -1}
 					variant="outline"
 					className={`hidden h-8 w-8 p-0 lg:flex`}
 					onClick={() => table.setPageIndex(0)}
-					disabled={!canGetPreviousPage}
+					disabled={!getCanPreviousPage}
 				>
 					<span className="sr-only">Go to first page</span>
 					<ChevronsLeft />
 				</Button>
 				<Button
-					data-active={canGetPreviousPage}
-					aria-disabled={!canGetPreviousPage}
-					tabIndex={canGetPreviousPage ? undefined : -1}
+					data-active={getCanPreviousPage}
+					aria-disabled={!getCanPreviousPage}
+					tabIndex={getCanPreviousPage ? undefined : -1}
 					variant="outline"
 					className="h-8 w-8 p-0"
 					onClick={() => table.previousPage()}
-					disabled={!canGetPreviousPage}
+					disabled={!getCanPreviousPage}
 				>
 					<span className="sr-only">Go to previous page</span>
 					<ChevronLeft />
 				</Button>
 				<Button
-					data-active={canGetNextPage}
-					aria-disabled={!canGetNextPage}
-					tabIndex={canGetNextPage ? undefined : -1}
+					data-active={getCanNextPage}
+					aria-disabled={!getCanNextPage}
+					tabIndex={getCanNextPage ? undefined : -1}
 					variant="outline"
 					className="h-8 w-8 p-0"
 					onClick={() => table.nextPage()}
-					disabled={!canGetNextPage}
+					disabled={!getCanNextPage}
 				>
 					<span className="sr-only">Go to next page</span>
 					<ChevronRight />
 				</Button>
 				<Button
-					data-active={canGetNextPage}
-					aria-disabled={!canGetNextPage}
-					tabIndex={canGetNextPage ? undefined : -1}
+					data-active={getCanNextPage}
+					aria-disabled={!getCanNextPage}
+					tabIndex={getCanNextPage ? undefined : -1}
 					variant="outline"
 					className="hidden h-8 w-8 p-0 lg:flex"
 					onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-					disabled={!canGetNextPage}
+					disabled={!getCanNextPage}
 				>
 					<span className="sr-only">Go to last page</span>
 					<ChevronsRight />
