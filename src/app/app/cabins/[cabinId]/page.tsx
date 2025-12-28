@@ -1,4 +1,5 @@
 import BookingPageTitleBadge from '@/features/bookings/components/BookingPageTitleBadge';
+import CabinDetails from '@/features/cabins/components/cabinDetails/CabinDetails';
 import { cabinQuery } from '@/features/cabins/hooks/useCabin';
 import { createClient } from '@/services/supabase/supabaseServer';
 import { PageHeader, PageHeaderTitle } from '@/shared/components/ui-custom/PageHeader';
@@ -9,7 +10,7 @@ import { Route, type RouteType } from './routeType';
 
 type PageProps = InferPagePropsType<RouteType>;
 
-export async function BookingPage({ routeParams }: PageProps) {
+export async function CabinPage({ routeParams }: PageProps) {
 	const { cabinId } = await routeParams;
 
 	const queryClient = new QueryClient();
@@ -31,9 +32,9 @@ export async function BookingPage({ routeParams }: PageProps) {
 						<BookingPageTitleBadge />
 					</PageHeaderTitle>
 				</PageHeader>
-				{/* <BookingDetails /> */}
+				<CabinDetails />
 			</HydrationBoundary>
 		</div>
 	);
 }
-export default withParamValidation(BookingPage, Route);
+export default withParamValidation(CabinPage, Route);
