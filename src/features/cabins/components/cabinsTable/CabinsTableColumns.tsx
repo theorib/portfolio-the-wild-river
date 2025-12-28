@@ -2,7 +2,7 @@
 
 import { type Cabin } from '@/services/supabase/supabase.types';
 
-import CabinsTableColumnActionsRowItem from '@/features/cabins/components/CabinsTableColumnActionsRowItem';
+import CabinsTableColumnActionsRowItem from '@/features/cabins/components/cabinsTable/CabinsTableColumnActionsRowItem';
 import { DataTableColumnHeader } from '@/features/dataTable/components/DataTableColumnHeader';
 import { formatCurrency } from '@/shared/lib/utils/helpers';
 import { createColumnHelper } from '@tanstack/react-table';

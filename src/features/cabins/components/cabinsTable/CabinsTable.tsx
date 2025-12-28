@@ -2,7 +2,7 @@
 
 import DataTable from '@/features/dataTable/components/DataTable';
 
-import { cabinsTableColumns } from '@/features/cabins/components/CabinsTableColumns';
+import { cabinsTableColumns } from '@/features/cabins/components/cabinsTable/CabinsTableColumns';
 import useCabins from '@/features/cabins/hooks/useCabins';
 import useCabinsTableSearchParams from '@/features/cabins/hooks/useCabinsTableSearchParams';
 
