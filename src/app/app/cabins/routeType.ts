@@ -4,19 +4,23 @@ import { z } from 'zod';
 
 export const Route = {
 	searchParams: z.object({
-		sort: z.object({
-			columnName: publicCabinsRowSchemaSchema.keyof(),
-			ascending: z.boolean(),
-		}),
+		sort: z
+			.object({
+				columnName: publicCabinsRowSchemaSchema.keyof(),
+				ascending: z.boolean(),
+			})
+			.optional(),
 
-		pagination: z.object({
-			columnName: publicCabinsRowSchemaSchema.keyof(),
-			range: z.object({
-				startIndex: z.number(),
-				endIndex: z.number(),
-			}),
-			numberOfItems: z.number(),
-		}),
+		pagination: z
+			.object({
+				columnName: publicCabinsRowSchemaSchema.keyof(),
+				range: z.object({
+					startIndex: z.number(),
+					endIndex: z.number(),
+				}),
+				numberOfItems: z.number(),
+			})
+			.optional(),
 	}),
 } satisfies DynamicRoute;
 export type RouteType = typeof Route;
