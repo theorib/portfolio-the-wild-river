@@ -139,16 +139,21 @@ export function MainSidebarComponent({ ...props }: React.ComponentProps<typeof S
 				<SidebarGroup>
 					<SidebarMenu>
 						{data.navMain.map((item) => (
-							<SidebarMenuItem key={item.title}>
+							<SidebarMenuItem
+								key={item.title}
+								className="group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center"
+							>
 								<SidebarMenuButton
+									className="group-data-[collapsible=icon]:gap-0! group-data-[collapsible=icon]:w-fit! group-data-[collapsible=icon]:h-auto [&_svg]:size-auto size-auto"
 									render={
 										<Link
 											href={item.url}
 											className="font-medium"
 											onMouseEnter={() => void item.onMouseEnter(queryClient, supabaseClient)}
 										>
-											{item?.logo}
-											{item.title}
+											<span>{item?.logo}</span>
+											<span className="group-data-[collapsible=icon]:sr-only">{item.title}</span>
+											{/* <span>{item.title}</span> */}
 										</Link>
 									}
 								/>
@@ -156,7 +161,7 @@ export function MainSidebarComponent({ ...props }: React.ComponentProps<typeof S
 						))}
 					</SidebarMenu>
 				</SidebarGroup>
-				<SidebarSeparator />
+				<SidebarSeparator className={'m-0'} />
 
 				<Collapsible className="group/collapsible flex grow flex-col justify-end">
 					<SidebarGroup>
@@ -168,9 +173,10 @@ export function MainSidebarComponent({ ...props }: React.ComponentProps<typeof S
 											<DatabaseBackup
 												size={SIDEBAR_ICON_SIZE}
 												strokeWidth={SIDEBAR_ICON_STROKE_WIDTH}
+												className="w-6!"
 											/>
 											<span className="font-medium">Data</span>
-											<ChevronDown />
+											<ChevronDown className="w-6!" />
 										</SidebarMenuButton>
 									}
 								/>
