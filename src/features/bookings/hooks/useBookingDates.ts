@@ -1,5 +1,5 @@
 import { DatesColumnDataSchema } from '@/features/bookings/schema';
-import { formatDistanceFromNow } from '@/shared/lib/utils/helpers';
+import { formatDistanceFromNow } from '@/lib/utils/helpers';
 import { format, isToday } from 'date-fns';
 import { ZodError } from 'zod';
 import { fromError } from 'zod-validation-error';

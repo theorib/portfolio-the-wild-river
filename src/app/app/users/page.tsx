@@ -1,4 +1,4 @@
-import { PageHeader, PageHeaderTitle } from '@/shared/components/ui-custom/PageHeader';
+import { PageHeader, PageHeaderTitle } from '@/components/ui-custom/PageHeader';
 export default function UsersPage() {
 	return (
 		<PageHeader>

@@ -6,7 +6,7 @@ import {
 	StatsHeader,
 	StatsTitle,
 } from '@/features/dashboard/components/Stats';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/lib/utils';
 
 export default function DashboardStats({ className, ...props }: React.ComponentProps<'div'>) {
 	return (

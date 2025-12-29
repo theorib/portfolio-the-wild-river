@@ -1,4 +1,4 @@
-import { trySync } from '@/shared/lib/utils';
+import { trySync } from '@/lib/utils';
 import { z } from 'zod';
 
 export const getInitials = (name: unknown) =>

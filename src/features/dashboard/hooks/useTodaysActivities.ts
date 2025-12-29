@@ -1,7 +1,7 @@
+import { getToday } from '@/lib/utils/helpers';
 import { getBookingsTodaysActivities } from '@/services/supabase/queries/bookings';
 import { type TypedSupabaseClient } from '@/services/supabase/supabase.types';
 import useSupabaseBrowser from '@/services/supabase/supabaseBrowser';
-import { getToday } from '@/shared/lib/utils/helpers';
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
 type TodaysActivitiesQueryProps = {

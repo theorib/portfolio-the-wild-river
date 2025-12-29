@@ -1,13 +1,13 @@
 'use client';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from '@/shared/components/ui/dropdown-menu';
-import { isSomeTrue } from '@/shared/lib/utils';
+} from '@/components/ui/dropdown-menu';
+import { isSomeTrue } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 
 import useLogout from '@/features/auth/hooks/useLogout';

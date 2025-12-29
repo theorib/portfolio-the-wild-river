@@ -1,9 +1,5 @@
 'use client';
-import { cabinQuery } from '@/features/cabins/hooks/useCabin';
-import useDeleteCabinById from '@/features/cabins/hooks/useDeleteCabinById';
-import { type Cabin } from '@/features/cabins/types';
-import useSupabaseBrowser from '@/services/supabase/supabaseBrowser';
-import { Button } from '@/shared/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -12,7 +8,11 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from '@/shared/components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
+import { cabinQuery } from '@/features/cabins/hooks/useCabin';
+import useDeleteCabinById from '@/features/cabins/hooks/useDeleteCabinById';
+import { type Cabin } from '@/features/cabins/types';
+import useSupabaseBrowser from '@/services/supabase/supabaseBrowser';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { EllipsisVertical, Eye, OctagonX } from 'lucide-react';

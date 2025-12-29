@@ -1,6 +1,6 @@
 import logger from '@/features/logger';
+import { getToday } from '@/lib/utils/helpers';
 import type { TypedSupabaseClient } from '@/services/supabase/supabase.types';
-import { getToday } from '@/shared/lib/utils/helpers';
 
 type GetBookingsProps = {
 	supabaseClient: TypedSupabaseClient;

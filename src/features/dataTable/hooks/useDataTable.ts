@@ -1,4 +1,4 @@
-import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/shared/constants';
+import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/lib/constants';
 import {
 	type ColumnDef,
 	type ColumnFilter,

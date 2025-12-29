@@ -2,9 +2,6 @@
 
 import { flexRender } from '@tanstack/react-table';
 
-import { DataTablePagination } from '@/features/dataTable/components/DataTablePagination';
-import { DataTableViewOptions } from '@/features/dataTable/components/DataTableViewOptions';
-import useDataTable, { type DataTableProps } from '@/features/dataTable/hooks/useDataTable';
 import {
 	Table,
 	TableBody,
@@ -13,7 +10,10 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from '@/shared/components/ui/table';
+} from '@/components/ui/table';
+import { DataTablePagination } from '@/features/dataTable/components/DataTablePagination';
+import { DataTableViewOptions } from '@/features/dataTable/components/DataTableViewOptions';
+import useDataTable, { type DataTableProps } from '@/features/dataTable/hooks/useDataTable';
 
 export default function DataTable<TData>({
 	columns,

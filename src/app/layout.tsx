@@ -1,10 +1,10 @@
-import { Toaster } from '@/shared/components/ui/sonner';
-import { objektiv } from '@/shared/lib/fonts';
+import { Toaster } from '@/components/ui/sonner';
+import { objektiv } from '@/lib/fonts';
 import type { Metadata } from 'next';
 // @ts-expect-error since TypeScript can't resolve css files
 import './globals.css';
 
-import Providers from '@/shared/Providers';
+import Providers from '@/components/Providers';
 import { Nunito_Sans } from 'next/font/google';
 import { type PropsWithChildren } from 'react';
 

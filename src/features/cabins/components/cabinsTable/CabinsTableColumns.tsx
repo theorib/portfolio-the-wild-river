@@ -4,7 +4,7 @@ import { type Cabin } from '@/features/cabins/types';
 
 import CabinsTableColumnActionsRowItem from '@/features/cabins/components/cabinsTable/CabinsTableColumnActionsRowItem';
 import { DataTableColumnHeader } from '@/features/dataTable/components/DataTableColumnHeader';
-import { formatCurrency } from '@/shared/lib/utils/helpers';
+import { formatCurrency } from '@/lib/utils/helpers';
 import { createColumnHelper } from '@tanstack/react-table';
 import Image from 'next/image';
 import { z } from 'zod';

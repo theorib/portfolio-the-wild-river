@@ -1,5 +1,5 @@
 import { type Cabins } from '@/features/dataReset/schemas';
-import { env } from '@/shared/lib/env';
+import { env } from '@/lib/env';
 
 const imageUrl = `${env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/cabin-images/`;
 

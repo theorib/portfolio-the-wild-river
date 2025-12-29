@@ -14,7 +14,7 @@ import {
 	TodaySummaryTitle,
 } from '@/features/dashboard/components/TodaySummary';
 import useTodaysActivities from '@/features/dashboard/hooks/useTodaysActivities';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
 export default function DashboardSummary({ className, ...props }: React.ComponentProps<'div'>) {

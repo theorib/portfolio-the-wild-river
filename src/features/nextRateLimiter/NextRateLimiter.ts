@@ -17,9 +17,9 @@ import {
 	type NextRateLimiterResponsePayload,
 	type RateLimiterDefaultOptions,
 } from '@/features/nextRateLimiter/types';
-import { errorCatalog } from '@/shared/constants/errorCatalog';
-import { messageCatalog } from '@/shared/constants/messageCatalog';
-import { AppError } from '@/shared/errors';
+import { errorCatalog } from '@/lib/constants/errorCatalog';
+import { messageCatalog } from '@/lib/constants/messageCatalog';
+import { AppError } from '@/lib/errors';
 import { NextResponse } from 'next/server';
 import { RateLimiterMemory, type RateLimiterRes } from 'rate-limiter-flexible';
 import { fromError } from 'zod-validation-error';

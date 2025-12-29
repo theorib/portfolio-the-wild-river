@@ -1,5 +1,5 @@
 import { getUser } from '@/features/auth/actions';
-import paths from '@/shared/constants/paths';
+import paths from '@/lib/constants/paths';
 
 import { queryOptions, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';

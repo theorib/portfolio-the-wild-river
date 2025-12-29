@@ -3,22 +3,16 @@
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 import { Route } from '@/app/app/dashboard/routeType';
-import useBookingsAfterDate from '@/features/dashboard/hooks/useBookingsAfterDate';
-import { formatBookingDataForSales as formatBookingDataForSalesChart } from '@/features/dashboard/lib/formatChartsData';
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from '@/shared/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
 	type ChartConfig,
 	ChartContainer,
 	ChartTooltip,
 	ChartTooltipContent,
-} from '@/shared/components/ui/chart';
-import { cn } from '@/shared/lib/utils';
+} from '@/components/ui/chart';
+import useBookingsAfterDate from '@/features/dashboard/hooks/useBookingsAfterDate';
+import { formatBookingDataForSales as formatBookingDataForSalesChart } from '@/features/dashboard/lib/formatChartsData';
+import { cn } from '@/lib/utils';
 import { format, subDays } from 'date-fns';
 import { useSearchParams } from 'next-typesafe-url/app';
 

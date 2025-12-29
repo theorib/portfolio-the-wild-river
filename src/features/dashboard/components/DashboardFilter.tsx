@@ -1,5 +1,5 @@
-import { Button } from '@/shared/components/ui/button';
-import { cn } from '@/shared/lib/utils';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export function DashboardFilter({ className, ...props }: React.ComponentProps<'div'>) {
 	return (

@@ -1,6 +1,6 @@
+import { env } from '@/lib/env';
 import { type Database } from '@/services/supabase/supabase.auto.types';
 import { type TypedSupabaseClient } from '@/services/supabase/supabase.types';
-import { env } from '@/shared/lib/env';
 import { createBrowserClient } from '@supabase/ssr';
 import { useMemo } from 'react';
 

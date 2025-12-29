@@ -1,6 +1,6 @@
 import logger from '@/features/logger';
 import type { TypedSupabaseClient } from '@/services/supabase/supabase.types';
-// import { getToday } from '@/shared/lib/utils/helpers';
+// import { getToday } from '@/lib/utils/helpers';
 
 export const getCabins = async ({ supabaseClient }: { supabaseClient: TypedSupabaseClient }) => {
 	const query = supabaseClient.from('cabins').select(`*`, { count: 'exact' });

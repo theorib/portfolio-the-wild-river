@@ -7,8 +7,8 @@ import {
 	SelectSeparator,
 	SelectTrigger,
 	SelectValue,
-} from '@/shared/components/ui/select';
-import { cn } from '@/shared/lib/utils';
+} from '@/components/ui/select';
+import { cn } from '@/lib/utils';
 import { ArrowDownAZ, ArrowDownZA, CalendarArrowDown, CalendarArrowUp } from 'lucide-react';
 
 function SelectItemContent({ className, ...props }: React.ComponentProps<'div'>) {

@@ -1,8 +1,8 @@
 'use server';
 
 import logger from '@/features/logger';
+import paths from '@/lib/constants/paths';
 import { createClient } from '@/services/supabase/supabaseServer';
-import paths from '@/shared/constants/paths';
 import { type User } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';

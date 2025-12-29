@@ -4,16 +4,16 @@ import type * as React from 'react';
 import { Label, Pie, PieChart } from 'recharts';
 
 import { Route } from '@/app/app/dashboard/routeType';
-import useBookingsAfterDate from '@/features/dashboard/hooks/useBookingsAfterDate';
-import { formatBookingDataForStays } from '@/features/dashboard/lib/formatChartsData';
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
 	type ChartConfig,
 	ChartContainer,
 	ChartTooltip,
 	ChartTooltipContent,
-} from '@/shared/components/ui/chart';
-import { cn } from '@/shared/lib/utils';
+} from '@/components/ui/chart';
+import useBookingsAfterDate from '@/features/dashboard/hooks/useBookingsAfterDate';
+import { formatBookingDataForStays } from '@/features/dashboard/lib/formatChartsData';
+import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next-typesafe-url/app';
 
 export const chartConfig = {

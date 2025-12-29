@@ -1,5 +1,5 @@
+import { env } from '@/lib/env';
 import { type Database } from '@/services/supabase/supabase.auto.types';
-import { env } from '@/shared/lib/env';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 export async function createClient() {

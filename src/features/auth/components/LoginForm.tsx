@@ -1,24 +1,18 @@
 /* eslint-disable react/no-children-prop */
 'use client';
 
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from '@/shared/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { Field, FieldError, FieldGroup, FieldLabel } from '@/shared/components/ui/field';
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { useForm } from '@tanstack/react-form';
 
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { login } from '@/features/auth/actions';
 import { LoginFormDataSchema } from '@/features/auth/authSchemas';
 import logger from '@/features/logger';
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import paths from '@/shared/constants/paths';
-import { cn } from '@/shared/lib/utils';
+import paths from '@/lib/constants/paths';
+import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 export default function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {

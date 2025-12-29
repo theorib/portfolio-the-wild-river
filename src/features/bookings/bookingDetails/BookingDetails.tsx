@@ -6,10 +6,10 @@ import BookingFlag from '@/features/bookings/components/BookingFlag';
 import useBooking from '@/features/bookings/hooks/useBooking';
 import useBookingDates from '@/features/bookings/hooks/useBookingDates';
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card';
-import { SIDEBAR_ICON_STROKE_WIDTH } from '@/shared/constants';
-import { cn } from '@/shared/lib/utils';
-import { formatCurrency } from '@/shared/lib/utils/helpers';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { SIDEBAR_ICON_STROKE_WIDTH } from '@/lib/constants';
+import { cn } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils/helpers';
 import { format } from 'date-fns';
 import { CircleCheck, CircleDollarSign, CircleX, University } from 'lucide-react';
 import Link from 'next/link';

@@ -1,5 +1,5 @@
 import { Route, type RouteType } from '@/app/app/bookings/routeType';
-import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/shared/constants';
+import { DEFAULT_BOOKING_ITEMS_PER_PAGE } from '@/lib/constants';
 
 import { type InferRoute } from 'next-typesafe-url';
 

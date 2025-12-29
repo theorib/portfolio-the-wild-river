@@ -1,7 +1,7 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import type { BookingsStatus } from '@/features/bookings/schema';
 import useCheckInCheckOut from '@/features/checkInOut/hooks/useCheckInCheckout';
-import { Button } from '@/shared/components/ui/button';
 import { useRef } from 'react';
 
 type CheckInCheckOutBtnProps = {

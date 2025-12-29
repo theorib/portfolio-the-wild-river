@@ -1,5 +1,5 @@
 import { type Bookings } from '@/features/dataReset/schemas';
-import { fromToday } from '@/shared/lib/utils/helpers';
+import { fromToday } from '@/lib/utils/helpers';
 
 export const bookings: Bookings = [
 	// CABIN 001

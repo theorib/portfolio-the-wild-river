@@ -7,7 +7,7 @@ import {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue,
-} from '@/shared/components/ui/select';
+} from '@/components/ui/select';
 import { $path } from 'next-typesafe-url';
 import { useSearchParams } from 'next-typesafe-url/app';
 import { useRouter } from 'next/navigation';

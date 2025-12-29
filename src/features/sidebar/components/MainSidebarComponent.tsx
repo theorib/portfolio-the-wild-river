@@ -1,6 +1,5 @@
 'use client';
 
-import Logo from '@/features/logo/components/Logo';
 import {
 	Sidebar,
 	SidebarContent,
@@ -15,7 +14,8 @@ import {
 	SidebarSeparator,
 	SidebarTrigger,
 	useSidebar,
-} from '@/shared/components/ui/sidebar';
+} from '@/components/ui/sidebar';
+import Logo from '@/features/logo/components/Logo';
 import {
 	ArrowDownAZ,
 	CalendarDays,
@@ -30,20 +30,16 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { bookingsQuery } from '@/features/bookings/hooks/useBookings';
 import useDataReset from '@/features/dataReset/hooks/useDataReset';
-import { type TypedSupabaseClient } from '@/services/supabase/supabase.types';
-import useSupabaseBrowser from '@/services/supabase/supabaseBrowser';
-import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-} from '@/shared/components/ui/collapsible';
 import {
 	DEFAULT_BOOKING_ITEMS_PER_PAGE,
 	SIDEBAR_ICON_SIZE,
 	SIDEBAR_ICON_STROKE_WIDTH,
-} from '@/shared/constants';
+} from '@/lib/constants';
+import { type TypedSupabaseClient } from '@/services/supabase/supabase.types';
+import useSupabaseBrowser from '@/services/supabase/supabaseBrowser';
 import { type QueryClient, useQueryClient } from '@tanstack/react-query';
 import { $path } from 'next-typesafe-url';
 

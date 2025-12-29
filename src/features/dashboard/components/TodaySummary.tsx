@@ -1,7 +1,7 @@
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { type BookingsStatus } from '@/features/bookings/schema';
-import { Badge } from '@/shared/components/ui/badge';
-import { Button } from '@/shared/components/ui/button';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/lib/utils';
 
 function TodaySummaryItemList({ className, ...props }: React.ComponentProps<'ul'>) {
 	return (

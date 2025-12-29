@@ -1,5 +1,5 @@
+import { PageHeader, PageHeaderTitle } from '@/components/ui-custom/PageHeader';
 import BookingsTable from '@/features/bookings/bookingsTable/BookingsTable';
-import { PageHeader, PageHeaderTitle } from '@/shared/components/ui-custom/PageHeader';
 
 export default function BookingsPage() {
 	return (

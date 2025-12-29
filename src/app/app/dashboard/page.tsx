@@ -1,11 +1,11 @@
+import { PageHeader, PageHeaderTitle } from '@/components/ui-custom/PageHeader';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import DashboardStats from '@/features/dashboard/components/DashboardStats';
 import DashboardSummary from '@/features/dashboard/components/DashboardSummary';
 import SalesChart from '@/features/dashboard/components/SalesChart';
 import StayChart from '@/features/dashboard/components/StayChart';
 import { bookingsAfterDateQuery } from '@/features/dashboard/hooks/useBookingsAfterDate';
 import { createClient } from '@/services/supabase/supabaseServer';
-import { PageHeader, PageHeaderTitle } from '@/shared/components/ui-custom/PageHeader';
-import { ToggleGroup, ToggleGroupItem } from '@/shared/components/ui/toggle-group';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { $path, type InferPagePropsType } from 'next-typesafe-url';
 import { withParamValidation } from 'next-typesafe-url/app/hoc';
@@ -32,7 +32,7 @@ async function DashboardPage({ searchParams }: PageProps) {
 			<div className="grid w-full grid-cols-4 gap-4">
 				<PageHeader className="xs:flex-row col-span-4 flex w-full flex-col items-center justify-between gap-4 md:col-span-4">
 					<PageHeaderTitle>Dashboard</PageHeaderTitle>
-					<ToggleGroup defaultValue={["Last 7 Days"]} variant="outline">
+					<ToggleGroup defaultValue={['Last 7 Days']} variant="outline">
 						<Link
 							href={$path({
 								route: '/app/dashboard',

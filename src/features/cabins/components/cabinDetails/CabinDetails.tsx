@@ -4,8 +4,8 @@ import CabinDetailsError from '@/features/cabins/components/cabinDetails/CabinDe
 import { CabinDetailsSkeleton } from '@/features/cabins/components/cabinDetails/CabinDetailsSkeleton';
 import useCabin from '@/features/cabins/hooks/useCabin';
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card';
-import { cn } from '@/shared/lib/utils';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import { University } from 'lucide-react';
 
 import { useParams } from 'next/navigation';

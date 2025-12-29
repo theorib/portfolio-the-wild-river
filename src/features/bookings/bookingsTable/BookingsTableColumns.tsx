@@ -12,8 +12,8 @@ import BookingsTableColumnActionsRowItem from '@/features/bookings/bookingsTable
 import BookingsTableColumnDates from '@/features/bookings/bookingsTable/BookingsTableColumnDatesRowItem';
 import { BookingStatusBadge } from '@/features/bookings/components/BookingStatusBadge';
 import { DataTableColumnHeader } from '@/features/dataTable/components/DataTableColumnHeader';
-import { cn } from '@/shared/lib/utils';
-import { formatCurrency } from '@/shared/lib/utils/helpers';
+import { cn } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils/helpers';
 import { createColumnHelper } from '@tanstack/react-table';
 import Link from 'next/link';
 import { z } from 'zod';
