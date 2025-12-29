@@ -1,8 +1,6 @@
+/* eslint-disable react/no-children-prop */
 'use client';
-import { login } from '@/features/auth/actions';
-import { LoginFormDataSchema } from '@/features/auth/authSchemas';
 
-import { Button } from '@/shared/components/ui/button';
 import {
 	Card,
 	CardContent,
@@ -10,40 +8,46 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/shared/components/ui/card';
-import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from '@/shared/components/ui/form';
-import { Input } from '@/shared/components/ui/input';
-import { cn } from '@/shared/lib/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import { type z } from 'zod';
 
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/shared/components/ui/field';
+import { useForm } from '@tanstack/react-form';
+
+import { login } from '@/features/auth/actions';
+import { LoginFormDataSchema } from '@/features/auth/authSchemas';
+import logger from '@/features/logger';
+import { Button } from '@/shared/components/ui/button';
+import { Input } from '@/shared/components/ui/input';
+import paths from '@/shared/constants/paths';
+import { cn } from '@/shared/lib/utils';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 export default function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-	const form = useForm<z.infer<typeof LoginFormDataSchema>>({
-		resolver: zodResolver(LoginFormDataSchema),
+	const router = useRouter();
+	const form = useForm({
+		formId: 'login-form',
 		defaultValues: {
 			email: 'user@user.com',
 			password: '12345678',
 		},
-		mode: 'onBlur',
+		validators: { onSubmit: LoginFormDataSchema, onBlur: LoginFormDataSchema },
+		onSubmit: async ({ value }) => {
+			try {
+				const { success, error } = await login(value);
+
+				if (error) {
+					return toast.error('Invalid email or password');
+				} else if (success) {
+					toast.success('You have succefully logged in.');
+					router.push(paths.dashboard.pathname);
+				}
+			} catch (err) {
+				const errorMessage = 'Unknown auth error';
+				logger.withError(err).error(errorMessage);
+
+				toast.error(errorMessage);
+			}
+		},
 	});
-
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		void form.handleSubmit(async (values) => {
-			await login(values);
-		})(e);
-
-		toast.success('You have succefully logged in.');
-	};
 
 	return (
 		<div className={cn('flex flex-col gap-6', className)} {...props}>
@@ -53,51 +57,70 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
 					<CardDescription>Login with your email and password</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<Form {...form}>
-						<form onSubmit={handleSubmit} className="grid gap-6">
-							<div className="grid gap-6">
-								<div className="grid gap-6">
-									<FormField
-										control={form.control}
-										name="email"
-										render={({ field }) => (
-											<FormItem className="grid gap-2">
-												<FormLabel>Email</FormLabel>
-												<FormControl>
-													<Input placeholder="user@user.com" {...field} />
-												</FormControl>
-												<FormDescription>This is your email Address.</FormDescription>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-									<FormField
-										control={form.control}
-										name="password"
-										render={({ field }) => (
-											<FormItem className="grid gap-2">
-												<FormLabel>Password</FormLabel>
-												<FormControl>
-													<Input placeholder="abc3i@lasdn-*ssAD" {...field} />
-												</FormControl>
-												<FormDescription>This is your password.</FormDescription>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-									<Button type="submit" className="w-full">
-										Login
-									</Button>
-								</div>
-								<div className="text-center text-sm">
-									Don&apos;t have an account?{' '}
-									<a href="#" className="underline underline-offset-4">
-										Sign up
-									</a>
-								</div>
-							</div>
-						</form>
-					</Form>
+					<form
+						className="grid gap-6"
+						id="login-form"
+						onSubmit={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							void form.handleSubmit();
+						}}
+					>
+						<FieldGroup>
+							<form.Field
+								name="email"
+								children={(field) => {
+									const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+									return (
+										<Field data-invalid={isInvalid}>
+											<FieldLabel htmlFor={field.name}>e-mail</FieldLabel>
+											<Input
+												id={field.name}
+												name={field.name}
+												value={field.state.value}
+												onBlur={field.handleBlur}
+												onChange={(e) => field.handleChange(e.target.value)}
+												aria-invalid={isInvalid}
+												autoComplete="username"
+												type="email"
+											/>
+											{isInvalid && <FieldError errors={field.state.meta.errors} />}
+										</Field>
+									);
+								}}
+							/>
+							<form.Field
+								name="password"
+								children={(field) => {
+									const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+									return (
+										<Field data-invalid={isInvalid}>
+											<FieldLabel htmlFor={field.name}>Password</FieldLabel>
+											<Input
+												id={field.name}
+												name={field.name}
+												value={field.state.value}
+												onBlur={field.handleBlur}
+												onChange={(e) => field.handleChange(e.target.value)}
+												aria-invalid={isInvalid}
+												type="password"
+												autoComplete="current-password"
+											/>
+											{isInvalid && <FieldError errors={field.state.meta.errors} />}
+										</Field>
+									);
+								}}
+							/>
+						</FieldGroup>
+						<form.Subscribe
+							selector={(state) => [state.canSubmit, state.isSubmitting]}
+							children={([canSubmit, isSubmitting]) => (
+								<Button type="submit" disabled={!canSubmit}>
+									{isSubmitting ? '...' : 'Submit'}
+								</Button>
+							)}
+						/>
+					</form>
 				</CardContent>
 			</Card>
 			<div className="text-muted-foreground [&_a]:hover:text-primary text-center text-xs text-balance [&_a]:underline [&_a]:underline-offset-4">

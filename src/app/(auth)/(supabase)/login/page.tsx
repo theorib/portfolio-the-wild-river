@@ -1,5 +1,5 @@
 import LoginForm from '@/features/auth/components/LoginForm';
-import { GalleryVerticalEnd } from 'lucide-react';
+import Logo from '@/features/logo/components/Logo';
 import { $path } from 'next-typesafe-url';
 import Link from 'next/link';
 
@@ -13,10 +13,10 @@ export default function LoginPage() {
 					})}
 					className="flex items-center gap-2 self-center font-medium"
 				>
-					<div className="bg-primary text-primary-foreground flex h-6 w-6 items-center justify-center rounded-md">
-						<GalleryVerticalEnd className="size-4" />
+					<div className="flex flex-col items-center justify-center rounded-md">
+						<Logo logoSize={80} />
+						<p className="sr-only">The Wild River</p>
 					</div>
-					Acme Inc.
 				</Link>
 				<LoginForm />
 			</div>

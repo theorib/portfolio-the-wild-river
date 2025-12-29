@@ -1,7 +1,7 @@
 import * as z from 'zod';
 export const LoginFormDataSchema = z.object({
-	email: z.string().email(),
-	password: z.string().min(8),
+	email: z.email(),
+	password: z.string().min(8, { error: 'Invalid password' }),
 });
 export type LoginFormData = z.output<typeof LoginFormDataSchema>;
 

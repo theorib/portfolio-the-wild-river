@@ -1,7 +1,5 @@
 'use server';
 
-import { type LoginFormData } from '@/features/auth/authSchemas';
-import { parseLoginData } from '@/features/auth/helpers';
 import logger from '@/features/logger';
 import { createClient } from '@/services/supabase/supabaseServer';
 import paths from '@/shared/constants/paths';
@@ -9,67 +7,80 @@ import { type User } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-export async function login(loginFormData: LoginFormData) {
-	const supabase = await createClient();
+import { LoginFormDataSchema, type LoginFormData } from '@/features/auth/authSchemas';
 
-	const { success, data, error: parsingError } = parseLoginData(loginFormData);
+interface LoginReturn {
+	success: boolean;
+	data: User | null;
+	error: Error | null;
+}
 
-	if (!success) {
+export async function login(loginFormData: LoginFormData): Promise<LoginReturn> {
+	try {
+		const supabase = await createClient();
+
+		const { data: parsedData, error: parsingError } = LoginFormDataSchema.safeParse(loginFormData);
+
+		if (parsingError) {
+			return { success: false, data: null, error: parsingError };
+		}
+
+		const { error, data } = await supabase.auth.signInWithPassword({
+			email: parsedData.email,
+			password: parsedData.password,
+		});
+
+		if (error) {
+			return { success: false, data: null, error };
+		}
+
+		if (data && data.session) {
+			return { success: true, data: data.user, error: null };
+		}
+
+		return { success: false, data: null, error: new Error('Unexpected auth error') };
+	} catch (err) {
 		logger
 			.withMetadata({
 				function: 'login',
 				loginFormData,
 			})
-			.withError(parsingError)
-			.error(
-				'loginFormData for user %s failed to be parsed with parsingError: %s',
-				loginFormData.email,
-				parsingError.message,
-			);
-		return;
+			.withError(err)
+			.error('loginFormData for user %s failed to be parsed with parsingError: %s');
+
+		let errorMessage = 'Unexpected auth error';
+		if (err instanceof Error) {
+			errorMessage = err.message;
+		}
+
+		return {
+			success: false,
+			data: null,
+			error: new Error('Unexpected auth error', {
+				cause: errorMessage,
+			}),
+		};
 	}
-
-	const { error, data: supabaseData } = await supabase.auth.signInWithPassword({
-		email: data.email,
-		password: data.password,
-	});
-
-	if (error) {
-		logger
-			.withMetadata({
-				function: 'login',
-				loginFormData,
-				supabaseData,
-			})
-			.withError(error)
-			.error(
-				'User %s failed to login to Supabase with error: %s',
-				loginFormData.email,
-				error.message,
-			);
-		return;
-	}
-
-	logger
-		.withMetadata({
-			function: 'login',
-			loginFormData,
-			supabaseData,
-		})
-		.info('User %s successfully logged in to Supabase Auth', loginFormData.email);
-
-	revalidatePath(paths.dashboard.pathname, 'layout');
-	redirect(paths.dashboard.pathname);
 }
 export async function signup(formData: FormData) {
 	const supabase = await createClient();
 
+	// const {
+	// 	success,
+	// 	data,
+	// 	error: parsingError,
+	// } = parseLoginData({
+	// 	email: formData.get('email') as string,
+	// 	password: formData.get('password') as string,
+	// });
+
 	const {
 		success,
-		data,
+		data: parsedData,
 		error: parsingError,
-	} = parseLoginData({
+	} = LoginFormDataSchema.safeParse({
 		email: formData.get('email') as string,
+
 		password: formData.get('password') as string,
 	});
 
@@ -78,7 +89,7 @@ export async function signup(formData: FormData) {
 		redirect('/error');
 	}
 
-	const { error } = await supabase.auth.signUp(data);
+	const { error } = await supabase.auth.signUp(parsedData);
 
 	if (error) {
 		redirect('/error');
