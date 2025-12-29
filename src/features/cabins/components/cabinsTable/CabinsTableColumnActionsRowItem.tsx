@@ -1,7 +1,7 @@
 'use client';
 import { cabinQuery } from '@/features/cabins/hooks/useCabin';
 import useDeleteCabinById from '@/features/cabins/hooks/useDeleteCabinById';
-import { type Cabin } from '@/services/supabase/supabase.types';
+import { type Cabin } from '@/features/cabins/types';
 import useSupabaseBrowser from '@/services/supabase/supabaseBrowser';
 import { Button } from '@/shared/components/ui/button';
 import {

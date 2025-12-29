@@ -2,8 +2,8 @@
 import { bookingQuery } from '@/features/bookings/hooks/useBooking';
 import useDeleteBookingById from '@/features/bookings/hooks/useDeleteBookingById';
 import { BookingsStatusSchema, type BookingsStatus } from '@/features/bookings/schema';
+import { type Booking } from '@/features/bookings/types';
 import useCheckInCheckOut from '@/features/checkInOut/hooks/useCheckInCheckout';
-import { type Booking } from '@/services/supabase/supabase.types';
 import useSupabaseBrowser from '@/services/supabase/supabaseBrowser';
 import { Button } from '@/shared/components/ui/button';
 import {

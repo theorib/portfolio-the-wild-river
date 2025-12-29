@@ -1,21 +1,3 @@
-import { type BookingsStatus } from '@/features/bookings/schema';
-import { type getBookings } from '@/services/supabase/queries/bookings';
-import type { getCabins } from '@/services/supabase/queries/cabins';
-import type { Database, TablesUpdate } from '@/services/supabase/supabase.auto.types';
-import type { ArrayElement, PaginationAndSort } from '@/shared/types';
+import type { Database } from '@/services/supabase/supabase.auto.types';
 import { type SupabaseClient } from '@supabase/supabase-js';
 export type TypedSupabaseClient = SupabaseClient<Database>;
-
-export type BookingsAutoRow = Database['public']['Tables']['bookings']['Row'];
-export type Bookings = Awaited<ReturnType<typeof getBookings>>['data'];
-export type Booking = ArrayElement<Bookings>;
-export type BookingsSearchParams = PaginationAndSort<Booking>;
-export type BookingUpdate = TablesUpdate<'bookings'> & {
-	status: BookingsStatus;
-};
-
-export type CabinsAutoRow = Database['public']['Tables']['bookings']['Row'];
-export type Cabins = Awaited<ReturnType<typeof getCabins>>['data'];
-export type Cabin = ArrayElement<Cabins>;
-export type CabinsSearchParams = PaginationAndSort<Cabin>;
-export type CabinsUpdate = TablesUpdate<'cabins'>;

@@ -1,5 +1,6 @@
 import logger from '@/features/logger';
-import type { CabinsUpdate, TypedSupabaseClient } from '@/services/supabase/supabase.types';
+import type { TypedSupabaseClient } from '@/services/supabase/supabase.types';
+import type { CabinsUpdate } from '../../../features/cabins/types';
 
 export type UpdateCabinByIdProps = {
 	supabaseClient: TypedSupabaseClient;

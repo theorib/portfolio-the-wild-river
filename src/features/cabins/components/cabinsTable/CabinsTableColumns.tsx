@@ -1,6 +1,6 @@
 'use client';
 
-import { type Cabin } from '@/services/supabase/supabase.types';
+import { type Cabin } from '@/features/cabins/types';
 
 import CabinsTableColumnActionsRowItem from '@/features/cabins/components/cabinsTable/CabinsTableColumnActionsRowItem';
 import { DataTableColumnHeader } from '@/features/dataTable/components/DataTableColumnHeader';

@@ -6,7 +6,7 @@ import {
 	BookingsTableItemCellContainer,
 } from '@/features/bookings/bookingsTable/BookingsTableItemsCell';
 import { BookingsStatusSchema } from '@/features/bookings/schema';
-import { type Booking } from '@/services/supabase/supabase.types';
+import { type Booking } from '@/features/bookings/types';
 
 import BookingsTableColumnActionsRowItem from '@/features/bookings/bookingsTable/BookingsTableColumnActionsRowItem';
 import BookingsTableColumnDates from '@/features/bookings/bookingsTable/BookingsTableColumnDatesRowItem';

@@ -1,5 +1,6 @@
 import logger from '@/features/logger';
-import type { BookingUpdate, TypedSupabaseClient } from '@/services/supabase/supabase.types';
+import type { TypedSupabaseClient } from '@/services/supabase/supabase.types';
+import type { BookingUpdate } from '../../../features/bookings/types';
 
 export type UpdateBookingByIdProps = {
 	supabaseClient: TypedSupabaseClient;
