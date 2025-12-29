@@ -22,8 +22,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
 				<Providers>
 					{children}
 					<Toaster />
-
-					{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 				</Providers>
 			</body>
 		</html>
