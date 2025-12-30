@@ -22,7 +22,7 @@
 		"lint:tsc": "tsc --noEmit --skipLibCheck",
 		"package:sort": "pnpm dlx sort-package-json",
 		"prepare": "husky",
-		"shad": "pnpm dlx shadcn@canary add",
+		"shad": "pnpm dlx shadcn add",
 		"start": "next start",
 		"supabase:generate:schemas": "supazod -i src/lib/types/supabase.types.ts -o src/lib/schemas/supabaseSchemas.ts && eslint --fix src/lib/schemas/supabaseSchemas.ts",
 		"supabase:generate:types": "dotenv -- supabase gen types typescript --project-id=\"$SUPABASE_PROJECT_ID\" > src/lib/types/supabase.types.ts && eslint --fix src/lib/types/supabase.auto.types.ts",
