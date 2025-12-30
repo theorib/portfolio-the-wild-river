@@ -1,8 +1,7 @@
-import paths from '@/lib/constants/paths';
 import { env } from '@/lib/env';
 import { createServerClient } from '@supabase/ssr';
+import { $path } from 'next-typesafe-url';
 import { NextResponse, type NextRequest } from 'next/server';
-
 export async function updateSession(request: NextRequest) {
 	let supabaseResponse = NextResponse.next({
 		request,
@@ -41,13 +40,13 @@ export async function updateSession(request: NextRequest) {
 
 	if (
 		!user &&
-		!request.nextUrl.pathname.startsWith(paths.login.pathname) &&
-		!request.nextUrl.pathname.startsWith(paths.signInPage.pathname) &&
+		!request.nextUrl.pathname.startsWith($path({ route: '/login' })) &&
+		!request.nextUrl.pathname.startsWith($path({ route: '/signup' })) &&
 		!request.nextUrl.pathname.startsWith('/auth')
 	) {
 		// no user, potentially respond by redirecting the user to the login page
 		const url = request.nextUrl.clone();
-		url.pathname = paths.login.pathname;
+		url.pathname = $path({ route: '/login' });
 		return NextResponse.redirect(url);
 	}
 

@@ -1,13 +1,12 @@
 'use server';
 
+import { LoginFormDataSchema, type LoginFormData } from '@/features/auth/authSchemas';
 import logger from '@/features/logger';
-import paths from '@/lib/constants/paths';
 import { createClient } from '@/services/supabase/supabaseServer';
 import { type User } from '@supabase/supabase-js';
+import { $path } from 'next-typesafe-url';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-
-import { LoginFormDataSchema, type LoginFormData } from '@/features/auth/authSchemas';
 
 interface LoginReturn {
 	success: boolean;
@@ -95,8 +94,8 @@ export async function signup(formData: FormData) {
 		redirect('/error');
 	}
 
-	revalidatePath(paths.dashboard.pathname, 'layout');
-	redirect(paths.dashboard.pathname);
+	revalidatePath($path({ route: '/app/dashboard' }), 'layout');
+	redirect($path({ route: '/app/dashboard' }));
 }
 
 export const logout = async () => {
@@ -125,7 +124,7 @@ export const getUser = async (): Promise<User> => {
 			})
 			.withError(error)
 			.error('Error getting user');
-		redirect(paths.login.pathname);
+		redirect($path({ route: '/login' }));
 	}
 
 	return data.user;
@@ -141,6 +140,6 @@ export const validateSession = async (): Promise<void> => {
 			})
 			.withError(error);
 
-		redirect(paths.login.pathname);
+		redirect($path({ route: '/login' }));
 	}
 };

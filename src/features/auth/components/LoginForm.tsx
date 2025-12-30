@@ -11,10 +11,11 @@ import { Input } from '@/components/ui/input';
 import { login } from '@/features/auth/actions';
 import { LoginFormDataSchema } from '@/features/auth/authSchemas';
 import logger from '@/features/logger';
-import paths from '@/lib/constants/paths';
 import { cn } from '@/lib/utils';
+import { $path } from 'next-typesafe-url';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+
 export default function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
 	const router = useRouter();
 	const form = useForm({
@@ -32,7 +33,7 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
 					return toast.error('Invalid email or password');
 				} else if (success) {
 					toast.success('You have succefully logged in.');
-					router.push(paths.dashboard.pathname);
+					router.push($path({ route: '/app/dashboard' }));
 				}
 			} catch (err) {
 				const errorMessage = 'Unknown auth error';

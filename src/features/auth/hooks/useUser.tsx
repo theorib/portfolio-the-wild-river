@@ -1,10 +1,9 @@
 import { getUser } from '@/features/auth/actions';
-import paths from '@/lib/constants/paths';
 
 import { queryOptions, useQuery, useQueryClient } from '@tanstack/react-query';
+import { $path } from 'next-typesafe-url';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-
 export const userQuery = queryOptions({
 	queryKey: ['user'],
 	queryFn: getUser,
@@ -20,7 +19,7 @@ export default function useUser() {
 
 	if (userQueryResult.status === 'error' || isInvalidUser) {
 		queryClient.clear();
-		router.push(paths.login.pathname);
+		router.push($path({ route: '/login' }));
 		toast('Invalid user, please login with a valid user');
 	}
 
