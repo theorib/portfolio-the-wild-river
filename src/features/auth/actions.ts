@@ -64,15 +64,6 @@ export async function login(loginFormData: LoginFormData): Promise<LoginReturn> 
 export async function signup(formData: FormData) {
 	const supabase = await createClient();
 
-	// const {
-	// 	success,
-	// 	data,
-	// 	error: parsingError,
-	// } = parseLoginData({
-	// 	email: formData.get('email') as string,
-	// 	password: formData.get('password') as string,
-	// });
-
 	const {
 		success,
 		data: parsedData,
