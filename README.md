@@ -8,7 +8,7 @@ Check the [App live demo hosted on Vercel]()
 
 You can log in using the credentials below:
 
-Email address: user@user.com
+Email address: user@theoribeiro.dev
 Password: 12345678
 
 When you sign in for the first time, click on **Reset and Upload ALL** on the sidebar to get fresh data on the dashboard. Creating new users is disabled for security reasons.

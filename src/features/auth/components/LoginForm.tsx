@@ -21,7 +21,7 @@ export default function LoginForm({ className, ...props }: React.ComponentPropsW
 	const form = useForm({
 		formId: 'login-form',
 		defaultValues: {
-			email: 'user@user.com',
+			email: 'user@theoribeiro.dev',
 			password: '12345678',
 		},
 		validators: { onSubmit: LoginFormDataSchema, onBlur: LoginFormDataSchema },
