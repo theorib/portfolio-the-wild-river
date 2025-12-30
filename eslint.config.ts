@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import eslintJs from '@eslint/js';
 import next from '@next/eslint-plugin-next';
 import pluginQuery from '@tanstack/eslint-plugin-query';
@@ -26,22 +25,12 @@ import { fileURLToPath } from 'url';
  * Replace Types from 'eslint' such as the ones from Linter and ESLint and it's sub types such as Linter.Config with stricter types from '\@typescript-eslint/utils'
  * @see {@link https://typescript-eslint.io/packages/utils}
  */
-// Eslint Default is Linter.Config
 type Config = TSESLint.FlatConfig.Config;
-// Eslint Default is Array<Linter.Config>
 type ConfigArray = TSESLint.FlatConfig.ConfigArray;
-// Eslint Default is Array<string | string[]>
 type ConfigFiles = TSESLint.FlatConfig.Config['files'];
-// Eslint Default is Array<string>
 type ConfigIgnores = TSESLint.FlatConfig.Config['ignores'];
-// Eslint Default is ESLint.Plugin
 type ConfigPlugin = TSESLint.FlatConfig.Plugin;
-// Eslint Default is Record<string, ESLint.Plugin>
-type ConfigPlugins = TSESLint.FlatConfig.Plugins | undefined;
-// Eslint Default is Linter.RulesRecord
 type ConfigRules = TSESLint.FlatConfig.Config['rules'];
-// Eslint Default is Linter.LanguageOptions
-type ConfigLanguageOptions = TSESLint.FlatConfig.Config['languageOptions'];
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -50,7 +39,7 @@ const __dirname = dirname(__filename);
  * FlatCompat is a utility class that allows us to use eslintrc Config files (pre ESLint v9) with ESlint v9  Flat Config files
  * @see {@link https://eslint.org/docs/latest/use/configure/migration-guide#using-eslintrc-configs-in-flat-config }
  */
-const compat = new FlatCompat({
+const _compat = new FlatCompat({
 	baseDirectory: __dirname,
 	recommendedConfig: eslintJs.configs.recommended,
 	resolvePluginsRelativeTo: __dirname,
@@ -61,7 +50,7 @@ const JS_FILE_PATTERNS = ['**/*.?(c|m)js'] satisfies ConfigFiles;
 const JSX_FILE_PATTERNS = ['**/*.?(c|m)jsx'] satisfies ConfigFiles;
 const TS_FILE_PATTERNS = ['**/*.?(c|m)ts'] satisfies ConfigFiles;
 const TSX_FILE_PATTERNS = ['**/*.?(c|m)tsx'] satisfies ConfigFiles;
-const JSX_TSX_FILE_PATTERNS = [...JSX_FILE_PATTERNS, ...TSX_FILE_PATTERNS] satisfies ConfigFiles;
+const _JSX_TSX_FILE_PATTERNS = [...JSX_FILE_PATTERNS, ...TSX_FILE_PATTERNS] satisfies ConfigFiles;
 const JS_JSX_TS_TSX_FILE_PATTERNS = [
 	...JS_FILE_PATTERNS,
 	...JSX_FILE_PATTERNS,
@@ -155,7 +144,7 @@ const reactJsxRuntime = {
 /**
  * This eslint plugin enforces React's Rule of Hooks
  * @see {@link https://react.dev/reference/rules/rules-of-hooks}
- * Since eslint-plugin-react-hooks@6.0.0-rc.1,  eslint-plugin-react-compiler was merged into eslint-plugin-react-hooks.
+ * Since eslint-plugin-react-hooks\@6.0.0-rc.1,  eslint-plugin-react-compiler was merged into eslint-plugin-react-hooks.
  * @see {@link https://react.dev/blog/2025/04/21/react-compiler-rc}
  * This configuration follows the plugin's latest recommended rules with the addition of adding the files property for narrowing down the files that should be linted.
  */
@@ -495,7 +484,14 @@ const eslintConfig = [
 			],
 			'react-refresh/only-export-components': ['off', { allowConstantExport: true }],
 			'@typescript-eslint/array-type': ['error', { default: 'generic' }],
-			'@typescript-eslint/no-unused-vars': 'warn',
+			'@typescript-eslint/no-unused-vars': [
+				'warn',
+				{
+					argsIgnorePattern: '^_',
+					varsIgnorePattern: '^_',
+					caughtErrorsIgnorePattern: '^_',
+				},
+			],
 			'@typescript-eslint/no-floating-promises': [
 				'error',
 				{
