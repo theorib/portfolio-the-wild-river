@@ -53,8 +53,8 @@ export const chartConfig = {
 
 export default function StayChart({ className, ...props }: React.ComponentProps<'div'>) {
 	const searchParams = useSearchParams(Route.searchParams);
-	const numDays = searchParams.data?.numDays || 7;
-	const { data, status, isError, isLoading } = useBookingsAfterDate({
+	// const numDays = searchParams.data?.numDays || 7;
+	const { data, status } = useBookingsAfterDate({
 		days: searchParams.data?.numDays,
 	});
 

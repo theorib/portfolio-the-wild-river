@@ -2,7 +2,6 @@
 import { Button } from '@/components/ui/button';
 import type { BookingsStatus } from '@/features/bookings/schema';
 import useCheckInCheckOut from '@/features/checkInOut/hooks/useCheckInCheckout';
-import { useRef } from 'react';
 
 type CheckInCheckOutBtnProps = {
 	bookingId: number;
@@ -32,7 +31,6 @@ export function CheckInCheckOutButton({
 	...props
 }: CheckInCheckOutBtnProps) {
 	const { mutate, status } = useCheckInCheckOut({ bookingId });
-	const bookingStatusRef = useRef(bookingStatus);
 
 	const updatedStatus: UpdatedStatus = {
 		'checked-in': {

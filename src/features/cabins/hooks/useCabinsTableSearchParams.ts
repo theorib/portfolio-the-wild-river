@@ -52,7 +52,10 @@ export default function useCabinsTableSearchParams(
 	}
 
 	return {
-		data: data,
+		data: {
+			pagination: data.pagination ?? defaultSearchParams.pagination,
+			sort: data.sort ?? defaultSearchParams.sort,
+		},
 		isLoading: false,
 	};
 }
