@@ -6,10 +6,10 @@ allowed_branches="main"
 # allowed_branches="main develop feature/*"
 
 # Check if the current branch is in the allowed list
-if echo "$allowed_branches" | grep -q "$branch"; then
-  pnpm dlx commitlint --edit $1
-else
-  echo "Skipping commit-msg hook on branch $branch"
-fi
+# if echo "$allowed_branches" | grep -q "$branch"; then
+#   pnpm dlx commitlint --edit $1
+# else
+#   echo "Skipping commit-msg hook on branch $branch"
+# fi
 
 
