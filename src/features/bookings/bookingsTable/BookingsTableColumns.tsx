@@ -57,7 +57,7 @@ export const bookingsTableColumns = [
 			},
 			header: ({ column }) => <DataTableColumnHeader column={column} title="Guest" />,
 			cell: (props) => {
-				const { data: email, success } = z.string().email().safeParse(props.getValue().email);
+				const { data: email, success } = z.email().safeParse(props.getValue().email);
 
 				return (
 					<BookingsTableItemCellContainer>

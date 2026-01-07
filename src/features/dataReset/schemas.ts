@@ -15,9 +15,9 @@ export type Cabin = z.infer<typeof CabinsSchema>;
 export type Cabins = z.infer<typeof CabinsArraySchema>;
 
 export const BookingSchema = z.object({
-	created_at: z.string().datetime(),
-	startDate: z.string().datetime(),
-	endDate: z.string().datetime(),
+	created_at: z.iso.datetime(),
+	startDate: z.iso.datetime(),
+	endDate: z.iso.datetime(),
 	cabinId: z.number().int().positive(),
 	guestId: z.number().int().positive(),
 	hasBreakfast: z.boolean(),
@@ -34,7 +34,7 @@ export type Bookings = z.infer<typeof BookingsArraySchema>;
 
 export const GuestSchema = z.object({
 	fullName: z.string().min(1),
-	email: z.string().email(),
+	email: z.email(),
 	nationality: z.string().min(1),
 	nationalID: z.string().min(1),
 	countryFlag: z.string().url(),
