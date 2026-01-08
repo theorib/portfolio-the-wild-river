@@ -44,12 +44,16 @@ export default function DashboardSummary({ className, ...props }: React.Componen
 										{status}
 									</TodaySummaryItemBadge>
 									<TodaySummaryItemFlag>
-										<Image
-											width={35}
-											height={35}
-											src={item.guestId?.countryFlag || '#'}
-											alt={`${item.guestId?.nationality} flag`}
-										/>
+										{item.guestId?.countryFlag ? (
+											<Image
+												width={35}
+												height={35}
+												src={item.guestId.countryFlag}
+												alt={`${item.guestId?.nationality} flag`}
+											/>
+										) : (
+											<div className="h-8.75 w-8.75 bg-muted rounded" />
+										)}
 									</TodaySummaryItemFlag>
 									<TodaySummaryItemName>{item.guestId?.fullName}</TodaySummaryItemName>
 									<TodaySummaryItemNumber>{item.numGuests}</TodaySummaryItemNumber>
