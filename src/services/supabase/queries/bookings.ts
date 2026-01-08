@@ -1,3 +1,10 @@
+import type {
+	BookingAfterDate,
+	BookingTodayActivity,
+	BookingWithGuest,
+	BookingWithGuestAndCabin,
+	StayAfterDate,
+} from '@/features/bookings/types';
 import logger from '@/features/logger';
 import { getToday } from '@/lib/utils/helpers';
 import type { TypedSupabaseClient } from '@/services/supabase/supabase.types';
@@ -6,7 +13,12 @@ type GetBookingsProps = {
 	supabaseClient: TypedSupabaseClient;
 };
 
-export const getBookings = async ({ supabaseClient }: GetBookingsProps) => {
+export const getBookings = async ({
+	supabaseClient,
+}: GetBookingsProps): Promise<{
+	data: Array<BookingWithGuest>;
+	count: number | null;
+}> => {
 	const query = supabaseClient
 		.from('bookings')
 		.select(`*, guestId(fullName, id, email)`, { count: 'exact' });
@@ -34,7 +46,7 @@ export const getBookingById = async ({
 }: {
 	supabaseClient: TypedSupabaseClient;
 	bookingId: number;
-}) => {
+}): Promise<BookingWithGuestAndCabin> => {
 	const { data, error } = await supabaseClient
 		.from('bookings')
 		.select(`*, guestId(*), cabinId(name)`)
@@ -62,7 +74,7 @@ export async function getBookingsAfterDate({
 }: {
 	supabaseClient: TypedSupabaseClient;
 	date: Date;
-}) {
+}): Promise<Array<BookingAfterDate>> {
 	const { data, error } = await supabaseClient
 		.from('bookings')
 		.select('created_at, totalPrice, extrasPrice, numNights')
@@ -90,7 +102,7 @@ export async function getStaysAfterDate({
 }: {
 	supabaseClient: TypedSupabaseClient;
 	date: Date;
-}) {
+}): Promise<Array<StayAfterDate>> {
 	const { data, error } = await supabaseClient
 		.from('bookings')
 		// .select('*')
@@ -117,7 +129,7 @@ export async function getBookingsTodaysActivities({
 	supabaseClient,
 }: {
 	supabaseClient: TypedSupabaseClient;
-}) {
+}): Promise<Array<BookingTodayActivity>> {
 	const { data, error } = await supabaseClient
 		.from('bookings')
 		.select(`*, guestId(fullName, nationality, countryFlag)`)
