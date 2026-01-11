@@ -22,7 +22,7 @@ export default function DashboardSummary({ className, ...props }: React.Componen
 
 	if (status === 'success' && data) {
 		return (
-			<TodaySummary className={cn('', className)} {...props}>
+			<TodaySummary className={cn('overflow-scroll', className)} {...props}>
 				<TodaySummaryContent>
 					<TodaySummaryTitle>Today Summary</TodaySummaryTitle>
 					<TodaySummaryItemList>
