@@ -23,23 +23,11 @@ type CabinListItemDropdownProps = {
 	cabin: Cabin;
 };
 
-// type BookingStatusHandlerItem = {
-// 	icon?: React.ReactNode | undefined;
-// 	label?: string | undefined;
-// 	onClickHandler?: (() => void) | undefined;
-// 	onHoverHandler?: (() => void) | undefined;
-// };
-
-// type BookingStatusHandler = Record<BookingsStatus, BookingStatusHandlerItem>;
-
 export default function CabinsTableColumnActionsRowItem({ cabin }: CabinListItemDropdownProps) {
 	const cabinId = cabin.id;
 	const queryClient = useQueryClient();
 	const supabaseClient = useSupabaseBrowser();
 
-	// const { mutate: mutateCheckIn } = useCheckInCheckOut({
-	// 	bookingId,
-	// });
 	const { mutate: deleteCabin } = useDeleteCabinById({
 		cabinId,
 	});

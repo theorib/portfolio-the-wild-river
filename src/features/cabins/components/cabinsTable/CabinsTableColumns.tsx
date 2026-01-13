@@ -20,7 +20,7 @@ export const cabinsTableColumns = [
 		cell: (props) => {
 			const src = props.getValue();
 			if (!src) return;
-			return <Image src={src} alt={''} width={100} height={100} />;
+			return <Image src={src} alt={''} width={90} height={30} />;
 		},
 	}),
 
@@ -48,45 +48,6 @@ export const cabinsTableColumns = [
 		cell: (props) => props.getValue(),
 	}),
 
-	// columnHelper.accessor(
-	// 	(row) => ({
-	// 		startDate: row.startDate,
-	// 		endDate: row.endDate,
-	// 		numNights: row.numNights,
-	// 	}),
-	// 	{
-	// 		id: 'dates',
-	// 		sortingFn: (rowA, rowB) => {
-	// 			const today = new Date().toLocaleString();
-	// 			const aDate = new Date(rowA.original?.startDate || today);
-	// 			const bDate = new Date(rowB.original?.startDate || today);
-	// 			return aDate.getTime() - bDate.getTime();
-	// 		},
-
-	// 		header: ({ column }) => <DataTableColumnHeader column={column} title="Dates" />,
-	// 		cell: (props) => <BookingsTableColumnDates bookingDates={props.getValue()} />,
-	// 	},
-	// ),
-
-	// columnHelper.accessor('status', {
-	// 	header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
-	// 	cell: (props) => {
-	// 		const { success, data: status, error } = BookingsStatusSchema.safeParse(props.getValue());
-
-	// 		if (error) return null;
-
-	// 		if (success && status)
-	// 			return (
-	// 				<BookingStatusBadge
-	// 					className={cn('inline-flex font-bold')}
-	// 					variant={status}
-	// 					size="full-width"
-	// 				>
-	// 					{status}
-	// 				</BookingStatusBadge>
-	// 			);
-	// 	},
-	// }),
 	columnHelper.accessor('regularPrice', {
 		header: ({ column }) => <DataTableColumnHeader column={column} title="Price" />,
 		cell: (props) => {
