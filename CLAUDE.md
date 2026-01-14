@@ -235,6 +235,12 @@ features/
 - Tailwind CSS 4.x (using `@tailwindcss/postcss`)
 - Zod 4.x (uses native types instead of deprecated methods)
 
+### Code comments and documentation
+
+- Use descriptive variable and function names that are clear, consise and self explanatory
+- Refrain from adding unnecessary comments that are self explanatory from the code itself such as explaining what a function does if the name of the function makes it obvious
+- Never use magic numbers unless it's unavoidable, create variables that clearly label their purpose and only then use them in the code. If it's completely unavoidable, use a comment to explain why
+
 ### Documentation to assist with the project
 
 - Before implementing new features and fixes, check if feature is already implemente in the project and use it as a reference or refer to the mcp servers below for up to date documentation on each library
