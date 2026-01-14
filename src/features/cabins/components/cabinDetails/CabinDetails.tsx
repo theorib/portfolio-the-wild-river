@@ -4,12 +4,14 @@ import CabinDetailsError from '@/features/cabins/components/cabinDetails/CabinDe
 import { CabinDetailsSkeleton } from '@/features/cabins/components/cabinDetails/CabinDetailsSkeleton';
 import useCabin from '@/features/cabins/hooks/useCabin';
 
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import EditCabinDialog from '@/features/cabins/components/editCabin/EditCabinDialog';
 import { cn } from '@/lib/utils';
-import { University } from 'lucide-react';
+import { Pencil, University } from 'lucide-react';
 
 import { useParams } from 'next/navigation';
+import { useState } from 'react';
 
 export const CabinDetailsList = ({ className, ...props }: React.ComponentProps<'ul'>) => {
 	return (
@@ -35,6 +37,7 @@ export const CabinDetailsListItem = ({ className, ...props }: React.ComponentPro
 
 export default function CabinDetails() {
 	const { cabinId } = useParams<{ cabinId: string }>();
+	const [editDialogOpen, setEditDialogOpen] = useState(false);
 
 	const {
 		data: cabin,
@@ -58,36 +61,39 @@ export default function CabinDetails() {
 								<University strokeWidth={2} />
 								<span>{cabin.name}</span>
 							</div>
-							<EditCabinDialog cabin={cabin} variant="button" />
+							<Button variant="outline" size="sm" onClick={() => setEditDialogOpen(true)}>
+								<Pencil className="mr-2 h-4 w-4" />
+								Edit Cabin
+							</Button>
 						</CardTitle>
 					</CardHeader>
-				<CardContent className="flex flex-col gap-6 py-10">
-					<CabinDetailsList>
-						<CabinDetailsListItem>
-							{/* <BookingFlag
+					<CardContent className="flex flex-col gap-6 py-10">
+						<CabinDetailsList>
+							<CabinDetailsListItem>
+								{/* <BookingFlag
 								url={cabin?.guestId?.countryFlag}
 								nationality={cabin?.guestId?.nationality}
 								flagSize={25}
 							/> */}
-						</CabinDetailsListItem>
-						<CabinDetailsListItem>
-							{/* {cabin?.guestId?.fullName} {cabin?.numGuests ? `+ ${cabin?.numGuests} guests` : null} */}
-						</CabinDetailsListItem>
+							</CabinDetailsListItem>
+							<CabinDetailsListItem>
+								{/* {cabin?.guestId?.fullName} {cabin?.numGuests ? `+ ${cabin?.numGuests} guests` : null} */}
+							</CabinDetailsListItem>
 
-						<CabinDetailsListItem>
-							{/* <Link
+							<CabinDetailsListItem>
+								{/* <Link
 								href={`mailto:${cabin?.guestId?.email}`}
 								className="underline underline-offset-3 after:no-underline"
 							>
 								{cabin?.guestId?.email}
 							</Link> */}
-						</CabinDetailsListItem>
-						<CabinDetailsListItem>
-							{/* {cabin?.guestId?.nationalID ? `National ID: ${cabin?.guestId.nationalID}` : null} */}
-						</CabinDetailsListItem>
-					</CabinDetailsList>
+							</CabinDetailsListItem>
+							<CabinDetailsListItem>
+								{/* {cabin?.guestId?.nationalID ? `National ID: ${cabin?.guestId.nationalID}` : null} */}
+							</CabinDetailsListItem>
+						</CabinDetailsList>
 
-					{/* <div className="flex items-center gap-2">
+						{/* <div className="flex items-center gap-2">
 						{cabin?.hasBreakfast ? (
 							<CircleCheck strokeWidth={SIDEBAR_ICON_STROKE_WIDTH} />
 						) : (
@@ -96,7 +102,7 @@ export default function CabinDetails() {
 						<span className="font-bold">{`Breakfast included? `}</span>
 						<span>{`${cabin?.hasBreakfast ? 'Yes' : 'No'}`}</span>
 					</div> */}
-					{/* <div
+						{/* <div
 						className={`flex items-center gap-2 rounded-xl p-6 ${cabin?.isPaid ? 'bg-green-100 dark:bg-green-950' : 'bg-red-100 dark:bg-red-950'}`}
 					>
 						<CircleDollarSign strokeWidth={1} />
@@ -113,12 +119,18 @@ export default function CabinDetails() {
 							{cabin.isPaid ? 'Paid' : 'Not paid'}
 						</span>
 					</div> */}
-				</CardContent>
-				<CardFooter className="bg-sidebar justify-end border-t pt-6 text-sm">
-					{/* Booked on {format(new Date(cabin.created_at), 'PPPPpppp')} */}
-				</CardFooter>
-			</Card>
-		</>
+					</CardContent>
+					<CardFooter className="bg-sidebar justify-end border-t pt-6 text-sm">
+						{/* Booked on {format(new Date(cabin.created_at), 'PPPPpppp')} */}
+					</CardFooter>
+				</Card>
+
+				<EditCabinDialog
+					cabin={cabin}
+					open={editDialogOpen}
+					onOpenChange={setEditDialogOpen}
+				/>
+			</>
 		);
 	}
 }
