@@ -1,5 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
+import { DialogTrigger } from '@/components/ui/dialog';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -9,13 +10,16 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import EditCabinDialog, {
+	editCabinDialogHandle,
+} from '@/features/cabins/components/editCabin/EditCabinDialog';
 import { cabinQuery } from '@/features/cabins/hooks/useCabin';
 import useDeleteCabinById from '@/features/cabins/hooks/useDeleteCabinById';
 import { type Cabin } from '@/features/cabins/types';
 import useSupabaseBrowser from '@/services/supabase/supabaseBrowser';
 import { useQueryClient } from '@tanstack/react-query';
 
-import { EllipsisVertical, Eye, OctagonX } from 'lucide-react';
+import { EllipsisVertical, Eye, OctagonX, Pencil } from 'lucide-react';
 import { $path } from 'next-typesafe-url';
 import Link from 'next/link';
 
@@ -77,6 +81,23 @@ export default function CabinsTableColumnActionsRowItem({ cabin }: CabinListItem
 							</Link>
 						}
 					/>
+
+					<DropdownMenuItem
+						nativeButton
+						closeOnClick={false}
+						render={
+							<DialogTrigger
+								handle={editCabinDialogHandle}
+								className="flex cursor-pointer items-center gap-2 w-full"
+							>
+								<Pencil />
+								Edit Cabin
+							</DialogTrigger>
+						}
+						className="cursor-pointer"
+					/>
+
+					<EditCabinDialog cabin={cabin} />
 
 					<DropdownMenuItem
 						nativeButton

@@ -4,7 +4,7 @@ import useSupabaseBrowser from '@/services/supabase/supabaseBrowser';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-export type UpdateCabinIdProps = Omit<UpdateCabinByIdProps, 'SupabaseClient'>;
+export type UpdateCabinIdProps = Omit<UpdateCabinByIdProps, 'supabaseClient'>;
 
 export default function useUpdateCabinById({ cabinId }: Omit<UpdateCabinIdProps, 'cabinData'>) {
 	const queryClient = useQueryClient();

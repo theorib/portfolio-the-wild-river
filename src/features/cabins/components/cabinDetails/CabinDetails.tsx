@@ -5,6 +5,7 @@ import { CabinDetailsSkeleton } from '@/features/cabins/components/cabinDetails/
 import useCabin from '@/features/cabins/hooks/useCabin';
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import EditCabinDialog from '@/features/cabins/components/editCabin/EditCabinDialog';
 import { cn } from '@/lib/utils';
 import { University } from 'lucide-react';
 
@@ -49,18 +50,17 @@ export default function CabinDetails() {
 
 	if (status === 'success' && cabin) {
 		return (
-			<Card>
-				<CardHeader className="bg-sidebar border-b">
-					<CardTitle className="flex items-center justify-between">
-						<div className="flex items-center gap-2">
-							<University strokeWidth={2} />
-							{/* <span>
-								{stayLength} nights in Cabin {cabin.cabinId?.name}
-							</span> */}
-						</div>
-						{/* <span>{`${startDate} (${distance}) — ${endDate}`}</span> */}
-					</CardTitle>
-				</CardHeader>
+			<>
+				<Card>
+					<CardHeader className="bg-sidebar border-b">
+						<CardTitle className="flex items-center justify-between">
+							<div className="flex items-center gap-2">
+								<University strokeWidth={2} />
+								<span>{cabin.name}</span>
+							</div>
+							<EditCabinDialog cabin={cabin} variant="button" />
+						</CardTitle>
+					</CardHeader>
 				<CardContent className="flex flex-col gap-6 py-10">
 					<CabinDetailsList>
 						<CabinDetailsListItem>
@@ -118,6 +118,7 @@ export default function CabinDetails() {
 					{/* Booked on {format(new Date(cabin.created_at), 'PPPPpppp')} */}
 				</CardFooter>
 			</Card>
+		</>
 		);
 	}
 }
