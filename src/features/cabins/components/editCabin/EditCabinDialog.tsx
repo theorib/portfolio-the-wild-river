@@ -24,16 +24,16 @@ export default function EditCabinDialog({ cabin, open, onOpenChange }: EditCabin
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className="sm:max-w-[600px] p-8">
-				<ScrollArea className="max-h-[90vh]">
-					<div className="mr-6">
+			<DialogContent className="sm:max-w-[750px] p-0">
+				<ScrollArea className="max-h-[calc(90vh-2.5rem)]">
+					<div className="p-15">
 						<DialogHeader>
 							<DialogTitle>Edit Cabin #{cabin.id}</DialogTitle>
 							<DialogDescription>
 								Update the cabin details below. All fields except discount are required.
 							</DialogDescription>
 						</DialogHeader>
-						<EditCabinForm cabin={cabin} onSuccess={handleSuccess} />
+						<EditCabinForm cabin={cabin} onSuccess={handleSuccess} className="pt-8" />
 					</div>
 				</ScrollArea>
 			</DialogContent>

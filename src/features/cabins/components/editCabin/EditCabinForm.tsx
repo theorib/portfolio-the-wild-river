@@ -5,12 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import useUpdateCabinById from '@/features/cabins/hooks/useUpdateCabinById';
 import { EditCabinFormSchema } from '@/features/cabins/schema';
 import type { Cabin } from '@/features/cabins/types';
-import useUpdateCabinById from '@/features/cabins/hooks/useUpdateCabinById';
+import logger from '@/features/logger';
 import useDeleteImage from '@/features/manage-images/hooks/useDeleteImage';
 import useUploadImage from '@/features/manage-images/hooks/useUploadImage';
-import logger from '@/features/logger';
+import { cn } from '@/lib/utils';
 import { extractStoragePathFromUrl } from '@/services/supabase/storage/images';
 import { useForm } from '@tanstack/react-form';
 import { ImageIcon, Upload } from 'lucide-react';
@@ -20,10 +21,11 @@ import { toast } from 'sonner';
 
 type EditCabinFormProps = {
 	cabin: Cabin;
+	className?: string;
 	onSuccess?: () => void;
 };
 
-export default function EditCabinForm({ cabin, onSuccess }: EditCabinFormProps) {
+export default function EditCabinForm({ cabin, className, onSuccess }: EditCabinFormProps) {
 	const [imagePreview, setImagePreview] = useState<string | null>(cabin.image);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -124,7 +126,7 @@ export default function EditCabinForm({ cabin, onSuccess }: EditCabinFormProps) 
 
 	return (
 		<form
-			className="grid gap-6"
+			className={cn('grid gap-6', className)}
 			id="edit-cabin-form"
 			onSubmit={(e) => {
 				e.preventDefault();
