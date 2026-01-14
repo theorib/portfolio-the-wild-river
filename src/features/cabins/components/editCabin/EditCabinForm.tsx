@@ -30,7 +30,7 @@ export default function EditCabinForm({ cabin, className, onSuccess }: EditCabin
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
-	const { mutate: updateCabin } = useUpdateCabinById({ cabinId: cabin.id });
+	const { mutate: updateCabin, isPending: isUpdatePending } = useUpdateCabinById({ cabinId: cabin.id });
 	const { mutateAsync: uploadImage } = useUploadImage();
 	const { mutateAsync: deleteImage } = useDeleteImage();
 
@@ -310,11 +310,14 @@ export default function EditCabinForm({ cabin, className, onSuccess }: EditCabin
 			{/* Submit Button */}
 			<form.Subscribe
 				selector={(state) => [state.canSubmit, state.isSubmitting]}
-				children={([canSubmit, isSubmitting]) => (
-					<Button type="submit" disabled={!canSubmit || isSubmitting} className="w-full">
-						{isSubmitting ? 'Updating...' : 'Update Cabin'}
-					</Button>
-				)}
+				children={([canSubmit, isSubmitting]) => {
+					const isProcessing = isSubmitting || isUpdatePending;
+					return (
+						<Button type="submit" disabled={!canSubmit || isProcessing} className="w-full">
+							{isProcessing ? 'Updating...' : 'Update Cabin'}
+						</Button>
+					);
+				}}
 			/>
 		</form>
 	);

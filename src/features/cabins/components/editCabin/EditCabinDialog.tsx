@@ -26,7 +26,7 @@ export default function EditCabinDialog({ cabin, open, onOpenChange }: EditCabin
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="sm:max-w-[750px] p-0">
 				<ScrollArea className="max-h-[calc(90vh-2.5rem)]">
-					<div className="p-15">
+					<div className=" p-4 sm:p-15">
 						<DialogHeader>
 							<DialogTitle>Edit Cabin #{cabin.id}</DialogTitle>
 							<DialogDescription>
