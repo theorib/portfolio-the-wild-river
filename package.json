@@ -4,6 +4,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
+		"bd:ui": "bdui start --open --port 3300",
 		"build": "next-typesafe-url && next build",
 		"cz": "bash ./enhanced_commit.sh",
 		"dev": "concurrently  \"next-typesafe-url -w\" \"next dev\"",
@@ -112,6 +113,7 @@
 		"@vitest/coverage-v8": "^4.0.16",
 		"@vitest/eslint-plugin": "^1.6.6",
 		"@vitest/ui": "^4.0.16",
+		"beads-ui": "^0.9.1",
 		"commitizen": "^4.3.1",
 		"commitlint-config-gitmoji": "^2.3.1",
 		"concurrently": "^9.2.1",
