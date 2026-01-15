@@ -19,11 +19,11 @@ import { useSearchParams } from 'next-typesafe-url/app';
 const chartConfig = {
 	desktop: {
 		label: 'Desktop',
-		color: 'var(--chart-1)',
+		color: 'var(--chart-5)',
 	},
 	mobile: {
 		label: 'Mobile',
-		color: 'var(--chart-2)',
+		color: 'var(--chart-1)',
 	},
 } satisfies ChartConfig;
 
