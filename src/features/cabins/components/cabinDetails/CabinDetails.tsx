@@ -125,11 +125,7 @@ export default function CabinDetails() {
 					</CardFooter>
 				</Card>
 
-				<EditCabinDialog
-					cabin={cabin}
-					open={editDialogOpen}
-					onOpenChange={setEditDialogOpen}
-				/>
+				<EditCabinDialog cabin={cabin} open={editDialogOpen} onOpenChange={setEditDialogOpen} />
 			</>
 		);
 	}
