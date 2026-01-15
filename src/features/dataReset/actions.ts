@@ -67,7 +67,7 @@ export async function resetAllData(): Promise<DataResetReturn> {
 
 		// Prepare cabins with fresh image URLs
 		const cabinsWithFreshUrls = cabins.map((cabin) => {
-			const imageFilename = `cabin-${cabin.name}.jpg`;
+			const imageFilename = `cabin-${cabin.name}.webp`;
 			return {
 				...cabin,
 				image: imageUrlMap[imageFilename] || cabin.image,
@@ -260,35 +260,42 @@ export async function resetBookingsData(): Promise<DataResetReturn> {
 
 const CABIN_IMAGES_BUCKET = 'cabin-images';
 const CABIN_IMAGE_FILENAMES = [
-	'cabin-001.jpg',
-	'cabin-002.jpg',
-	'cabin-003.jpg',
-	'cabin-004.jpg',
-	'cabin-005.jpg',
-	'cabin-006.jpg',
-	'cabin-007.jpg',
-	'cabin-008.jpg',
+	'cabin-001.webp',
+	'cabin-002.webp',
+	'cabin-003.webp',
+	'cabin-004.webp',
+	'cabin-005.webp',
+	'cabin-006.webp',
+	'cabin-007.webp',
+	'cabin-008.webp',
 ] as const;
 
 export async function uploadCabinImagesToStorage(
 	supabaseClient: TypedSupabaseClient
 ): Promise<Record<string, string>> {
 	const imageUrlMap: Record<string, string> = {};
+	const timestamp = Date.now();
 
 	for (const filename of CABIN_IMAGE_FILENAMES) {
 		const imagePath = path.join(process.cwd(), 'src/features/dataReset/data/cabins', filename);
 
 		const fileBuffer = await readFile(imagePath);
-		const file = new File([fileBuffer], filename, { type: 'image/jpeg' });
 
-		const { data, error } = await supabaseClient.storage.from(CABIN_IMAGES_BUCKET).upload(filename, file, {
-			cacheControl: '3600',
-			upsert: true,
-		});
+		// Include timestamp in filename to ensure unique URLs and prevent Next.js image cache issues
+		const [name, ext] = filename.split('.');
+		const timestampedFilename = `${name}-${timestamp}.${ext}`;
+		const file = new File([fileBuffer], timestampedFilename, { type: 'image/webp' });
+
+		const { data, error } = await supabaseClient.storage
+			.from(CABIN_IMAGES_BUCKET)
+			.upload(timestampedFilename, file, {
+				cacheControl: '3600',
+				upsert: false,
+			});
 
 		if (error) {
 			logger
-				.withMetadata({ filename, bucket: CABIN_IMAGES_BUCKET })
+				.withMetadata({ filename: timestampedFilename, bucket: CABIN_IMAGES_BUCKET })
 				.withError(error)
 				.error('Failed to upload cabin image');
 			throw error;
@@ -298,6 +305,7 @@ export async function uploadCabinImagesToStorage(
 			data: { publicUrl },
 		} = supabaseClient.storage.from(CABIN_IMAGES_BUCKET).getPublicUrl(data.path);
 
+		// Use original filename as key for mapping to cabin records
 		imageUrlMap[filename] = publicUrl;
 	}
 
@@ -325,7 +333,19 @@ export async function resetCabinImages(): Promise<DataResetReturn> {
 			.info('Starting cabin images reset by user');
 
 		await deleteAllFilesInBucket({ supabaseClient: supabase, bucket: CABIN_IMAGES_BUCKET });
-		await uploadCabinImagesToStorage(supabase);
+		const imageUrlMap = await uploadCabinImagesToStorage(supabase);
+
+		// Update cabin records with new cache-busted image URLs
+		const { data: existingCabins } = await supabase.from('cabins').select('id, name');
+		if (existingCabins) {
+			for (const cabin of existingCabins) {
+				const imageFilename = `cabin-${cabin.name}.webp`;
+				const newImageUrl = imageUrlMap[imageFilename];
+				if (newImageUrl) {
+					await supabase.from('cabins').update({ image: newImageUrl }).eq('id', cabin.id);
+				}
+			}
+		}
 
 		logger
 			.withContext({ userId: user.id, email: user.email })
