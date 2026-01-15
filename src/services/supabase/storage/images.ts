@@ -104,3 +104,100 @@ export const extractStoragePathFromUrl = (url: string, bucket: string): string |
 		return null;
 	}
 };
+
+export type StorageFileObject = {
+	name: string;
+	id: string | null;
+	created_at: string | null;
+	updated_at: string | null;
+	metadata: Record<string, unknown> | null;
+};
+
+export const listAllFilesInBucket = async ({
+	supabaseClient,
+	bucket,
+	path = '',
+}: {
+	supabaseClient: TypedSupabaseClient;
+	bucket: string;
+	path?: string;
+}): Promise<StorageFileObject[]> => {
+	const allFiles: StorageFileObject[] = [];
+	const pageSize = 1000;
+	let offset = 0;
+	let hasMore = true;
+
+	while (hasMore) {
+		const { data, error } = await supabaseClient.storage.from(bucket).list(path, {
+			limit: pageSize,
+			offset,
+		});
+
+		if (error) {
+			logger
+				.withMetadata({
+					function: 'listAllFilesInBucket',
+					bucket,
+					path,
+					offset,
+				})
+				.withError(error)
+				.error('Error listing files in bucket');
+			throw error;
+		}
+
+		if (!data || data.length === 0) {
+			hasMore = false;
+		} else {
+			allFiles.push(...data);
+			offset += data.length;
+			hasMore = data.length === pageSize;
+		}
+	}
+
+	return allFiles;
+};
+
+export const deleteAllFilesInBucket = async ({
+	supabaseClient,
+	bucket,
+	path = '',
+}: {
+	supabaseClient: TypedSupabaseClient;
+	bucket: string;
+	path?: string;
+}): Promise<number> => {
+	const files = await listAllFilesInBucket({ supabaseClient, bucket, path });
+
+	if (files.length === 0) {
+		logger.withMetadata({ function: 'deleteAllFilesInBucket', bucket, path }).info('No files to delete in bucket');
+		return 0;
+	}
+
+	const filePaths = files.map((file) => (path ? `${path}/${file.name}` : file.name));
+	const { error } = await supabaseClient.storage.from(bucket).remove(filePaths);
+
+	if (error) {
+		logger
+			.withMetadata({
+				function: 'deleteAllFilesInBucket',
+				bucket,
+				path,
+				fileCount: filePaths.length,
+			})
+			.withError(error)
+			.error('Failed to delete files from bucket');
+		throw error;
+	}
+
+	logger
+		.withMetadata({
+			function: 'deleteAllFilesInBucket',
+			bucket,
+			path,
+			fileCount: filePaths.length,
+		})
+		.info('Successfully deleted all files from bucket');
+
+	return filePaths.length;
+};

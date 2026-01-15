@@ -1,5 +1,8 @@
 'use server';
 
+import { readFile } from 'fs/promises';
+import path from 'path';
+
 import { isFuture, isPast, isToday } from 'date-fns';
 
 import { bookings } from '@/features/dataReset/data/data-bookings';
@@ -7,7 +10,9 @@ import { cabins } from '@/features/dataReset/data/data-cabins';
 import { guests } from '@/features/dataReset/data/data-guests';
 import logger from '@/features/logger';
 import { subtractDates } from '@/lib/utils/helpers';
+import { deleteAllFilesInBucket } from '@/services/supabase/storage/images';
 import { createClient } from '@/services/supabase/supabaseServer';
+import type { TypedSupabaseClient } from '@/services/supabase/supabase.types';
 import { revalidatePath } from 'next/cache';
 
 interface DataResetReturn {
@@ -56,6 +61,19 @@ export async function resetAllData(): Promise<DataResetReturn> {
 			return { success: false, error: 'Failed to delete cabins' };
 		}
 
+		// Reset cabin images in storage
+		await deleteAllFilesInBucket({ supabaseClient: supabase, bucket: CABIN_IMAGES_BUCKET });
+		const imageUrlMap = await uploadCabinImagesToStorage(supabase);
+
+		// Prepare cabins with fresh image URLs
+		const cabinsWithFreshUrls = cabins.map((cabin) => {
+			const imageFilename = `cabin-${cabin.name}.jpg`;
+			return {
+				...cabin,
+				image: imageUrlMap[imageFilename] || cabin.image,
+			};
+		});
+
 		// Insert in correct order (guests and cabins first, then bookings)
 		const { error: insertGuestsError } = await supabase.from('guests').insert(guests);
 		if (insertGuestsError) {
@@ -63,7 +81,7 @@ export async function resetAllData(): Promise<DataResetReturn> {
 			return { success: false, error: 'Failed to insert guests' };
 		}
 
-		const { error: insertCabinsError } = await supabase.from('cabins').insert(cabins);
+		const { error: insertCabinsError } = await supabase.from('cabins').insert(cabinsWithFreshUrls);
 		if (insertCabinsError) {
 			logger.withError(insertCabinsError).error('Failed to insert cabins');
 			return { success: false, error: 'Failed to insert cabins' };
@@ -236,6 +254,95 @@ export async function resetBookingsData(): Promise<DataResetReturn> {
 		return {
 			success: false,
 			error: err instanceof Error ? err.message : 'Unexpected error during data reset',
+		};
+	}
+}
+
+const CABIN_IMAGES_BUCKET = 'cabin-images';
+const CABIN_IMAGE_FILENAMES = [
+	'cabin-001.jpg',
+	'cabin-002.jpg',
+	'cabin-003.jpg',
+	'cabin-004.jpg',
+	'cabin-005.jpg',
+	'cabin-006.jpg',
+	'cabin-007.jpg',
+	'cabin-008.jpg',
+] as const;
+
+export async function uploadCabinImagesToStorage(
+	supabaseClient: TypedSupabaseClient
+): Promise<Record<string, string>> {
+	const imageUrlMap: Record<string, string> = {};
+
+	for (const filename of CABIN_IMAGE_FILENAMES) {
+		const imagePath = path.join(process.cwd(), 'src/features/dataReset/data/cabins', filename);
+
+		const fileBuffer = await readFile(imagePath);
+		const file = new File([fileBuffer], filename, { type: 'image/jpeg' });
+
+		const { data, error } = await supabaseClient.storage.from(CABIN_IMAGES_BUCKET).upload(filename, file, {
+			cacheControl: '3600',
+			upsert: true,
+		});
+
+		if (error) {
+			logger
+				.withMetadata({ filename, bucket: CABIN_IMAGES_BUCKET })
+				.withError(error)
+				.error('Failed to upload cabin image');
+			throw error;
+		}
+
+		const {
+			data: { publicUrl },
+		} = supabaseClient.storage.from(CABIN_IMAGES_BUCKET).getPublicUrl(data.path);
+
+		imageUrlMap[filename] = publicUrl;
+	}
+
+	logger
+		.withMetadata({ imageCount: CABIN_IMAGE_FILENAMES.length })
+		.info('Successfully uploaded all cabin images to storage');
+
+	return imageUrlMap;
+}
+
+export async function resetCabinImages(): Promise<DataResetReturn> {
+	try {
+		const supabase = await createClient();
+
+		const {
+			data: { user },
+		} = await supabase.auth.getUser();
+		if (!user) {
+			logger.warn('Unauthorized cabin images reset attempt - user not authenticated');
+			return { success: false, error: 'Unauthorized: Please log in to reset data' };
+		}
+
+		logger
+			.withContext({ userId: user.id, email: user.email })
+			.info('Starting cabin images reset by user');
+
+		await deleteAllFilesInBucket({ supabaseClient: supabase, bucket: CABIN_IMAGES_BUCKET });
+		await uploadCabinImagesToStorage(supabase);
+
+		logger
+			.withContext({ userId: user.id, email: user.email })
+			.info('Successfully completed cabin images reset');
+
+		revalidatePath('/app/cabins', 'page');
+
+		return {
+			success: true,
+			error: null,
+			message: 'Cabin images successfully reset',
+		};
+	} catch (err) {
+		logger.withError(err).error('Unexpected error during cabin images reset');
+		return {
+			success: false,
+			error: err instanceof Error ? err.message : 'Unexpected error during cabin images reset',
 		};
 	}
 }
