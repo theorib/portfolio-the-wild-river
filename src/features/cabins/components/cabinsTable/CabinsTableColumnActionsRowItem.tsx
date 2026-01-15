@@ -67,6 +67,7 @@ export default function CabinsTableColumnActionsRowItem({ cabin }: CabinListItem
 					<DropdownMenuSeparator />
 					<DropdownMenuGroup>
 						<DropdownMenuItem
+							nativeButton={false}
 							onMouseEnter={prefetchCabinQuery}
 							render={
 								<Link
