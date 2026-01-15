@@ -189,6 +189,11 @@ features/
 - Uses `next-typesafe-url` for type-safe route params and search params
 - Route types in `routeType.ts` files (e.g., `app/app/bookings/routeType.ts`)
 - Must run `next-typesafe-url` before build (already on build script)
+- **Always use the `$path` function** from `next-typesafe-url` when constructing URLs:
+  - With `redirect()`: `redirect($path({ route: '/app/dashboard' }))`
+  - With `<Link>`: `<Link href={$path({ route: '/app/bookings', searchParams: { ... } })}>`
+  - With `router.push()`: `router.push($path({ route: '/app/cabins' }))`
+- Never use raw string URLs - this ensures compile-time validation of routes and params
 
 ### UI and Styling
 
