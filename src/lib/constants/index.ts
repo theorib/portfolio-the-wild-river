@@ -1,4 +1,5 @@
 export const SIDEBAR_COOKIE_NAME = 'sidebar_is_open_state';
+export const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 export const SIDEBAR_ICON_SIZE = 24;
 export const SIDEBAR_ICON_STROKE_WIDTH = 1;
 export const DEFAULT_QUERY_FETCH_INTERVAL = 5 * 1000;
