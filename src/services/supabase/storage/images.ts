@@ -121,8 +121,8 @@ export const listAllFilesInBucket = async ({
 	supabaseClient: TypedSupabaseClient;
 	bucket: string;
 	path?: string;
-}): Promise<StorageFileObject[]> => {
-	const allFiles: StorageFileObject[] = [];
+}): Promise<Array<StorageFileObject>> => {
+	const allFiles: Array<StorageFileObject> = [];
 	const pageSize = 1000;
 	let offset = 0;
 	let hasMore = true;
@@ -170,7 +170,9 @@ export const deleteAllFilesInBucket = async ({
 	const files = await listAllFilesInBucket({ supabaseClient, bucket, path });
 
 	if (files.length === 0) {
-		logger.withMetadata({ function: 'deleteAllFilesInBucket', bucket, path }).info('No files to delete in bucket');
+		logger
+			.withMetadata({ function: 'deleteAllFilesInBucket', bucket, path })
+			.info('No files to delete in bucket');
 		return 0;
 	}
 
