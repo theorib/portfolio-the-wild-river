@@ -7,7 +7,7 @@
 import { z } from 'zod';
 import { type Json } from './supabase.auto.types';
 
-export const jsonSchema: z.ZodType<Json> = z.lazy(() =>
+export const jsonSchema: z.ZodSchema<Json> = z.lazy(() =>
 	z
 		.union([
 			z.string(),
@@ -19,7 +19,7 @@ export const jsonSchema: z.ZodType<Json> = z.lazy(() =>
 		.nullable(),
 );
 
-export const publicBookingsRowSchemaSchema = z.object({
+export const publicBookingsRowSchema = z.object({
 	cabinId: z.number().nullable(),
 	cabinPrice: z.number().nullable(),
 	created_at: z.string(),
@@ -37,7 +37,7 @@ export const publicBookingsRowSchemaSchema = z.object({
 	totalPrice: z.number().nullable(),
 });
 
-export const publicBookingsInsertSchemaSchema = z.object({
+export const publicBookingsInsertSchema = z.object({
 	cabinId: z.number().optional().nullable(),
 	cabinPrice: z.number().optional().nullable(),
 	created_at: z.string().optional(),
@@ -55,7 +55,7 @@ export const publicBookingsInsertSchemaSchema = z.object({
 	totalPrice: z.number().optional().nullable(),
 });
 
-export const publicBookingsUpdateSchemaSchema = z.object({
+export const publicBookingsUpdateSchema = z.object({
 	cabinId: z.number().optional().nullable(),
 	cabinPrice: z.number().optional().nullable(),
 	created_at: z.string().optional(),
@@ -73,7 +73,7 @@ export const publicBookingsUpdateSchemaSchema = z.object({
 	totalPrice: z.number().optional().nullable(),
 });
 
-export const publicBookingsRelationshipsSchemaSchema = z.tuple([
+export const publicBookingsRelationshipsSchema = z.tuple([
 	z.object({
 		foreignKeyName: z.literal('bookings_cabinId_fkey'),
 		columns: z.tuple([z.literal('cabinId')]),
@@ -90,7 +90,7 @@ export const publicBookingsRelationshipsSchemaSchema = z.tuple([
 	}),
 ]);
 
-export const publicCabinsRowSchemaSchema = z.object({
+export const publicCabinsRowSchema = z.object({
 	created_at: z.string(),
 	description: z.string().nullable(),
 	discount: z.number().nullable(),
@@ -101,7 +101,7 @@ export const publicCabinsRowSchemaSchema = z.object({
 	regularPrice: z.number().nullable(),
 });
 
-export const publicCabinsInsertSchemaSchema = z.object({
+export const publicCabinsInsertSchema = z.object({
 	created_at: z.string().optional(),
 	description: z.string().optional().nullable(),
 	discount: z.number().optional().nullable(),
@@ -112,7 +112,7 @@ export const publicCabinsInsertSchemaSchema = z.object({
 	regularPrice: z.number().optional().nullable(),
 });
 
-export const publicCabinsUpdateSchemaSchema = z.object({
+export const publicCabinsUpdateSchema = z.object({
 	created_at: z.string().optional(),
 	description: z.string().optional().nullable(),
 	discount: z.number().optional().nullable(),
@@ -123,9 +123,7 @@ export const publicCabinsUpdateSchemaSchema = z.object({
 	regularPrice: z.number().optional().nullable(),
 });
 
-export const publicCabinsRelationshipsSchemaSchema = z.tuple([]);
-
-export const publicGuestsRowSchemaSchema = z.object({
+export const publicGuestsRowSchema = z.object({
 	countryFlag: z.string().nullable(),
 	created_at: z.string(),
 	email: z.string().nullable(),
@@ -135,7 +133,7 @@ export const publicGuestsRowSchemaSchema = z.object({
 	nationality: z.string().nullable(),
 });
 
-export const publicGuestsInsertSchemaSchema = z.object({
+export const publicGuestsInsertSchema = z.object({
 	countryFlag: z.string().optional().nullable(),
 	created_at: z.string().optional(),
 	email: z.string().optional().nullable(),
@@ -145,7 +143,7 @@ export const publicGuestsInsertSchemaSchema = z.object({
 	nationality: z.string().optional().nullable(),
 });
 
-export const publicGuestsUpdateSchemaSchema = z.object({
+export const publicGuestsUpdateSchema = z.object({
 	countryFlag: z.string().optional().nullable(),
 	created_at: z.string().optional(),
 	email: z.string().optional().nullable(),
@@ -155,9 +153,7 @@ export const publicGuestsUpdateSchemaSchema = z.object({
 	nationality: z.string().optional().nullable(),
 });
 
-export const publicGuestsRelationshipsSchemaSchema = z.tuple([]);
-
-export const publicSettingsRowSchemaSchema = z.object({
+export const publicSettingsRowSchema = z.object({
 	breakfastPrice: z.number().nullable(),
 	created_at: z.string(),
 	id: z.number(),
@@ -166,7 +162,7 @@ export const publicSettingsRowSchemaSchema = z.object({
 	minBookingLength: z.number().nullable(),
 });
 
-export const publicSettingsInsertSchemaSchema = z.object({
+export const publicSettingsInsertSchema = z.object({
 	breakfastPrice: z.number().optional().nullable(),
 	created_at: z.string().optional(),
 	id: z.number().optional(),
@@ -175,7 +171,7 @@ export const publicSettingsInsertSchemaSchema = z.object({
 	minBookingLength: z.number().optional().nullable(),
 });
 
-export const publicSettingsUpdateSchemaSchema = z.object({
+export const publicSettingsUpdateSchema = z.object({
 	breakfastPrice: z.number().optional().nullable(),
 	created_at: z.string().optional(),
 	id: z.number().optional(),
@@ -184,4 +180,29 @@ export const publicSettingsUpdateSchemaSchema = z.object({
 	minBookingLength: z.number().optional().nullable(),
 });
 
-export const publicSettingsRelationshipsSchemaSchema = z.tuple([]);
+export const publicUsersMetadataRowSchema = z.object({
+	avatar_url: z.string().nullable(),
+	created_at: z.string(),
+	first_name: z.string().nullable(),
+	id: z.number(),
+	last_name: z.string().nullable(),
+	uid: z.string(),
+});
+
+export const publicUsersMetadataInsertSchema = z.object({
+	avatar_url: z.string().optional().nullable(),
+	created_at: z.string(),
+	first_name: z.string().optional().nullable(),
+	id: z.number().optional(),
+	last_name: z.string().optional().nullable(),
+	uid: z.string(),
+});
+
+export const publicUsersMetadataUpdateSchema = z.object({
+	avatar_url: z.string().optional().nullable(),
+	created_at: z.string().optional(),
+	first_name: z.string().optional().nullable(),
+	id: z.number().optional(),
+	last_name: z.string().optional().nullable(),
+	uid: z.string().optional(),
+});

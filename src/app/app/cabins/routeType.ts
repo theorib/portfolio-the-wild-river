@@ -1,4 +1,4 @@
-import { publicCabinsRowSchemaSchema } from '@/services/supabase/supabaseSchemas';
+import { publicCabinsRowSchema } from '@/services/supabase/supabase.auto.schemas';
 import { type DynamicRoute } from 'next-typesafe-url';
 import { z } from 'zod';
 
@@ -6,14 +6,14 @@ export const Route = {
 	searchParams: z.object({
 		sort: z
 			.object({
-				columnName: publicCabinsRowSchemaSchema.keyof(),
+				columnName: publicCabinsRowSchema.keyof(),
 				ascending: z.boolean(),
 			})
 			.optional(),
 
 		pagination: z
 			.object({
-				columnName: publicCabinsRowSchemaSchema.keyof(),
+				columnName: publicCabinsRowSchema.keyof(),
 				range: z.object({
 					startIndex: z.number(),
 					endIndex: z.number(),
