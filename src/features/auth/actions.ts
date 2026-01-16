@@ -1,6 +1,10 @@
 'use server';
 
-import { LoginFormDataSchema, type LoginFormData } from '@/features/auth/authSchemas';
+import {
+	LoginFormDataSchema,
+	type LoginFormData,
+	type UserWithMetadata,
+} from '@/features/auth/authSchemas';
 import logger from '@/features/logger';
 import { createClient } from '@/services/supabase/supabaseServer';
 import { type User } from '@supabase/supabase-js';
@@ -102,7 +106,7 @@ export const logout = async () => {
 	}
 };
 
-export const getUser = async (): Promise<User> => {
+export const getUser = async (): Promise<UserWithMetadata> => {
 	const supabase = await createClient();
 
 	const { data, error } = await supabase.auth.getUser();
@@ -118,7 +122,26 @@ export const getUser = async (): Promise<User> => {
 		redirect($path({ route: '/login' }));
 	}
 
-	return data.user;
+	const { data: userMetadata, error: metadataError } = await supabase
+		.from('users_metadata')
+		.select('*')
+		.eq('uid', data.user.id)
+		.single();
+
+	if (metadataError) {
+		logger
+			.withMetadata({
+				function: 'getUser',
+				userId: data.user.id,
+			})
+			.withError(metadataError)
+			.warn('Error fetching user metadata');
+	}
+
+	return {
+		...data.user,
+		userMetadata: userMetadata ?? null,
+	};
 };
 
 export const validateSession = async (): Promise<void> => {

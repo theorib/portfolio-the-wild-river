@@ -27,9 +27,13 @@ export default function AvatarDropdownMenu() {
 
 	if (isLoading) return <p>loading...</p>;
 
-	const { avatarUrl, firstName, initials, fullName } = getAvatarDropdownData({
-		fullName: user?.user_metadata?.fullName,
-		avatarUrl: user?.user_metadata?.avatar,
+	const fullName = user?.userMetadata
+		? `${user.userMetadata.first_name ?? ''} ${user.userMetadata.last_name ?? ''}`.trim()
+		: undefined;
+
+	const { avatarUrl, firstName, initials, fullName: displayName } = getAvatarDropdownData({
+		fullName,
+		avatarUrl: user?.userMetadata?.avatar_url,
 		isLoading,
 	});
 
@@ -38,7 +42,7 @@ export default function AvatarDropdownMenu() {
 			<DropdownMenuTrigger className="flex items-center gap-2">
 				<Avatar className="size-9">
 					{avatarUrl ? (
-						<AvatarImage src={avatarUrl} alt={`${fullName}'s avatar`} />
+						<AvatarImage src={avatarUrl} alt={`${displayName}'s avatar`} />
 					) : (
 						<AvatarFallback className="text-sm">{initials}</AvatarFallback>
 					)}
