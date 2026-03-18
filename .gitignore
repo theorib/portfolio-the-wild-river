@@ -607,3 +607,7 @@ localDb/*
 /blob-report/
 /playwright/.cache/
 **/__screenshots__/
+
+# Dolt database files (added by bd init)
+.dolt/
+*.db
