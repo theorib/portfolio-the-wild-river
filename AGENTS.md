@@ -1,40 +1,61 @@
-# Agent Instructions
+# The Wild River - Hotel Booking Management
 
-This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
+Internal tool for hotel employees to manage bookings, cabins, and users. Built with Next.js (App Router), React, TypeScript, and Supabase.
 
-## Quick Reference
+## Quick Start
 
 ```bash
-bd ready              # Find available work
-bd show <id>          # View issue details
-bd update <id> --status in_progress  # Claim work
-bd close <id>         # Complete work
-bd sync               # Sync with git
+pnpm dev      # Start dev server
+pnpm build    # Production build
+pnpm lint     # ESLint + TypeScript check
+pnpm test     # Run tests
 ```
 
-## Landing the Plane (Session Completion)
+**Package manager:** pnpm (enforced via preinstall hook)
 
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+## Critical Rules
 
-**MANDATORY WORKFLOW:**
+### Routing - Always use `$path()`
 
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
-   ```bash
-   git pull --rebase
-   bd sync
-   git push
-   git status  # MUST show "up to date with origin"
-   ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
+```typescript
+// Correct
+redirect($path({ route: '/app/dashboard' }))
+<Link href={$path({ route: '/app/bookings', searchParams: { page: 1 } })}>
 
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
+// Wrong - never use raw strings
+redirect('/app/dashboard')
+```
 
+### UI Components - Base UI, not Radix
+
+This project uses shadcn/ui built on **Base UI** (`@base-ui/react`), not Radix UI. Use `context7_mcp` for Base UI documentation.
+
+```typescript
+// Use existing components from src/components/ui/
+import { Button } from '@/components/ui/button'
+```
+
+### Path Aliases
+
+- `@/*` → `src/*`
+- `public/*` → `./public/*`
+
+## Task Tracking
+
+This project uses **bd (beads)** for issue tracking. Run `bd prime` for full workflow context.
+
+## Detailed Documentation
+
+- [Architecture](AGENTS/architecture.md) - Directory structure, feature patterns, data flow
+- [Commands](AGENTS/commands.md) - Full command reference
+- [Testing](AGENTS/testing.md) - Test setup, patterns, commands
+- [Routing](AGENTS/routing.md) - Type-safe routing with next-typesafe-url
+- [UI & Styling](AGENTS/ui-styling.md) - Base UI, Tailwind, theming
+- [Supabase](AGENTS/supabase.md) - Clients, auth, type generation
+- [Git Workflow](AGENTS/git-workflow.md) - Commits, hooks, conventions
+- [Code Style](AGENTS/code-style.md) - TypeScript conventions, naming
+
+## Documentation Sources
+
+- **TanStack libraries**: Use `tanstack_mcp` for Form, Query, Table docs
+- **Other libraries**: Use `context7_mcp` for up-to-date documentation
